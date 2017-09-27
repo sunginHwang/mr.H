@@ -13,7 +13,7 @@ import { InitinalBlListData } from 'lib/testValue';
 class BckLstListContainer extends Component {
 
     handleButtonClick = () => {
-        console.log('btnClick');
+        console.log('commitTest');
         const { boardActions } = this.props;
         boardActions.boardTodo();
     };
