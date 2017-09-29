@@ -11,7 +11,8 @@ const BckLstListContent = ({
     bucketListTitle,
     completeDate,
     currentAmount,
-    targetAmount
+    targetAmount,
+    toggleBckDepositModal
 }) => {
 
     return(
@@ -21,7 +22,7 @@ const BckLstListContent = ({
                                  completeDate={completeDate}
                 />}
             right_title={
-                <BckLstListEventButton onSuccessClick=""
+                <BckLstListEventButton onSuccessClick={toggleBckDepositModal}
                                        onDeleteClick=""
                 />
             }

@@ -8,7 +8,10 @@ import BckLstListContent from 'components/BucketList/List/BckLstListContent';
 import 'semantic-ui-css/semantic.min.css';
 
 
-const BckLstListForm = ({BucketListListData}) => {
+const BckLstListForm = ({
+    BucketListListData,
+    toggleBckDepositModal
+}) => {
 
     const BckLstList = BucketListListData.map((data,i) =>
         (
@@ -18,6 +21,7 @@ const BckLstListForm = ({BucketListListData}) => {
                 completeDate={data.completeDate}
                 currentAmount={data.currentAmount}
                 targetAmount={data.targetAmount}
+                toggleBckDepositModal={toggleBckDepositModal}
             />
         )
     );

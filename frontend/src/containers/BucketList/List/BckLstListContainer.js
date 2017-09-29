@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
 
 // import redux dependencies
-import BoardTodo from 'components/board/BoardTodo';
 import BckLstListForm from 'components/BucketList/List/BckLstListForm';
 import MainHeader from 'components/common/Header/MainHeader';
+import ModalWrapper from 'components/common/Modal/ModalWrapper';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as boardActions from 'store/modules/board';
+import * as bckLstListActions from 'store/modules/bckLstList';
 
 import { InitinalBlListData } from 'lib/testValue';
 
 class BckLstListContainer extends Component {
 
-    handleButtonClick = () => {
-        console.log('commitTest');
-        const { boardActions } = this.props;
-        boardActions.boardTodo();
-    };
+    toggleBckDepositModal = (toggleKey) => {
+        const { bckLstListActions } = this.props;
+        bckLstListActions.toggleBckDepositModal(toggleKey);
+    }
+
+    testterrr = (e) => {
+       console.log(e);
+    }
 
     render() {
-        const { handleButtonClick } = this;
-        const { author } = this.props;
+        const { toggleBckDepositModal, testterrr } = this;
+        const {  bckDepositModal } = this.props;
         const BucketListListData = InitinalBlListData;
 
         return (
@@ -29,8 +32,16 @@ class BckLstListContainer extends Component {
                <div>
                    <BckLstListForm
                        BucketListListData={BucketListListData}
+                       toggleBckDepositModal={toggleBckDepositModal}
                    />
                </div>
+                <ModalWrapper visible={bckDepositModal}>
+                    <div>
+                        <h2>사랑</h2>
+                        <button onClick={(event)=>{toggleBckDepositModal(false)}}>부질없어</button>
+
+                    </div>
+                </ModalWrapper>
            </div>
         );
     }
@@ -38,9 +49,9 @@ class BckLstListContainer extends Component {
 
 export default connect(
     (state) => ({
-        author: state.board.get('author')
+        bckDepositModal: state.bckLstList.get('bckDepositModal')
     }),
     (dispatch) => ({
-        boardActions: bindActionCreators(boardActions, dispatch)
+        bckLstListActions: bindActionCreators(bckLstListActions, dispatch)
     })
 )(BckLstListContainer);
