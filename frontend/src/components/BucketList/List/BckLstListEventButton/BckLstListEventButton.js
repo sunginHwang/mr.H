@@ -3,15 +3,15 @@ import { Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import './BckLstListEventButton.css';
 
-const BckLstListEventButton = ({onSuccessClick, onDeleteClick}) => {
+const BckLstListEventButton = ({bckIdx, onDepositClick, onDeleteClick}) => {
 
     return(
         <div className="ListEventWrap">
             <Button className="deposit-button"
-                    onClick={()=>onSuccessClick(true)}
+                    onClick={()=>onDepositClick(true)}
                     basic
                     color='blue'
-                    size='mini'>입력
+                    size='mini'>입력{bckIdx}
             </Button>
             <Button onClick={onDeleteClick}
                     basic

@@ -12,6 +12,7 @@ const BckLstListContent = ({
     completeDate,
     currentAmount,
     targetAmount,
+    bckIdx,
     toggleBckDepositModal
 }) => {
 
@@ -22,7 +23,8 @@ const BckLstListContent = ({
                                  completeDate={completeDate}
                 />}
             right_title={
-                <BckLstListEventButton onSuccessClick={toggleBckDepositModal}
+                <BckLstListEventButton bckIdx = {bckIdx}
+                                       onDepositClick={toggleBckDepositModal}
                                        onDeleteClick=""
                 />
             }

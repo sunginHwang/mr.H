@@ -13,10 +13,11 @@ const BckLstListForm = ({
     toggleBckDepositModal
 }) => {
 
-    const BckLstList = BucketListListData.map((data,i) =>
+    const BckLstList = BucketListListData.map((data) =>
         (
             <BckLstListContent
-                key={i}
+                key={data.bckIdx}
+                bckIdx={data.bckIdx}
                 bucketListTitle={data.bucketListTitle}
                 completeDate={data.completeDate}
                 currentAmount={data.currentAmount}

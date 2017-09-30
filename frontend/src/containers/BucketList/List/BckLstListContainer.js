@@ -3,12 +3,10 @@ import React, { Component } from 'react';
 // import redux dependencies
 import BckLstListForm from 'components/BucketList/List/BckLstListForm';
 import MainHeader from 'components/common/Header/MainHeader';
-import ModalWrapper from 'components/common/Modal/ModalWrapper';
+import BckDepositModal from 'components/BucketList/Modal/BckDepositModal';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as bckLstListActions from 'store/modules/bckLstList';
-
-import { InitinalBlListData } from 'lib/testValue';
 
 class BckLstListContainer extends Component {
 
@@ -17,31 +15,46 @@ class BckLstListContainer extends Component {
         bckLstListActions.toggleBckDepositModal(toggleKey);
     }
 
-    testterrr = (e) => {
-       console.log(e);
+    changeBckDepositMoney = (DepositMoney) => {
+        const { bckLstListActions } = this.props;
+        bckLstListActions.changeBckDepositMoney(toggleKey);
+    }
+
+    checkBckDepositMoney = (DepositMoney) => {
+        const { bckLstListActions } = this.props;
+
+        bckLstListActions.changeBckDepositMoney(toggleKey);
+    }
+
+    test = () =>{
+        const { bckList } = this.props;
+        const bckListToJS = bckList.toJS();
+        const findBck = bckListToJS.filter(x => x.bckIdx ==3);
+        console.log(findBck);
+        console.log(findBck.targetAmount);
     }
 
     render() {
-        const { toggleBckDepositModal, testterrr } = this;
-        const {  bckDepositModal } = this.props;
-        const BucketListListData = InitinalBlListData;
+        const { toggleBckDepositModal, test } = this;
+        const {  bckDepositModal, bckList, bckDepositMoney } = this.props;
 
         return (
            <div>
                <MainHeader/>
                <div>
                    <BckLstListForm
-                       BucketListListData={BucketListListData}
+                       BucketListListData={bckList.toJS()}
                        toggleBckDepositModal={toggleBckDepositModal}
                    />
                </div>
-                <ModalWrapper visible={bckDepositModal}>
-                    <div>
-                        <h2>사랑</h2>
-                        <button onClick={(event)=>{toggleBckDepositModal(false)}}>부질없어</button>
-
-                    </div>
-                </ModalWrapper>
+                <BckDepositModal
+                    modalVisible={bckDepositModal}
+                    bckDepositMoney={bckDepositMoney}
+                    toggleBckDepositModal={toggleBckDepositModal}
+                />
+               <button onClick={test}>
+                   체크 테스트 용
+               </button>
            </div>
         );
     }
@@ -49,9 +62,11 @@ class BckLstListContainer extends Component {
 
 export default connect(
     (state) => ({
-        bckDepositModal: state.bckLstList.get('bckDepositModal')
+        bckDepositModal: state.bckLstList.get('bckDepositModal'),
+        bckDepositMoney: state.bckLstList.get('bckDepositMoney'),
+        bckList :state.bckLstList.get('bckList')
     }),
     (dispatch) => ({
-        bckLstListActions: bindActionCreators(bckLstListActions, dispatch)
+        bckLstListActions: bindActionCreators(bckLstListActions, dispatch),
     })
 )(BckLstListContainer);
