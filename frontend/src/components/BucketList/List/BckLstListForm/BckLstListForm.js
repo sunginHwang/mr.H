@@ -10,7 +10,7 @@ import 'semantic-ui-css/semantic.min.css';
 
 const BckLstListForm = ({
     BucketListListData,
-    toggleBckDepositModal
+    onDepositClick
 }) => {
 
     const BckLstList = BucketListListData.map((data) =>
@@ -22,7 +22,7 @@ const BckLstListForm = ({
                 completeDate={data.completeDate}
                 currentAmount={data.currentAmount}
                 targetAmount={data.targetAmount}
-                toggleBckDepositModal={toggleBckDepositModal}
+                onDepositClick={onDepositClick}
             />
         )
     );

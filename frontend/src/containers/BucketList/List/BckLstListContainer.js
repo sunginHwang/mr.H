@@ -7,35 +7,82 @@ import BckDepositModal from 'components/BucketList/Modal/BckDepositModal';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as bckLstListActions from 'store/modules/bckLstList';
+import { InitinalBlListData } from 'lib/testValue';
 
 class BckLstListContainer extends Component {
+
+    componentDidMount() {
+        this.loadBckList();
+    }
+
+    loadBckList(valueTest){
+        const { bckLstListActions } = this.props;
+        bckLstListActions.loadBckList(InitinalBlListData);
+    }
 
     toggleBckDepositModal = (toggleKey) => {
         const { bckLstListActions } = this.props;
         bckLstListActions.toggleBckDepositModal(toggleKey);
     }
 
-    changeBckDepositMoney = (DepositMoney) => {
+    onDepositClick = async (bckIdx) => {
         const { bckLstListActions } = this.props;
-        bckLstListActions.changeBckDepositMoney(toggleKey);
+        await bckLstListActions.changeBckDepositIdx(bckIdx);
+        await this.toggleBckDepositModal(true);
     }
 
-    checkBckDepositMoney = (DepositMoney) => {
+    handleChangeBckDepositMoney = (e) => {
         const { bckLstListActions } = this.props;
+        const { value } = e.target;
 
-        bckLstListActions.changeBckDepositMoney(toggleKey);
+        bckLstListActions.changeBckDepositMoney(Number.parseInt(value));
     }
 
-    test = () =>{
+    handleSaveBckDeposit = async () => {
+        const { bckLstListActions, bckDepositMoney, bckDepositIdx, bckList } = this.props;
+        const bckListToJS = bckList.toJS();
+        const overDepositMoney = this.checkBckOverDepositMoney(bckDepositIdx, bckDepositMoney);
+
+        if(bckDepositMoney == ''){
+            alert('입금액을 넣어주세요.');return;
+        }
+
+        if(!overDepositMoney){
+            try{
+                await bckLstListActions.saveBckDepositMoney(bckDepositMoney, bckDepositIdx);
+                await alert('입금성공');
+                await bckLstListActions.changeBckDepositMoney('');
+                await this.loadBckList();
+            }catch(e){
+                await alert('입금에 실패하였습니다.');
+            }
+            await this.toggleBckDepositModal(false);
+        }else{
+            bckLstListActions.setError();
+        }
+    }
+
+    checkBckOverDepositMoney = (bckIdx, depositMoney) => {
         const { bckList } = this.props;
         const bckListToJS = bckList.toJS();
-        const findBck = bckListToJS.filter(x => x.bckIdx ==3);
-        console.log(findBck);
-        console.log(findBck.targetAmount);
+        const DepositBckInfo = bckListToJS.filter(x => x.bckIdx === bckIdx)
+                                          .reduce((x)=>x);
+
+        const overTotalDepositMoney = depositMoney + DepositBckInfo.currentAmount  > DepositBckInfo.targetAmount;
+
+        return overTotalDepositMoney;
     }
 
+
     render() {
-        const { toggleBckDepositModal, test } = this;
+        const {
+            toggleBckDepositModal,
+            checkBckDepositMoney,
+            onDepositClick,
+            handleChangeBckDepositMoney,
+            handleSaveBckDeposit
+        } = this;
+
         const {  bckDepositModal, bckList, bckDepositMoney } = this.props;
 
         return (
@@ -44,17 +91,17 @@ class BckLstListContainer extends Component {
                <div>
                    <BckLstListForm
                        BucketListListData={bckList.toJS()}
-                       toggleBckDepositModal={toggleBckDepositModal}
+                       onDepositClick={onDepositClick}
                    />
                </div>
                 <BckDepositModal
                     modalVisible={bckDepositModal}
                     bckDepositMoney={bckDepositMoney}
+                    onChangeBckDepositMoney={handleChangeBckDepositMoney}
+                    checkBckDepositMoney={checkBckDepositMoney}
                     toggleBckDepositModal={toggleBckDepositModal}
+                    onDepositSave={handleSaveBckDeposit}
                 />
-               <button onClick={test}>
-                   체크 테스트 용
-               </button>
            </div>
         );
     }
@@ -64,6 +111,7 @@ export default connect(
     (state) => ({
         bckDepositModal: state.bckLstList.get('bckDepositModal'),
         bckDepositMoney: state.bckLstList.get('bckDepositMoney'),
+        bckDepositIdx: state.bckLstList.get('bckDepositIdx'),
         bckList :state.bckLstList.get('bckList')
     }),
     (dispatch) => ({

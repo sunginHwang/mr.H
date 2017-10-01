@@ -13,7 +13,7 @@ const BckLstListContent = ({
     currentAmount,
     targetAmount,
     bckIdx,
-    toggleBckDepositModal
+    onDepositClick
 }) => {
 
     return(
@@ -24,7 +24,7 @@ const BckLstListContent = ({
                 />}
             right_title={
                 <BckLstListEventButton bckIdx = {bckIdx}
-                                       onDepositClick={toggleBckDepositModal}
+                                       onDepositClick={onDepositClick}
                                        onDeleteClick=""
                 />
             }

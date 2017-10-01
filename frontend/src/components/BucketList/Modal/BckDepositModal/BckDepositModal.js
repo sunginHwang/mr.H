@@ -3,14 +3,17 @@ import ModalWrapper from 'components/common/Modal/ModalWrapper';
 
 const BckDepositModal = ({
     modalVisible,
+    bckDepositMoney,
     toggleBckDepositModal,
-    bckDepositMoney
+    onChangeBckDepositMoney,
+    onDepositSave
 }) => {
   return (
       <ModalWrapper visible={modalVisible}>
           <div>
               <h2>입금액</h2>
-              <input type="text" value={bckDepositMoney}/>
+              <input type="number" onChange={onChangeBckDepositMoney} value={bckDepositMoney}/>
+              <button onClick={onDepositSave}>입금하기</button>
               <button onClick={(event)=>{toggleBckDepositModal(false)}}>부질없어</button>
           </div>
       </ModalWrapper>
