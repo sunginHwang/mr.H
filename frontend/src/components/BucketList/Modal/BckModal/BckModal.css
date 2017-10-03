@@ -1,0 +1,19 @@
+.bck-modal{
+    width: 90%;
+    margin: 0 auto;
+}
+.bck-deposit-modal-input{
+    width: 100%;
+}
+.bck-deposit-modal-deposit-button{
+    float: left;
+    width: 45%;
+}
+.bck-deposit-modal-close-button{
+    width: 45%;
+    float: right;
+}
+.bck-event-modal-button{
+    margin-top: 1em;
+    width: 100%;
+}

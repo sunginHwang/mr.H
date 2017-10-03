@@ -13,9 +13,10 @@
 .modal{
     position: fixed;
     top: 25%;
-    left: 25%;
-    width: 50%;
-
+    left: 12.5%;
+    width: 75%;
+    border-radius: 12px;
+    padding: 1em;
     text-align: left;
     background: #fff;
     z-index: 500;

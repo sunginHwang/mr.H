@@ -3,28 +3,22 @@ import { Button, Input } from 'semantic-ui-react';
 import BckModal from 'components/BucketList/Modal/BckModal';
 import 'semantic-ui-css/semantic.min.css';
 import './BckDepositModal.css';
-const BckDepositModal = ({
+
+const BckDeleteModal = (
     modalVisible,
-    bckDepositMoney,
     toggleBckDepositModal,
-    onChangeBckDepositMoney,
-    onDepositSave
-}) => {
+    onBckDelete
+) => {
   return (
       <BckModal visible={modalVisible}
                 modalTitle="입금액"
-                onSuccessEvent={onDepositSave}
-                successButtonText="입금"
+                onSuccessEvent={onBckDelete}
+                successButtonText="삭제"
                 onFailEvent={(event)=>{toggleBckDepositModal(false)}}
                 failButtonText="취소">
-          <Input className="bck-deposit-modal-input"
-                 icon='krw'
-                 iconPosition='left'
-                 type="number"
-                 onChange={onChangeBckDepositMoney}
-                 value={bckDepositMoney}/>
+          <label>정말 삭제하시겠습니까?</label>
       </BckModal>
   );
 };
- 
-export default BckDepositModal;
+
+export default BckDeleteModal;
