@@ -8,7 +8,7 @@ const BckLstListEventButton = ({bckIdx, onDepositClick, onDeleteClick}) => {
     return(
         <div className="ListEventWrap">
             <Button className="deposit-button"
-                    onClick={()=>onDepositClick(bckIdx)}
+                    onClick={onDepositClick}
                     basic
                     color='blue'
                     size='mini'>입력{bckIdx}

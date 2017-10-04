@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 
 // import redux dependencies
 import BckLstListForm from 'components/BucketList/List/BckLstListForm';
-import MainHeader from 'components/common/Header/MainHeader';
+
 import BckDepositModal from 'components/BucketList/Modal/BckDepositModal';
+import BckDeleteModal from 'components/BucketList/Modal/BckDeleteModal';
+import InsertButton from 'components/common/Button/InsertButton';
+import { Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import * as bckLstListActions from 'store/modules/bckLstList';
 import { InitinalBlListData } from 'lib/testValue';
@@ -20,15 +24,17 @@ class BckLstListContainer extends Component {
         bckLstListActions.loadBckList(InitinalBlListData);
     }
 
-    toggleBckDepositModal = (toggleKey) => {
+    toggleBckModal = (type, toggleKey) => {
         const { bckLstListActions } = this.props;
-        bckLstListActions.toggleBckDepositModal(toggleKey);
+        type == 'deposit' && bckLstListActions.toggleBckDepositModal(toggleKey);
+        type == 'delete' && bckLstListActions.toggleBckDeleteModal(toggleKey);
+
     }
 
-    onDepositClick = async (bckIdx) => {
+    handleBckOpenModal = async (type, bckIdx) => {
         const { bckLstListActions } = this.props;
         await bckLstListActions.changeBckDepositIdx(bckIdx);
-        await this.toggleBckDepositModal(true);
+        await this.toggleBckModal(type,true);
     }
 
     handleChangeBckDepositMoney = (e) => {
@@ -56,10 +62,14 @@ class BckLstListContainer extends Component {
             }catch(e){
                 await alert('입금에 실패하였습니다.');
             }
-            await this.toggleBckDepositModal(false);
+            await this.toggleBckModal('deposit',false);
         }else{
             bckLstListActions.setError();
         }
+    }
+
+    handleBckDelete = () => {
+        console.log(this.props.bckDepositIdx);
     }
 
     checkBckOverDepositMoney = (bckIdx, depositMoney) => {
@@ -76,32 +86,45 @@ class BckLstListContainer extends Component {
 
     render() {
         const {
-            toggleBckDepositModal,
+            toggleBckModal,
             checkBckDepositMoney,
-            onDepositClick,
+            handleBckOpenModal,
             handleChangeBckDepositMoney,
-            handleSaveBckDeposit
+            handleSaveBckDeposit,
+            handleBckDelete
         } = this;
 
-        const {  bckDepositModal, bckList, bckDepositMoney } = this.props;
+        const {  bckDepositModal,
+                 bckList,
+                 bckDepositMoney,
+                 bckDeleteModal
+        } = this.props;
 
         return (
            <div>
-               <MainHeader/>
-               <div>
-                   <BckLstListForm
+               <BckLstListForm
                        BucketListListData={bckList.toJS()}
-                       onDepositClick={onDepositClick}
-                   />
-               </div>
+                       handleBckOpenModal={handleBckOpenModal}
+               />
+               <InsertButton>
+                   <Link to='/bck/insert'><Icon name='write' size='big'/></Link>
+                 
+               </InsertButton>
                 <BckDepositModal
+                    modalType='deposit'
                     modalVisible={bckDepositModal}
                     bckDepositMoney={bckDepositMoney}
                     onChangeBckDepositMoney={handleChangeBckDepositMoney}
                     checkBckDepositMoney={checkBckDepositMoney}
-                    toggleBckDepositModal={toggleBckDepositModal}
+                    toggleBckModal={toggleBckModal}
                     onDepositSave={handleSaveBckDeposit}
                 />
+               <BckDeleteModal
+                   modalType='delete'
+                   modalVisible={bckDeleteModal}
+                   toggleBckModal={toggleBckModal}
+                   onBckDelete={handleBckDelete}
+               />
            </div>
         );
     }
@@ -110,6 +133,7 @@ class BckLstListContainer extends Component {
 export default connect(
     (state) => ({
         bckDepositModal: state.bckLstList.get('bckDepositModal'),
+        bckDeleteModal: state.bckLstList.get('bckDeleteModal'),
         bckDepositMoney: state.bckLstList.get('bckDepositMoney'),
         bckDepositIdx: state.bckLstList.get('bckDepositIdx'),
         bckList :state.bckLstList.get('bckList')

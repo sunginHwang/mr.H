@@ -1,16 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import { Progress } from 'semantic-ui-react';
-import ContentList from 'components/common/ContentList';
-import BckLstListEventButton from 'components/BucketList/List/BckLstListEventButton';
 import BckLstListContent from 'components/BucketList/List/BckLstListContent';
-
 import 'semantic-ui-css/semantic.min.css';
-
 
 const BckLstListForm = ({
     BucketListListData,
-    onDepositClick
+    handleBckOpenModal
 }) => {
 
     const BckLstList = BucketListListData.map((data) =>
@@ -22,7 +18,8 @@ const BckLstListForm = ({
                 completeDate={data.completeDate}
                 currentAmount={data.currentAmount}
                 targetAmount={data.targetAmount}
-                onDepositClick={onDepositClick}
+                onDepositClick={()=>{handleBckOpenModal('deposit',data.bckIdx)}}
+                onDeleteClick={()=>{handleBckOpenModal('delete',data.bckIdx)}}
             />
         )
     );

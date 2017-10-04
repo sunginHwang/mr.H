@@ -6,16 +6,17 @@ import './BckDepositModal.css';
 const BckDepositModal = ({
     modalVisible,
     bckDepositMoney,
-    toggleBckDepositModal,
+    toggleBckModal,
     onChangeBckDepositMoney,
-    onDepositSave
+    onDepositSave,
+    modalType
 }) => {
   return (
       <BckModal visible={modalVisible}
                 modalTitle="입금액"
                 onSuccessEvent={onDepositSave}
                 successButtonText="입금"
-                onFailEvent={(event)=>{toggleBckDepositModal(false)}}
+                onFailEvent={(event)=>{toggleBckModal(modalType,false)}}
                 failButtonText="취소">
           <Input className="bck-deposit-modal-input"
                  icon='krw'
