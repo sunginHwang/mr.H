@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Input } from 'semantic-ui-react';
+import { Input } from 'semantic-ui-react';
 import BckModal from 'components/BucketList/Modal/BckModal';
 import 'semantic-ui-css/semantic.min.css';
 import './BckDepositModal.css';

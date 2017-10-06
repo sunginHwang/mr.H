@@ -1,51 +1,49 @@
 import React, { Component } from 'react';
-
-// import redux dependencies
-import BckLstListForm from 'components/BucketList/List/BckLstListForm';
-
-import BckDepositModal from 'components/BucketList/Modal/BckDepositModal';
-import BckDeleteModal from 'components/BucketList/Modal/BckDeleteModal';
-import InsertButton from 'components/common/Button/InsertButton';
-import { Icon } from 'semantic-ui-react'
+import { Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {bindActionCreators} from 'redux';
-import * as bckLstListActions from 'store/modules/bckLstList';
+import * as bckListActions from 'store/modules/bckList';
+
+import BckListForm from 'components/BucketList/List/BckListForm';
+import BckDepositModal from 'components/BucketList/Modal/BckDepositModal';
+import BckDeleteModal from 'components/BucketList/Modal/BckDeleteModal';
+import InsertButton from 'components/common/Button/InsertButton';
 import { InitinalBlListData } from 'lib/testValue';
 
-class BckLstListContainer extends Component {
+class BckListContainer extends Component {
 
     componentDidMount() {
         this.loadBckList();
     }
 
     loadBckList(valueTest){
-        const { bckLstListActions } = this.props;
-        bckLstListActions.loadBckList(InitinalBlListData);
+        const { bckListActions } = this.props;
+        bckListActions.loadBckList(InitinalBlListData);
     }
 
     toggleBckModal = (type, toggleKey) => {
-        const { bckLstListActions } = this.props;
-        type == 'deposit' && bckLstListActions.toggleBckDepositModal(toggleKey);
-        type == 'delete' && bckLstListActions.toggleBckDeleteModal(toggleKey);
+        const { bckListActions } = this.props;
+        type == 'deposit' && bckListActions.toggleBckDepositModal(toggleKey);
+        type == 'delete' && bckListActions.toggleBckDeleteModal(toggleKey);
 
     }
 
     handleBckOpenModal = async (type, bckIdx) => {
-        const { bckLstListActions } = this.props;
-        await bckLstListActions.changeBckDepositIdx(bckIdx);
+        const { bckListActions } = this.props;
+        await bckListActions.changeBckDepositIdx(bckIdx);
         await this.toggleBckModal(type,true);
     }
 
     handleChangeBckDepositMoney = (e) => {
-        const { bckLstListActions } = this.props;
+        const { bckListActions } = this.props;
         const { value } = e.target;
 
-        bckLstListActions.changeBckDepositMoney(Number.parseInt(value));
+        bckListActions.changeBckDepositMoney(Number.parseInt(value));
     }
 
     handleSaveBckDeposit = async () => {
-        const { bckLstListActions, bckDepositMoney, bckDepositIdx, bckList } = this.props;
+        const { bckListActions, bckDepositMoney, bckDepositIdx, bckList } = this.props;
         const bckListToJS = bckList.toJS();
         const overDepositMoney = this.checkBckOverDepositMoney(bckDepositIdx, bckDepositMoney);
 
@@ -55,16 +53,16 @@ class BckLstListContainer extends Component {
 
         if(!overDepositMoney){
             try{
-                await bckLstListActions.saveBckDepositMoney(bckDepositMoney, bckDepositIdx);
+                await bckListActions.saveBckDepositMoney(bckDepositMoney, bckDepositIdx);
                 await alert('입금성공');
-                await bckLstListActions.changeBckDepositMoney('');
+                await bckListActions.changeBckDepositMoney('');
                 await this.loadBckList();
             }catch(e){
                 await alert('입금에 실패하였습니다.');
             }
             await this.toggleBckModal('deposit',false);
         }else{
-            bckLstListActions.setError();
+            bckListActions.setError();
         }
     }
 
@@ -102,13 +100,15 @@ class BckLstListContainer extends Component {
 
         return (
            <div>
-               <BckLstListForm
+               <BckListForm
                        BucketListListData={bckList.toJS()}
                        handleBckOpenModal={handleBckOpenModal}
                />
                <InsertButton>
-                   <Link to='/bck/insert'><Icon name='write' size='big'/></Link>
-                 
+                   <Link to='/bck/insert'>
+                       <Icon name='write'
+                             size='big'/>
+                   </Link>
                </InsertButton>
                 <BckDepositModal
                     modalType='deposit'
@@ -132,13 +132,13 @@ class BckLstListContainer extends Component {
 
 export default connect(
     (state) => ({
-        bckDepositModal: state.bckLstList.get('bckDepositModal'),
-        bckDeleteModal: state.bckLstList.get('bckDeleteModal'),
-        bckDepositMoney: state.bckLstList.get('bckDepositMoney'),
-        bckDepositIdx: state.bckLstList.get('bckDepositIdx'),
-        bckList :state.bckLstList.get('bckList')
+        bckDepositModal: state.bckList.get('bckDepositModal'),
+        bckDeleteModal: state.bckList.get('bckDeleteModal'),
+        bckDepositMoney: state.bckList.get('bckDepositMoney'),
+        bckDepositIdx: state.bckList.get('bckDepositIdx'),
+        bckList :state.bckList.get('bckList')
     }),
     (dispatch) => ({
-        bckLstListActions: bindActionCreators(bckLstListActions, dispatch),
+        bckListActions: bindActionCreators(bckListActions, dispatch),
     })
-)(BckLstListContainer);
+)(BckListContainer);

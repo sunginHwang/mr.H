@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react'
 import './MainHeader.css';
+
 const MainHeader = () => {
   return (
     <header className="main-header">

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import './BckLstListEventButton.css';
+import './BckListEventButton.css';
 
-const BckLstListEventButton = ({bckIdx, onDepositClick, onDeleteClick}) => {
+const BckListEventButton = ({bckIdx, onDepositClick, onDeleteClick}) => {
 
     return(
         <div className="ListEventWrap">
@@ -21,4 +21,4 @@ const BckLstListEventButton = ({bckIdx, onDepositClick, onDeleteClick}) => {
         </div>
     );
 };
-export default BckLstListEventButton;
+export default BckListEventButton;

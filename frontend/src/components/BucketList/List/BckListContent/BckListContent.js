@@ -1,14 +1,13 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import { Progress } from 'semantic-ui-react';
 import ContentList from 'components/common/ContentList';
-import BckLstListEventButton from 'components/BucketList/List/BckLstListEventButton';
-import BckLstListTitle from 'components/BucketList/List/BckLstListTitle';
+import BckListEventButton from 'components/BucketList/List/BckListEventButton';
+import BckListTitle from 'components/BucketList/List/BckListTitle';
 
 import 'semantic-ui-css/semantic.min.css';
 
-const BckLstListContent = ({
-    bucketListTitle,
+const BckListContent = ({
+    bckTitle,
     completeDate,
     currentAmount,
     targetAmount,
@@ -20,11 +19,11 @@ const BckLstListContent = ({
     return(
         <ContentList
             left_title={
-                <BckLstListTitle title={bucketListTitle}
+                <BckListTitle title={bckTitle}
                                  completeDate={completeDate}
                 />}
             right_title={
-                <BckLstListEventButton bckIdx = {bckIdx}
+                <BckListEventButton bckIdx = {bckIdx}
                                        onDepositClick={onDepositClick}
                                        onDeleteClick={onDeleteClick}
                 />
@@ -36,4 +35,4 @@ const BckLstListContent = ({
         </ContentList>
     );
 };
-export default BckLstListContent;
+export default BckListContent;

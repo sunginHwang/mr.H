@@ -1,6 +1,4 @@
 import React from 'react';
-import { Modal } from 'semantic-ui-react'
-
 import './ModalWrapper.css';
 
 const ModalWrapper = ({visible, children}) => {

@@ -1,20 +1,19 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import { Progress } from 'semantic-ui-react';
-import BckLstListContent from 'components/BucketList/List/BckLstListContent';
+import BckListContent from 'components/BucketList/List/BckListContent';
 import 'semantic-ui-css/semantic.min.css';
+import './BckListForm.css';
 
-const BckLstListForm = ({
+const BckListForm = ({
     BucketListListData,
     handleBckOpenModal
 }) => {
 
     const BckLstList = BucketListListData.map((data) =>
         (
-            <BckLstListContent
+            <BckListContent
                 key={data.bckIdx}
                 bckIdx={data.bckIdx}
-                bucketListTitle={data.bucketListTitle}
+                bckTitle={data.bckTitle}
                 completeDate={data.completeDate}
                 currentAmount={data.currentAmount}
                 targetAmount={data.targetAmount}
@@ -25,10 +24,10 @@ const BckLstListForm = ({
     );
 
     return(
-        <div>
+        <div className="bck-list-form">
             {BckLstList}
         </div>
 
     );
 };
-export default BckLstListForm;
+export default BckListForm;
