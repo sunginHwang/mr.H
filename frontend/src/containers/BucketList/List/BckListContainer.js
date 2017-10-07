@@ -9,7 +9,7 @@ import BckListForm from 'components/BucketList/List/BckListForm';
 import BckDepositModal from 'components/BucketList/Modal/BckDepositModal';
 import BckDeleteModal from 'components/BucketList/Modal/BckDeleteModal';
 import InsertButton from 'components/common/Button/InsertButton';
-import { InitinalBlListData } from 'lib/testValue';
+import { InitinalBlListData } from 'lib/variables';
 
 class BckListContainer extends Component {
 

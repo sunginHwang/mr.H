@@ -1,3 +1,5 @@
+export const progressColor = ['teal','green','olive','teal','teal','olive','blue','grey','grey','brown'];
+
 export const InitinalBlListData2 = [
     {
         bckIdx : 1,

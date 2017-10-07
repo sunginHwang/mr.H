@@ -29,7 +29,8 @@ const initialState = Map({
     bckTitle : '',
     bckDetail : '',
     completeDate : nextMonthDate,
-    validateErrMessage : ''
+    validateErrMessage : '',
+    saveErrMessage : '저장에 실패하였습니다.'
 });
 
 // 리듀서

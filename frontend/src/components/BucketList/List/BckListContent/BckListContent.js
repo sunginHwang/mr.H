@@ -12,6 +12,7 @@ const BckListContent = ({
     currentAmount,
     targetAmount,
     bckIdx,
+    progressColor,
     onDepositClick,
     onDeleteClick
 }) => {
@@ -31,7 +32,7 @@ const BckListContent = ({
         >
             <Progress percent={(currentAmount/targetAmount)*100}
                       progress='percent'
-                      color='teal'/>
+                      color={progressColor}/>
         </ContentList>
     );
 };
