@@ -5,10 +5,11 @@ import { createAction, handleActions } from 'redux-actions';
 import { Map, fromJS } from 'immutable';
 
 //액션타입
-const TOGGLE_BCK_DEPOSIT_MODAL1 = 'bckLstList/TOGGLE_BCK_DEPOSIT_MODAL';
-
+const CHANGE_INPUT_VALUE = 'bckInsert/CHANGE_INPUT_VALUE';
+const SET_VALIDATE_ERROR_MESSAGE = 'bckInsert/SET_VALIDATE_ERROR_MESSAGE';
 //액션 생성자
-export const dd12 = createAction(TOGGLE_BCK_DEPOSIT_MODAL1);
+export const changeInputValue = createAction(CHANGE_INPUT_VALUE);
+export const setValidateErrorMessage = createAction(SET_VALIDATE_ERROR_MESSAGE);
 
 const getNextMonthDate = ()=>{
     const today = new Date();
@@ -27,13 +28,17 @@ const initialState = Map({
     currentAmount : 0,
     bckTitle : '',
     bckDetail : '',
-    completeDate : nextMonthDate
+    completeDate : nextMonthDate,
+    validateErrMessage : ''
 });
 
 // 리듀서
 export default handleActions({
-    [dd12]: (state, action) => {
-        console.log(action.payload);
-        return state.set('bckTitle',fromJS(action.payload));
+    [changeInputValue]: (state, action) => {
+        const {inputType, value} = action.payload;
+        return state.set(inputType,value);
+    },
+    [setValidateErrorMessage]: (state, action) => {
+        return state.set('validateErrMessage',action.payload);
     }
 }, initialState);
