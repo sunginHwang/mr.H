@@ -11,7 +11,7 @@ const BckListEventButton = ({bckIdx, onDepositClick, onDeleteClick}) => {
                     onClick={onDepositClick}
                     basic
                     color='blue'
-                    size='mini'>입력{bckIdx}
+                    size='mini'>입력
             </Button>
             <Button onClick={onDeleteClick}
                     basic

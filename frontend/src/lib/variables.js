@@ -1,5 +1,31 @@
 export const progressColor = ['teal','green','olive','teal','teal','olive','blue','grey','grey','brown'];
 
+export const InitinalBckDetailData = {
+        bckIdx : 2,
+        targetAmount : 300000,
+        currentAmount : 90000,
+        completeDate : '2017-08-12',
+        bckTitle : '일본여향1',
+        bckDetail : '설명글 입니다.',
+        depositList : [
+            {
+                depositIdx : 1,
+                depositDate : '2017-08-01',
+                depositAmount : 20000,
+            },
+            {
+                depositIdx : 2,
+                depositDate : '2017-08-02',
+                depositAmount : 30000,
+            },
+            {
+                depositIdx : 3,
+                depositDate : '2017-08-03',
+                depositAmount : 40000,
+            },
+        ]
+};
+
 export const InitinalBlListData2 = [
     {
         bckIdx : 1,

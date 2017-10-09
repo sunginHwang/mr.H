@@ -1,10 +1,14 @@
 import React from 'react';
 
 import './BckListTitle.css';
-const BckListTitle = ({title, completeDate}) => {
+const BckListTitle = ({
+    title,
+    completeDate,
+    onTitleClick
+}) => {
 
     return(
-            <p>{title} ({completeDate})</p>
+            <p onClick={onTitleClick}>{title} ({completeDate})</p>
     );
 };
 export default BckListTitle;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as bckListActions from 'store/modules/bckList';
 
@@ -81,11 +81,16 @@ class BckListContainer extends Component {
         return overTotalDepositMoney;
     }
 
+    handleShowBckDetail = (bckIdx) => {
+        this.props.history.push('/bck/detail/'+bckIdx);
+    }
+
 
     render() {
         const {
             toggleBckModal,
             checkBckDepositMoney,
+            handleShowBckDetail,
             handleBckOpenModal,
             handleChangeBckDepositMoney,
             handleSaveBckDeposit,
@@ -102,7 +107,8 @@ class BckListContainer extends Component {
            <div>
                <BckListForm
                        BucketListListData={bckList.toJS()}
-                       handleBckOpenModal={handleBckOpenModal}
+                       onShowBckDetailInfo={handleShowBckDetail}
+                       onBckOpenModal={handleBckOpenModal}
                />
                <InsertButton>
                    <Link to='/bck/insert'>

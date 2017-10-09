@@ -1,13 +1,14 @@
 import React from 'react';
 import BckListContent from 'components/BucketList/List/BckListContent';
-import {  progressColor } from 'lib/variables';
+import { progressColor } from 'lib/variables';
 
 import 'semantic-ui-css/semantic.min.css';
 import './BckListForm.css';
 
 const BckListForm = ({
     BucketListListData,
-    handleBckOpenModal
+    onShowBckDetailInfo,
+    onBckOpenModal
 }) => {
 
     const BckLstList = BucketListListData.map((data) =>
@@ -19,9 +20,10 @@ const BckListForm = ({
                 completeDate={data.completeDate}
                 currentAmount={data.currentAmount}
                 targetAmount={data.targetAmount}
-                progressColor={progressColor[Math.floor(progressColor.length % data.bckIdx)]}
-                onDepositClick={()=>{handleBckOpenModal('deposit',data.bckIdx)}}
-                onDeleteClick={()=>{handleBckOpenModal('delete',data.bckIdx)}}
+                onShowBckDetailInfo ={onShowBckDetailInfo}
+                progressColor={progressColor[Math.floor(progressColor.length % data.bckIdx)]} // randomColorProcess
+                onDepositClick={()=>{onBckOpenModal('deposit',data.bckIdx)}}
+                onDeleteClick={()=>{onBckOpenModal('delete',data.bckIdx)}}
             />
         )
     );
