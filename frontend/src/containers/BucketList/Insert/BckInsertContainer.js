@@ -9,7 +9,7 @@ import ErrorBlock from 'components/common/Block/ErrorBlock';
 class BckInsertContainer extends Component {
 
    componentDidMount(){
-       console.log('coming bckInsertContainer');
+       console.log('create bckInsertContainer');
    }
 
    handleChangeInputValue = (type, e)=>{
@@ -42,7 +42,6 @@ class BckInsertContainer extends Component {
        const timer = 800;
        bckInsertActions.setValidateErrorMessage(ErrMsg);
        setTimeout(() => bckInsertActions.setValidateErrorMessage(''), timer);
-
    }
 
    handleValidateBckForm = () =>{

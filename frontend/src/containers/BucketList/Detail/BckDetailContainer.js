@@ -2,7 +2,8 @@ import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as bckDetailActions from 'store/modules/bckDetail';
-
+import BckDetailForm from 'components/BucketList/Detail/BckDetailForm';
+import TitleHeader from 'components/common/Header/TitleHeader';
 import { InitinalBckDetailData } from 'lib/variables';
 
 class BckDetailContainer extends Component {
@@ -28,25 +29,25 @@ class BckDetailContainer extends Component {
 
   render() {
    const { bckIdx } = this.props.match.params;
-   let {bckDetailInfo} = this.props;
-   bckDetailInfo = bckDetailInfo.toJS();
-
-   const bckDepositList = bckDetailInfo.depositList.map((depositInfo) => (
-       <div key={depositInfo.depositIdx}>
-           <span>depositIdx: {depositInfo.depositIdx} : </span>
-           <span>{depositInfo.depositDate} : </span>
-           <span>{depositInfo.depositAmount}</span>
-       </div>
-  ));
+   const {bckDetailInfo} = this.props;
+   const bckInfo = bckDetailInfo.toJS();
 
     return (
         <div>
-            <div><span>BckIdx : </span><span>{bckDetailInfo.bckIdx}</span></div>
-            <div><span>targetAmount : </span><span>{bckDetailInfo.targetAmount}</span></div>
-            <div><span>currentAmount : </span><span>{bckDetailInfo.currentAmount}</span></div>
-            <div><span>bckTitle : </span><span>{bckDetailInfo.bckTitle}</span></div>
-            <div><span>bckDetail : </span><span>{bckDetailInfo.bckDetail}</span></div>
-            {bckDepositList}
+            <TitleHeader
+                iconColor='black'
+                iconSize='large'
+                titleName={bckInfo.bckTitle}
+            />
+            <BckDetailForm
+                bckIdx = {bckInfo.bckIdx}
+                bckTitle = {bckInfo.bckTitle}
+                bckDetail = {bckInfo.bckDetail}
+                currentAmount = {bckInfo.currentAmount}
+                targetAmount = {bckInfo.targetAmount}
+                bckDepositList = {bckInfo.depositList}
+
+            />
         </div>
     );
   }
