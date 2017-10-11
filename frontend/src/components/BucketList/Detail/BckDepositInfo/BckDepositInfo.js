@@ -1,4 +1,6 @@
 import React from 'react';
+import CardBlock from 'components/common/Block/CardBlock';
+import CardItem from 'components/common/Item/CardItem';
 import './BckDepositInfo.css';
 
 const BckDepositInfo = ({
@@ -6,28 +8,18 @@ const BckDepositInfo = ({
 }) => {
 
     const depositRowList = depositList.map((depositInfo) => (
-        <tr key={depositInfo.depositIdx}>
-            <td className="deposit-date">{depositInfo.depositDate} : </td>
-            <td className="deposit-amount">{depositInfo.depositAmount}</td>
-        </tr>
+        <CardItem key= {depositInfo.depositIdx}
+                  title= {depositInfo.depositDate}
+                  subTitle= ''
+                  extInfo = {depositInfo.depositAmount+' 원'}/>
     ));
 
   return (
-    <table className="bck-detail-deposit-table">
-        <colgroup>
-            <col width="50%"/>
-            <col width="*"/>
-        </colgroup>
-        <thead>
-            <tr>
-                <th>입금일</th>
-                <th>입금액</th>
-            </tr>
-        </thead>
-        <tbody>
-        {depositRowList}
-        </tbody>
-    </table>
+      <CardBlock
+          headerTitle = '입금내역'
+          headerSubArea = ''>
+          {depositRowList}
+      </CardBlock>
   );
 };
  

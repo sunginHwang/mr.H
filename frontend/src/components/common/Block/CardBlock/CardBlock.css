@@ -1,0 +1,35 @@
+.common-card-block{
+    -webkit-box-shadow: 0 1px 15px 1px rgba(113,106,202,.08);
+    -moz-box-shadow: 0 1px 15px 1px rgba(113,106,202,.08);
+     box-shadow: 0 1px 15px 1px rgba(113,106,202,.08);
+    background-color: #fff;
+}
+.common-card-block > .card-block-header{
+    display: table;
+    padding: 0;
+    width: 100%;
+    padding: 1rem 0rem 1rem 2.2rem;
+    height: 3.1rem;
+    border-bottom: 1px solid #ebedf2;
+}
+.card-block-header > .header-title{
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #575962;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.card-block-header > .header-sub-area{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+}
+
+.common-card-block > .card-block-body{
+
+    height: calc(100% - 2.2rem - 2.2rem);
+    color: #575962;
+    padding: 0.8rem 2.2rem 2.2rem 2.2rem;
+}

@@ -1,0 +1,40 @@
+.common-card-item{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-top: 0.85rem;
+    padding-bottom: 0.95rem;
+    border-bottom: .07rem dashed #ebedf2;
+}
+
+.common-card-item > .card-item-info{
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+.common-card-item > .card-info-ext{
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: right;
+    vertical-align: middle;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color : #716aca!important;
+}
+
+.card-item-info > .card-info-title{
+    font-size: 1rem;
+    font-weight: 600;
+    color: #575962;
+}
+
+.card-item-info .card-info-sub-title{
+    font-size: .85rem;
+    color: #7b7e8a;
+}

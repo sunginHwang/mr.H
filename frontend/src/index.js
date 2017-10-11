@@ -4,6 +4,7 @@ import Root from './Root';
 import {AppContainer} from 'react-hot-loader';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from 'store/configure';
+import './style/main.css';
 
 const rootEl = document.getElementById('root');
 const store = configureStore();

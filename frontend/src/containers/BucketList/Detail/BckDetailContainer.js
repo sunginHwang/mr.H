@@ -24,13 +24,21 @@ class BckDetailContainer extends Component {
    loadBckDetailInfo(){
        const { bckDetailActions } = this.props;
        bckDetailActions.loadBckDetailInfo(InitinalBckDetailData);
+       this.handleGetRemainDate();
    }
 
+   handleGetRemainDate(regiDate, endDate){
+       const startDate = new Date(regiDate);
+       const completeDate = new Date(endDate);
+       return (completeDate.getTime() - startDate.getTime())/(1000*60*60*24);
+   }
 
   render() {
    const { bckIdx } = this.props.match.params;
    const {bckDetailInfo} = this.props;
+   const {handleGetRemainDate} = this;
    const bckInfo = bckDetailInfo.toJS();
+   const remainDate = handleGetRemainDate(bckInfo.regiDate, bckInfo.completeDate);
 
     return (
         <div>
@@ -45,8 +53,10 @@ class BckDetailContainer extends Component {
                 bckDetail = {bckInfo.bckDetail}
                 currentAmount = {bckInfo.currentAmount}
                 targetAmount = {bckInfo.targetAmount}
+                regiDate = {bckInfo.regiDate}
+                remainDate = {remainDate}
+                completeDate = {bckInfo.completeDate}
                 bckDepositList = {bckInfo.depositList}
-
             />
         </div>
     );
