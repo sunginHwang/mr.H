@@ -13,9 +13,9 @@ const BckDateInfo = ({
       <CardBlock
           headerTitle = {bckTitle + ' 일자 정보'}
           headerSubArea = ''>
-        <CardItem title = '시작일' extInfo = {regiDate}  subTitle= ''/>
-        <CardItem title = '달성일' extInfo = {completeDate}  subTitle= ''/>
-        <CardItem title = '목표달성까지' extInfo = {remainDate+'일 남음'}  subTitle= ''/>
+        <CardItem title = '시작일' extInfo = {regiDate} extColor='brand' subTitle= ''/>
+        <CardItem title = '달성일' extInfo = {completeDate} extColor = 'teal' subTitle= ''/>
+        <CardItem title = '목표달성까지' extInfo = {remainDate+'일 남음'} extColor = 'danger'  subTitle= ''/>
       </CardBlock>
   );
 };

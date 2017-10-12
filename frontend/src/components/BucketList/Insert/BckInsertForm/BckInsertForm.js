@@ -1,7 +1,7 @@
 import React from 'react';
 import InputLabel from 'components/common/Input/InputLabel';
 import TextAreaLabel from 'components/common/Input/TextAreaLabel';
-import SaveButton from 'components/common/Button/SaveButton';
+import BottomButton from 'components/common/Button/BottomButton';
 
 import './BckInsertForm.css';
 
@@ -51,9 +51,9 @@ const BckInsertForm = ({
               textAreaValue={bckDetail}
               onTextAreaChange={(event)=>{onChangeInput('bckDetail',event);}}
           />
-          <SaveButton
-            saveButtonName='버킷리스트 저장'
-            onSaveClick={onSaveClick}
+          <BottomButton
+            bottomButtonName='버킷리스트 저장'
+            onButtonClick={onSaveClick}
             color='teals'
           />
       </div>

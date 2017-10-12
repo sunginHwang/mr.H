@@ -25,7 +25,6 @@
     vertical-align: middle;
     font-size: 1.2rem;
     font-weight: 600;
-    color : #716aca!important;
 }
 
 .card-item-info > .card-info-title{
@@ -37,4 +36,21 @@
 .card-item-info .card-info-sub-title{
     font-size: .85rem;
     color: #7b7e8a;
+}
+
+.card-info-ext > .ocean {
+    color: #0088FE!important;
+}
+
+.card-info-ext > .teal {
+    color: #00C49F!important;
+}
+
+.card-info-ext > .danger {
+    color: #f4516c!important;
+}
+
+.card-info-ext > .brand {
+    color : #716aca!important;
+
 }

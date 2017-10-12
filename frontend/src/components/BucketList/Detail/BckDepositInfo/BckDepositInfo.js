@@ -10,7 +10,8 @@ const BckDepositInfo = ({
     const depositRowList = depositList.map((depositInfo) => (
         <CardItem key= {depositInfo.depositIdx}
                   title= {depositInfo.depositDate}
-                  subTitle= ''
+                  subTitle = ''
+                  extColor = 'brand'
                   extInfo = {depositInfo.depositAmount+' 원'}/>
     ));
 

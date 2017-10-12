@@ -4,7 +4,8 @@ import './CardItem.css';
 const CardItem = ({
     title,
     subTitle,
-    extInfo
+    extInfo,
+    extColor
 }) => {
   return (
     <div className="common-card-item">
@@ -18,7 +19,7 @@ const CardItem = ({
       </div>
       
       <div className="card-info-ext">
-        <span>{extInfo}</span>
+        <span className={extColor}>{extInfo}</span>
       </div>
 
     </div>

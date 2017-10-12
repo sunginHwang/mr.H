@@ -1,5 +1,5 @@
 export const progressColor = ['teal','green','olive','teal','teal','olive','blue','grey','grey','brown'];
-
+export const pieChartColor = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 export const InitinalBckDetailData = {
         bckIdx : 2,
         targetAmount : 300000,
