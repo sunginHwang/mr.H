@@ -15,7 +15,8 @@ const BckDetailForm = ({
     regiDate,
     completeDate,
     remainDate,
-    bckDepositList
+    bckDepositList,
+    onModifyClick
 }) => {
     return (
         <div className="bck-detail-form">
@@ -40,7 +41,7 @@ const BckDetailForm = ({
           />
           <BottomButton
                 bottomButtonName='수정하기'
-                onButtonClick={(event)=>{console.log(1)}}
+                onButtonClick={onModifyClick}
                 color='teals'
           />
         </div>

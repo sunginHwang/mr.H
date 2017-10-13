@@ -1,22 +1,43 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as bckInsertActions from 'store/modules/bckInsert';
-import BckInsertForm from 'components/BucketList/Insert/BckInsertForm';
+import * as bckSaveActions from 'store/modules/bckSave';
+import BckSaveForm from 'components/BucketList/Save/BckSaveForm';
 import TitleHeader from 'components/common/Header/TitleHeader';
 import ErrorBlock from 'components/common/Block/ErrorBlock';
+import { InitinalBckModifyData } from 'lib/variables';
 
-class BckInsertContainer extends Component {
+class BckSaveContainer extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {mode: 'insert'};
+    }
 
    componentDidMount(){
-       console.log('create bckInsertContainer');
+       this.checkSaveMode();
+   }
+
+    componentWillUnmount() {
+        this.props.bckSaveActions.initiateBckInfo();
+    }
+
+   checkSaveMode = () => {
+       const { bckIdx } = this.props.match.params;
+       const bckMode = bckIdx ? 'modify' : 'insert';
+       this.setState({mode: bckMode});
+       bckMode == 'modify' && this.getModifyData();
+   }
+
+   getModifyData = () => {
+       this.props.bckSaveActions.getBckModifyInfo(InitinalBckModifyData);
    }
 
    handleChangeInputValue = (type, e)=>{
-       const {bckInsertActions} = this.props;
+       const {bckSaveActions} = this.props;
        const { value } = e.target;
        const inputParam = {inputType : type, value : value};
-       bckInsertActions.changeInputValue(inputParam);
+       bckSaveActions.changeInputValue(inputParam);
    }
 
    handleSaveBucketList = async () => {
@@ -35,13 +56,6 @@ class BckInsertContainer extends Component {
                await handleSetErrorMsg(saveErrMessage);
            }
        }
-   }
-
-   handleSetErrorMsg = (ErrMsg) => {
-       const { bckInsertActions }= this.props;
-       const timer = 800;
-       bckInsertActions.setValidateErrorMessage(ErrMsg);
-       setTimeout(() => bckInsertActions.setValidateErrorMessage(''), timer);
    }
 
    handleValidateBckForm = () =>{
@@ -79,6 +93,13 @@ class BckInsertContainer extends Component {
 
    }
 
+    handleSetErrorMsg = (ErrMsg) => {
+        const { bckSaveActions }= this.props;
+        const timer = 800;
+        bckSaveActions.setValidateErrorMessage(ErrMsg);
+        setTimeout(() => bckSaveActions.setValidateErrorMessage(''), timer);
+    }
+
   render() {
      const { bckTitle,
              bckDetail,
@@ -93,19 +114,22 @@ class BckInsertContainer extends Component {
          handleSaveBucketList
      } = this;
 
+     const { mode } = this.state;
+     const titleName = mode == 'insert' ? '버킷리스트 작성 ' : '버킷리스트 수정';
+
     return (
       <div>
         <TitleHeader
             iconColor='black'
             iconSize='large'
-            titleName='버킷리스트 작성'
+            titleName={titleName}
         />
         {validateErrMessage != '' &&
           <ErrorBlock
              errorMessage={validateErrMessage}
              positon='top'/>
         }
-        <BckInsertForm
+        <BckSaveForm
             bckTitle = {bckTitle}
             bckDetail = {bckDetail}
             targetAmount = {targetAmount}
@@ -120,15 +144,15 @@ class BckInsertContainer extends Component {
 }
 export default connect(
     (state) => ({
-        bckTitle: state.bckInsert.get('bckTitle'),
-        bckDetail: state.bckInsert.get('bckDetail'),
-        targetAmount: state.bckInsert.get('targetAmount'),
-        currentAmount: state.bckInsert.get('currentAmount'),
-        completeDate :state.bckInsert.get('completeDate'),
-        validateErrMessage: state.bckInsert.get('validateErrMessage'),
-        saveErrMessage: state.bckInsert.get('saveErrMessage')
+        bckTitle: state.bckSave.getIn(['bckInfo','bckTitle']),
+        bckDetail: state.bckSave.getIn(['bckInfo','bckDetail']),
+        targetAmount: state.bckSave.getIn(['bckInfo','targetAmount']),
+        currentAmount: state.bckSave.getIn(['bckInfo','currentAmount']),
+        completeDate :state.bckSave.getIn(['bckInfo','completeDate']),
+        validateErrMessage: state.bckSave.getIn(['error','validateErrMessage']),
+        saveErrMessage: state.bckSave.getIn(['error','saveErrMessage'])
     }),
     (dispatch) => ({
-        bckInsertActions: bindActionCreators(bckInsertActions, dispatch),
+        bckSaveActions: bindActionCreators(bckSaveActions, dispatch),
     })
-)(BckInsertContainer);
+)(BckSaveContainer);

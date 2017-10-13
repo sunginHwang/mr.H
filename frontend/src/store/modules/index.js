@@ -3,13 +3,13 @@ import { penderReducer } from 'redux-pender';
 
 import board from './board';
 import bckList from './bckList';
-import bckInsert from './bckInsert';
+import bckSave from './bckSave';
 import bckDetail from './bckDetail';
 
 export default combineReducers({
     board,
     bckList,
-    bckInsert,
+    bckSave,
     bckDetail,
     pender: penderReducer
 });

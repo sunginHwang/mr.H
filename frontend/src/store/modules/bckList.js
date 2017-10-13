@@ -34,7 +34,6 @@ const initialState = Map({
 // 리듀서
 export default handleActions({
     [LOAD_BCK_LIST]: (state, action) => {
-        console.log(action.payload);
         return state.set('bckList',fromJS(action.payload));
     },
     [TOGGLE_BCK_DEPOSIT_MODAL]: (state, action) => {

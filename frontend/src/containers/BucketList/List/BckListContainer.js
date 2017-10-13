@@ -17,7 +17,7 @@ class BckListContainer extends Component {
         this.loadBckList();
     }
 
-    loadBckList(valueTest){
+    loadBckList = (valueTest) => {
         const { bckListActions } = this.props;
         bckListActions.loadBckList(InitinalBlListData);
     }

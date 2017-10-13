@@ -3,9 +3,9 @@ import InputLabel from 'components/common/Input/InputLabel';
 import TextAreaLabel from 'components/common/Input/TextAreaLabel';
 import BottomButton from 'components/common/Button/BottomButton';
 
-import './BckInsertForm.css';
+import './BckSaveForm.css';
 
-const BckInsertForm = ({
+const BckSaveForm = ({
     bckTitle,
     bckDetail,
     targetAmount,
@@ -15,7 +15,7 @@ const BckInsertForm = ({
     onSaveClick
 }) => {
   return (
-      <div className="bck-insert-form">
+      <div className="bck-save-form">
           <InputLabel
             labelName='버킷리스트명'
             placeHolderName='8글자 이하로 입력하세요.'
@@ -52,7 +52,7 @@ const BckInsertForm = ({
               onTextAreaChange={(event)=>{onChangeInput('bckDetail',event);}}
           />
           <BottomButton
-            bottomButtonName='버킷리스트 저장'
+            bottomButtonName='저장하기'
             onButtonClick={onSaveClick}
             color='teals'
           />
@@ -61,4 +61,4 @@ const BckInsertForm = ({
   );
 };
 
-export default BckInsertForm;
+export default BckSaveForm;

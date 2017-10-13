@@ -13,7 +13,7 @@ class BckDetailContainer extends Component {
        this.loadBckDetailInfo();
     }
 
-    checkBckDetailAccess(){
+    checkBckDetailAccess = () => {
         const { bckIdx } = this.props.match.params;
         if(!Number.isInteger(Number.parseInt(bckIdx))){
             alert('정상적인 접근이 아닙니다.');
@@ -21,22 +21,29 @@ class BckDetailContainer extends Component {
         }
     }
     
-   loadBckDetailInfo(){
+   loadBckDetailInfo = () => {
        const { bckDetailActions } = this.props;
        bckDetailActions.loadBckDetailInfo(InitinalBckDetailData);
        this.handleGetRemainDate();
    }
 
-   handleGetRemainDate(regiDate, endDate){
+   handleGetRemainDate = (regiDate, endDate) => {
        const startDate = new Date(regiDate);
        const completeDate = new Date(endDate);
        return (completeDate.getTime() - startDate.getTime())/(1000*60*60*24);
    }
 
+   handleModify = () => {
+       const { bckIdx } = this.props.match.params;
+       this.props.history.push('/bck/modify/'+bckIdx);
+   }
+
   render() {
    const { bckIdx } = this.props.match.params;
    const {bckDetailInfo} = this.props;
-   const {handleGetRemainDate} = this;
+   const {handleGetRemainDate,
+          handleModify
+   } = this;
    const bckInfo = bckDetailInfo.toJS();
    const remainDate = handleGetRemainDate(bckInfo.regiDate, bckInfo.completeDate);
 
@@ -57,6 +64,7 @@ class BckDetailContainer extends Component {
                 remainDate = {remainDate}
                 completeDate = {bckInfo.completeDate}
                 bckDepositList = {bckInfo.depositList}
+                onModifyClick = {handleModify}
             />
         </div>
     );

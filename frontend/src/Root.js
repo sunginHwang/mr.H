@@ -1,7 +1,7 @@
 import React from 'react';
 import BoardContainer from 'containers/BoardContainer';
 import BckListContainer from 'containers/BucketList/List/BckListContainer';
-import BckInsertContainer from 'containers/BucketList/Insert/BckInsertContainer';
+import BckSaveContainer from 'containers/BucketList/Save/BckSaveContainer';
 import BckDetailContainer from 'containers/BucketList/Detail/BckDetailContainer';
 import MainContainer from 'containers/Main/MainContainer';
 import { Provider } from 'react-redux';
@@ -15,7 +15,8 @@ const Root = ({store}) => {
                     <Route path="/" component={MainContainer}/>
                     <Route path="/board" component={BoardContainer}/>
                     <Route exact path="/bck" component={BckListContainer}/>
-                    <Route path="/bck/insert" component={BckInsertContainer}/>
+                    <Route path="/bck/insert" component={BckSaveContainer}/>
+                    <Route path="/bck/modify/:bckIdx" component={BckSaveContainer}/>
                     <Route path="/bck/detail/:bckIdx" component={BckDetailContainer}/>
                 </div>
             </Router>
