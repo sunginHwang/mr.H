@@ -74,7 +74,7 @@ class BckSaveContainer extends Component {
            return false;
        }
 
-       if(Number.parseInt(targetAmount) === 0){
+       if(Number.parseInt(targetAmount) === 0 || !targetAmount){
            handleSetErrorMsg('목표금액을 설정해주세요.');
            return false;
        }

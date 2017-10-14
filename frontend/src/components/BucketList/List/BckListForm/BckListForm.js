@@ -32,7 +32,6 @@ const BckListForm = ({
         <div className="bck-list-form">
             {BckLstList}
         </div>
-
     );
 };
 export default BckListForm;

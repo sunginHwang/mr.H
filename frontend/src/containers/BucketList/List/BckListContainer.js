@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import * as bckListActions from 'store/modules/bckList';
 
 import BckListForm from 'components/BucketList/List/BckListForm';
+import BckListToggle from 'components/BucketList/List/BckListToggle';
 import BckDepositModal from 'components/BucketList/Modal/BckDepositModal';
 import BckDeleteModal from 'components/BucketList/Modal/BckDeleteModal';
 import InsertButton from 'components/common/Button/InsertButton';
@@ -27,6 +28,14 @@ class BckListContainer extends Component {
         type == 'deposit' && bckListActions.toggleBckDepositModal(toggleKey);
         type == 'delete' && bckListActions.toggleBckDeleteModal(toggleKey);
 
+    }
+    
+    handleGetBckList = () => {
+        const { bckToggleMode ,bckList} = this.props;
+        const bckListToJS = bckList.toJS();
+        return bckToggleMode == 'proceeding' ?
+                                            bckListToJS.filter(x => x.currentAmount < x.targetAmount) :
+                                            bckListToJS.filter(x => x.currentAmount >= x.targetAmount);
     }
 
     handleBckOpenModal = async (type, bckIdx) => {
@@ -85,6 +94,11 @@ class BckListContainer extends Component {
         this.props.history.push('/bck/detail/'+bckIdx);
     }
 
+    handleChangeBckToggleMode = (toggleMode) => {
+        const { bckListActions } = this.props;
+        bckListActions.changeBckToggleMode(toggleMode);
+    }
+
 
     render() {
         const {
@@ -94,19 +108,27 @@ class BckListContainer extends Component {
             handleBckOpenModal,
             handleChangeBckDepositMoney,
             handleSaveBckDeposit,
-            handleBckDelete
+            handleBckDelete,
+            handleChangeBckToggleMode,
+            handleGetBckList
         } = this;
 
         const {  bckDepositModal,
-                 bckList,
                  bckDepositMoney,
-                 bckDeleteModal
+                 bckDeleteModal,
+                 bckToggleMode
         } = this.props;
+
+        const bckList = handleGetBckList();
 
         return (
            <div>
+               <BckListToggle
+                   onToggleClick = {handleChangeBckToggleMode}
+                   toggleMode = {bckToggleMode}
+               />
                <BckListForm
-                       BucketListListData={bckList.toJS()}
+                       BucketListListData={bckList}
                        onShowBckDetailInfo={handleShowBckDetail}
                        onBckOpenModal={handleBckOpenModal}
                />
@@ -142,7 +164,8 @@ export default connect(
         bckDeleteModal: state.bckList.get('bckDeleteModal'),
         bckDepositMoney: state.bckList.get('bckDepositMoney'),
         bckDepositIdx: state.bckList.get('bckDepositIdx'),
-        bckList :state.bckList.get('bckList')
+        bckList :state.bckList.get('bckList'),
+        bckToggleMode : state.bckList.get('bckToggleMode')
     }),
     (dispatch) => ({
         bckListActions: bindActionCreators(bckListActions, dispatch),

@@ -1,0 +1,24 @@
+.toggle-tap-wrapper{
+    height: 40px;
+    line-height: 40px;
+    background-color: #fff;
+    width: 100%;
+}
+.toggle-tap{
+    text-align: center;
+    display: inline-block;
+    width: 50%;
+}
+
+.toggle-left{
+    float: left;
+}
+.toggle-right{
+    float: right;
+}
+
+/*active toggle color*/
+.toggle-tap-wrapper > .ocean{
+    color: #65a6ff;
+    border-bottom: 3px solid #65a6ff;
+}

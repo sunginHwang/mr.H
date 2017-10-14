@@ -2,7 +2,7 @@
  * Created by hwangseong-in on 2017. 10. 6..
  */
 import { createAction, handleActions } from 'redux-actions';
-import { Map } from 'immutable';
+import { Map, toJS } from 'immutable';
 
 //액션타입
 const CHANGE_INPUT_VALUE = 'bckSave/CHANGE_INPUT_VALUE';
@@ -30,8 +30,8 @@ const nextMonthDate = getNextMonthDate();
 const initialState = Map({
     bckInfo : Map({
         bckIdx : -1,
-        targetAmount : 0,
-        currentAmount : 0,
+        targetAmount : '',
+        currentAmount : '',
         bckTitle : '',
         bckDetail : '',
         completeDate : nextMonthDate
@@ -46,7 +46,6 @@ const initialState = Map({
 export default handleActions({
     [changeInputValue]: (state, action) => {
         const {inputType, value} = action.payload;
-        console.log(inputType);
         return state.setIn(['bckInfo',inputType],value);
     },
     [setValidateErrorMessage]: (state, action) => {
@@ -58,6 +57,6 @@ export default handleActions({
     }
     ,
     [initiateBckInfo] : (state, action) => {
-        return state.set('bckInfo',initialState.getIn('bckInfo'));
+        return state.set('bckInfo',initialState.get('bckInfo'));
     }
 }, initialState);

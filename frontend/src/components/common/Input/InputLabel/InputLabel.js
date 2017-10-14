@@ -14,7 +14,7 @@ const InputLabel = ({
           <label className="input-label">
               {labelName}
           </label>
-          <Input fluid
+          <input className="input-label-input"
                  type={inputType}
                  placeholder={placeHolderName}
                  onChange={onInputChange}

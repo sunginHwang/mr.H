@@ -71,7 +71,13 @@ export const InitinalBlListData2 = [
         completeDate : '2017-08',
         bckTitle : '일본여행5'
     },
-
+    {
+        bckIdx : 6,
+        targetAmount : 300000,
+        currentAmount : 300000,
+        completeDate : '2017-08',
+        bckTitle : '일본여행5'
+    }
 
 ];
 
@@ -108,6 +114,13 @@ export const InitinalBlListData = [
         bckIdx : 5,
         targetAmount : 300000,
         currentAmount : 150000,
+        completeDate : '2017-08',
+        bckTitle : '일본여행'
+    },
+    {
+        bckIdx : 6,
+        targetAmount : 300000,
+        currentAmount : 300000,
         completeDate : '2017-08',
         bckTitle : '일본여행'
     },

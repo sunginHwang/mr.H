@@ -3,9 +3,29 @@
 }
 .input-label{
     display: block;
-    margin: 0 0 .58571429rem 0;
-    color: rgba(0,0,0,.87);
-    font-size: 1.02857143em;
-    font-weight: 700;
+    margin-bottom: .5rem;
+    color: #575962;
+    font-size: 13px;
+    font-weight: 400;
     text-transform: none;
+}
+
+.input-label-input{
+    display: block;
+    width: 100%;
+    padding: .65rem 1.25rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    border-color: #ebedf2;
+    color: #575962;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+     font-family: sans-serif,Arial;
+}
+.input-label-input::placeholder {
+    color: #d1d5d7;
 }

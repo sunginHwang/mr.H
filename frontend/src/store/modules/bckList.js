@@ -10,7 +10,7 @@ const CHANGE_BCK_DEPOSIT_MONEY = 'bckList/CHANGE_BCK_DEPOSIT_MONEY';
 const CHANGE_BCK_DEPOSIT_IDX = 'bckList/CHANGE_BCK_DEPOSIT_IDX';
 const SAVE_BCK_DEPOSIT_MONEY = 'bckList/SAVE_BCK_DEPOSIT_MONEY';
 const LOAD_BCK_LIST = 'bckList/LOAD_BCK_LIST';
-
+const CHANGE_BCK_TOGGLE_MODE = 'bckList/CHANGE_BCK_TOGGLE_MODE';
 //서버호출
 export const boardTotoServerCall = () => axios.get('/api/board/');
 //액션 생성자
@@ -20,6 +20,7 @@ export const changeBckDepositMoney = createAction(CHANGE_BCK_DEPOSIT_MONEY);
 export const changeBckDepositIdx = createAction(CHANGE_BCK_DEPOSIT_IDX);
 export const saveBckDepositMoney = createAction(SAVE_BCK_DEPOSIT_MONEY);
 export const loadBckList = createAction(LOAD_BCK_LIST);
+export const changeBckToggleMode = createAction(CHANGE_BCK_TOGGLE_MODE);
 
 //초기값
 const initialState = Map({
@@ -28,6 +29,7 @@ const initialState = Map({
     bckDepositMoney : '', //  Deposit for bucketListMoney
     bckDepositIdx : 0, //  Deposit for bucketListMoney
     test : '',
+    bckToggleMode : 'proceeding',
     bckList : List([])
 });
 
@@ -50,5 +52,8 @@ export default handleActions({
     },
     [SAVE_BCK_DEPOSIT_MONEY] : (state, action) =>{
         return state.set('test', action.payload);
+    },
+    [CHANGE_BCK_TOGGLE_MODE] : (state, action) => {
+        return state.set('bckToggleMode', action.payload);
     }
 }, initialState);
