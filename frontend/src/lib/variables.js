@@ -26,6 +26,58 @@ export const InitinalBckDetailData = {
             },
         ]
 };
+
+export const InitinalAssetsData = {
+    propertyMoneyList : [
+        {
+            date : '2017-02',
+            totalMoney : '30000'
+        },
+        {
+            date : '2017-03',
+            totalMoney : '40000'
+        },
+        {
+            date : '2017-04',
+            totalMoney : '33000'
+        },
+        {
+            date : '2017-05',
+            totalMoney : '50000'
+        },
+        {
+            date : '2017-06',
+            totalMoney : '80000'
+        }
+    ],
+    propertyList : [
+        {
+            propertyIdx : 1,
+            propertyStartDate : '2017-06-01',
+            propertyTitle : '적금명',
+            propertyEndDate : '2017-08-01',
+            propertyTargetAmount : 20000,
+            propertyCurrentAmount : 10000,
+        },
+        {
+            propertyIdx : 1,
+            propertyStartDate : '2017-06-01',
+            propertyTitle : '적금명2',
+            propertyEndDate : '2017-08-01',
+            propertyTargetAmount : 20000,
+            propertyCurrentAmount : 10000,
+        },
+        {
+            propertyIdx : 1,
+            propertyStartDate : '2017-06-01',
+            propertyTitle : '적금명3',
+            propertyEndDate : '2017-08-01',
+            propertyTargetAmount : 20000,
+            propertyCurrentAmount : 10000,
+        }
+    ]
+};
+
 export const InitinalBckModifyData = {
     bckIdx : 2,
     targetAmount : 300000,
