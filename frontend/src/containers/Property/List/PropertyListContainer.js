@@ -1,25 +1,38 @@
 import React, { Component} from 'react';
+import { Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import * as propertyListActions from 'store/modules/propertyList';
-import CardBlock from 'components/common/Block/CardBlock';
-import {LineChart, Line , XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import PropertyListForm from 'components/Property/List/PropertyListForm';
-
+import PropertyListToggle from 'components/Property/List/PropertyListToggle';
+import PropertyList from 'components/Property/List/PropertyList';
+import InsertButton from 'components/common/Button/InsertButton';
 
 
 class PropertyListContainer extends Component {
 
 
   render() {
-      const { propertyMoneyList } = this.props;
+      const { propertyMoneyList,
+              propertyList
+      } = this.props;
+
       const data = propertyMoneyList.toJS();
-      console.log(data);
     return (
       <div>
-          <PropertyListForm
-              propertyMoneyList={data}
+         <PropertyListToggle
+             onToggleClick = {(e)=>{console.log(1)}}
+             toggleMode = {'complete'}/>
+          <PropertyList
+              propertyList = {propertyList.toJS()}
           />
+          <InsertButton>
+              <Link to='/bck/insert'>
+                  <Icon name='won'
+                        style={{color:'#fff'}}
+                        size='big'/>
+              </Link>
+          </InsertButton>
       </div>
     );
   }

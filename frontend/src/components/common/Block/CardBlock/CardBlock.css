@@ -9,7 +9,7 @@
     display: table;
     padding: 0;
     width: 100%;
-    padding: 1rem 0rem 1rem 2.2rem;
+    padding: 1rem 1rem 1rem 2.2rem;
     height: 3.1rem;
     border-bottom: 1px solid #ebedf2;
 }
@@ -32,5 +32,5 @@
 
     height: calc(100% - 2.2rem - 2.2rem);
     color: #575962;
-    padding: 0.8rem 2.2rem 2.2rem 2.2rem;
+    padding: 0.8rem 1rem 2.2rem 1rem;
 }

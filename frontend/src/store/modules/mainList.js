@@ -3,7 +3,7 @@ import { Map, List, fromJS } from 'immutable';
 import { pender } from 'redux-pender';
 
 //액션타입
-const LOAD_PROPERTY_LIST_INFO = 'propertyList/LOAD_BCK_DETAIL_INFO';
+const LOAD_PROPERTY_LIST_INFO = 'mainList/LOAD_BCK_DETAIL_INFO';
 //액션 생성자
 export const loadPropertyList = createAction(LOAD_PROPERTY_LIST_INFO);
 

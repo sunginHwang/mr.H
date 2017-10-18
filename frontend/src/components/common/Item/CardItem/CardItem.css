@@ -1,5 +1,5 @@
 .common-card-item{
-    display: flex;
+    display: table;
     flex-wrap: wrap;
     width: 100%;
     padding-top: 0.85rem;
@@ -8,8 +8,7 @@
 }
 
 .common-card-item > .card-item-info{
-    flex-basis: 0;
-    flex-grow: 1;
+    display: table-cell;
     max-width: 100%;
     padding-left: 1.2rem;
     padding-right: 1.2rem;
@@ -18,8 +17,7 @@
 }
 
 .common-card-item > .card-info-ext{
-    flex-basis: 0;
-    flex-grow: 1;
+    display: table-cell;
     max-width: 100%;
     text-align: right;
     vertical-align: middle;

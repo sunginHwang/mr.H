@@ -12,12 +12,11 @@ const CardItem = ({
       <div className="card-item-info">
         <span className="card-info-title">
             {title}
-        </span>
+        </span><br/>
         <span className="card-info-sub-title">
             {subTitle}
         </span>
       </div>
-      
       <div className="card-info-ext">
         <span className={extColor}>{extInfo}</span>
       </div>
