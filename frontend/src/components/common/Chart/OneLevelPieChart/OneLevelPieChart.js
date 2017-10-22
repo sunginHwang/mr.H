@@ -16,7 +16,7 @@ const OneLevelPieChart = ({
           <Legend align={legentAlign}/>
           <Pie
               data={data}
-              dataKey="value"
+              dataKey='value'
               cx={cx}
               cy={cy}
               startAngle={180}
@@ -31,7 +31,7 @@ const OneLevelPieChart = ({
                       <Cell key={`slice-${index}`} fill={pieChartColor[index % 10]}/>
                   ))
               }
-              <Label width={80} position="center">
+              <Label width={80} position='center'>
                   {centerLableValue}
               </Label>
           </Pie>

@@ -13,8 +13,8 @@ const BckMoneyInfo = ({
 
   return (
       <CardBlock
-          headerTitle = {bckTitle + ' 금액정보'}
-          headerSubArea = ''>
+          headerTitle={bckTitle + ' 금액정보'}
+          headerSubArea=''>
           <OneLevelPieChart
               data={chartData}
               cx='40%'
@@ -24,18 +24,18 @@ const BckMoneyInfo = ({
               legentAlign='right'
               centerLableValue={targetPercentage}
           />
-          <CardItem title = '목표금액'
-                    extInfo = {targetAmount}
-                    extColor = 'danger'
-                    subTitle= ''/>
-          <CardItem title = '모은금액'
-                    extInfo = {currentAmount}
-                    extColor = 'ocean'
-                    subTitle= ''/>
-          <CardItem title = '남은금액'
-                    extInfo = {targetAmount-currentAmount}
-                    extColor = 'teal'
-                    subTitle= ''/>
+          <CardItem title='목표금액'
+                    extInfo={targetAmount}
+                    extColor='danger'
+                    subTitle=''/>
+          <CardItem title='모은금액'
+                    extInfo={currentAmount}
+                    extColor='ocean'
+                    subTitle=''/>
+          <CardItem title='남은금액'
+                    extInfo={targetAmount-currentAmount}
+                    extColor='teal'
+                    subTitle=''/>
       </CardBlock>
   );
 };

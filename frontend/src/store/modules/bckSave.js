@@ -2,7 +2,7 @@
  * Created by hwangseong-in on 2017. 10. 6..
  */
 import { createAction, handleActions } from 'redux-actions';
-import { Map, toJS } from 'immutable';
+import { Map } from 'immutable';
 
 //액션타입
 const CHANGE_INPUT_VALUE = 'bckSave/CHANGE_INPUT_VALUE';

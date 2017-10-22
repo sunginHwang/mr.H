@@ -11,11 +11,11 @@ const BckDeleteModal = ({
 }) => {
   return (
       <BckModal visible={modalVisible}
-                modalTitle="삭제하기"
+                modalTitle='삭제하기'
                 onSuccessEvent={onBckDelete}
-                successButtonText="삭제"
-                onFailEvent={(event)=>{toggleBckModal(modalType,false)}}
-                failButtonText="취소">
+                successButtonText='삭제'
+                onFailEvent={(e)=>{toggleBckModal(modalType,false)}}
+                failButtonText='취소'>
           <label>정말 삭제하시겠습니까?</label>
       </BckModal>
   );

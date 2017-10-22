@@ -1,5 +1,4 @@
 import React from 'react';
-import { Input } from 'semantic-ui-react';
 import './InputLabel.css';
 
 const InputLabel = ({
@@ -10,11 +9,11 @@ const InputLabel = ({
     inputType
 }) => {
   return (
-      <div className="input-label-row">
-          <label className="input-label">
+      <div className='input-label-row'>
+          <label className='input-label'>
               {labelName}
           </label>
-          <input className="input-label-input"
+          <input className='input-label-input'
                  type={inputType}
                  placeholder={placeHolderName}
                  onChange={onInputChange}

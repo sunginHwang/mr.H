@@ -30,16 +30,17 @@ const BckListContent = ({
                 <BckListTitle title={bckTitle}
                                  onTitleClick={(event)=>{onShowBckDetailInfo(bckIdx)}}
                                  completeDate={completeDate}
-                />}
+                />
+            }
             right_title={
-                <BckListEventButton bckIdx = {bckIdx}
+                <BckListEventButton bckIdx={bckIdx}
                                        onDepositClick={onDepositClick}
                                        onDeleteClick={onDeleteClick}
                 />
             }
         >
             <Progress percent={(currentAmount/targetAmount)*100}
-                      onClick={(event)=>{onShowBckDetailInfo(bckIdx)}}
+                      onClick={(e)=>{onShowBckDetailInfo(bckIdx)}}
                       progress='percent'
                       color={progressColor}/>
         </ContentList>

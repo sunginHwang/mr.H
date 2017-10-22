@@ -13,18 +13,15 @@ class PropertyListContainer extends Component {
 
 
   render() {
-      const { propertyMoneyList,
-              propertyList
-      } = this.props;
+    const { propertyList } = this.props;
 
-      const data = propertyMoneyList.toJS();
     return (
       <div>
          <PropertyListToggle
-             onToggleClick = {(e)=>{console.log(1)}}
-             toggleMode = {'complete'}/>
+             onToggleClick={(e)=>{console.log(1)}}
+             toggleMode={'complete'}/>
           <PropertyList
-              propertyList = {propertyList.toJS()}
+              propertyList={propertyList.toJS()}
           />
           <InsertButton>
               <Link to='/bck/insert'>
@@ -40,7 +37,6 @@ class PropertyListContainer extends Component {
 
 export default connect(
     (state) => ({
-        propertyMoneyList: state.propertyList.get('propertyMoneyList'),
         propertyList: state.propertyList.get('propertyList')
     }),
     (dispatch) => ({

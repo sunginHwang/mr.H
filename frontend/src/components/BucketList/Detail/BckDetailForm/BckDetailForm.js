@@ -19,25 +19,25 @@ const BckDetailForm = ({
     onModifyClick
 }) => {
     return (
-        <div className="bck-detail-form">
+        <div className='bck-detail-form'>
           <BckMoneyInfo
-              bckTitle = {bckTitle}
-              targetAmount = {targetAmount}
-              currentAmount = {currentAmount}
+              bckTitle={bckTitle}
+              targetAmount={targetAmount}
+              currentAmount={currentAmount}
           />
           <BckDateInfo
-            bckTitle = {bckTitle}
-            regiDate = {regiDate}
-            completeDate = {completeDate}
-            remainDate = {remainDate}
+            bckTitle={bckTitle}
+            regiDate={regiDate}
+            completeDate={completeDate}
+            remainDate={remainDate}
           />
           <CardBlock
-              headerTitle = {bckTitle + ' 상세 내용'}
-              headerSubArea = ''>
+              headerTitle={bckTitle + ' 상세 내용'}
+              headerSubArea=''>
             <span>{bckDetail}</span>
           </CardBlock>
           <BckDepositInfo
-              depositList = {bckDepositList}
+              depositList={bckDepositList}
           />
           <BottomButton
                 bottomButtonName='수정하기'

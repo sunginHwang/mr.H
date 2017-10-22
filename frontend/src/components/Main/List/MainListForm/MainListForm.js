@@ -11,7 +11,7 @@ const TotalMoneyArea = ({
     totalMoney
 }) => {
     return (
-        <span style={{color:'#f4516c' , marginRight : '1.2em', fontWeight:600, fontSize:'1.2rem' }}>{totalMoney+' 원'}</span>
+        <span style={{color:'#f4516c' ,fontWeight:600, fontSize:'1.2rem' }}>{totalMoney+' 원'}</span>
     );
 };
 
@@ -39,19 +39,19 @@ const MainListForm = ({
       <div className="property-list-form">
           <CardBlock
               headerTitle='현재 모은 금액'
-              headerSubArea = {<TotalMoneyArea totalMoney={400000} />}>
-              <CardItem title = '현재 자본금'
-                        extInfo = {200000+' 원'}
-                        extColor = 'ocean'
-                        subTitle= ''/>
-              <CardItem title = '예금, 적금 합계'
-                        extInfo = {200000+' 원'}
-                        extColor = 'teal'
-                        subTitle= ''/>
+              headerSubArea={<TotalMoneyArea totalMoney={400000} />}>
+              <CardItem title='현재 자본금'
+                        extInfo={200000+' 원'}
+                        extColor='ocean'
+                        subTitle=''/>
+              <CardItem title='예금, 적금 합계'
+                        extInfo={200000+' 원'}
+                        extColor='teal'
+                        subTitle=''/>
           </CardBlock>
           <CardBlock
               headerTitle='최근 자산 증감표'
-              headerSubArea = ''>
+              headerSubArea=''>
               <PropertyLineChart
                   chartData={propertyMoneyList}
                   yAxisKey='date'
@@ -61,7 +61,7 @@ const MainListForm = ({
           </CardBlock>
           <CardBlock
               headerTitle='예금, 적금 리스트'
-              headerSubArea = ''>
+              headerSubArea=''>
               {depositList}
           </CardBlock>
 

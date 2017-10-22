@@ -3,7 +3,7 @@ import './InsertButton.css';
 const InsertButton = ({children}) => {
   return (
     <div >
-        <button className="common-insert-button">
+        <button className='common-insert-button'>
             {children}
         </button>
     </div>

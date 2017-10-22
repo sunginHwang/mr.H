@@ -7,7 +7,7 @@ const BottomButton = ({
     color
 }) => {
   return (
-    <div className={'common-bottom-button' + ' ' + color}
+    <div className={'common-bottom-button ' + color}
          onClick={onButtonClick}
     >
         {bottomButtonName}

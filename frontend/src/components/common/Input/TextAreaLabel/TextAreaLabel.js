@@ -9,13 +9,13 @@ const TextAreaLabel = ({
     textAreaValue
 }) => {
   return (
-      <div className="input-label-row">
-          <label className="input-label">
+      <div className='input-label-row'>
+          <label className='input-label'>
               {labelName}
           </label>
           <Form>
                 <TextArea
-                    style={{ minHeight: Number.parseInt(TextAreaHeight) }}
+                    style={{ minHeight: Number.parseInt(TextAreaHeight,10) }}
                     placeholder={placeHolderName}
                     onChange={onTextAreaChange}
                     value={textAreaValue}

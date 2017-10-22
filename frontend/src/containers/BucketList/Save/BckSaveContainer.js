@@ -26,14 +26,14 @@ class BckSaveContainer extends Component {
        const { bckIdx } = this.props.match.params;
        const bckMode = bckIdx ? 'modify' : 'insert';
        this.setState({mode: bckMode});
-       bckMode == 'modify' && this.getModifyData();
+       bckMode ==='modify' && this.getModifyData();
    }
 
    getModifyData = () => {
        this.props.bckSaveActions.getBckModifyInfo(InitinalBckModifyData);
    }
 
-   handleChangeInputValue = (type, e)=>{
+   handleChangeInputValue = (type, e) =>{
        const {bckSaveActions} = this.props;
        const { value } = e.target;
        const inputParam = {inputType : type, value : value};
@@ -41,10 +41,7 @@ class BckSaveContainer extends Component {
    }
 
    handleSaveBucketList = async () => {
-       const { handleValidateBckForm,
-               handleSetErrorMsg }
-       = this;
-
+       const { handleValidateBckForm, handleSetErrorMsg } = this;
        const { saveErrMessage } = this.props;
 
        if(handleValidateBckForm()){
@@ -59,11 +56,7 @@ class BckSaveContainer extends Component {
    }
 
    handleValidateBckForm = () =>{
-       const { bckTitle,
-               targetAmount,
-               currentAmount,
-               completeDate}
-       = this.props;
+       const { bckTitle, targetAmount, currentAmount, completeDate} = this.props;
 
        const { handleSetErrorMsg } = this;
 
@@ -74,12 +67,12 @@ class BckSaveContainer extends Component {
            return false;
        }
 
-       if(Number.parseInt(targetAmount) === 0 || !targetAmount){
+       if(Number.parseInt(targetAmount,10) === 0 || !targetAmount){
            handleSetErrorMsg('목표금액을 설정해주세요.');
            return false;
        }
 
-       if(Number.parseInt(currentAmount) > Number.parseInt(targetAmount)){
+       if(Number.parseInt(currentAmount,10) > Number.parseInt(targetAmount,10)){
            handleSetErrorMsg('초기금이 목표액보다 많습니다.');
            return false;
        }
@@ -94,7 +87,7 @@ class BckSaveContainer extends Component {
    }
 
     handleSetErrorMsg = (ErrMsg) => {
-        const { bckSaveActions }= this.props;
+        const { bckSaveActions } = this.props;
         const timer = 800;
         bckSaveActions.setValidateErrorMessage(ErrMsg);
         setTimeout(() => bckSaveActions.setValidateErrorMessage(''), timer);
@@ -115,7 +108,7 @@ class BckSaveContainer extends Component {
      } = this;
 
      const { mode } = this.state;
-     const titleName = mode == 'insert' ? '버킷리스트 작성 ' : '버킷리스트 수정';
+     const titleName = mode === 'insert' ? '버킷리스트 작성 ' : '버킷리스트 수정';
 
     return (
       <div>
@@ -124,19 +117,19 @@ class BckSaveContainer extends Component {
             iconSize='large'
             titleName={titleName}
         />
-        {validateErrMessage != '' &&
+        {validateErrMessage !== '' &&
           <ErrorBlock
              errorMessage={validateErrMessage}
              positon='top'/>
         }
         <BckSaveForm
-            bckTitle = {bckTitle}
-            bckDetail = {bckDetail}
-            targetAmount = {targetAmount}
-            currentAmount = {currentAmount}
-            completeDate = {completeDate}
-            onChangeInput = {handleChangeInputValue}
-            onSaveClick = {handleSaveBucketList}
+            bckTitle={bckTitle}
+            bckDetail={bckDetail}
+            targetAmount={targetAmount}
+            currentAmount={currentAmount}
+            completeDate={completeDate}
+            onChangeInput={handleChangeInputValue}
+            onSaveClick={handleSaveBucketList}
         />
       </div>
     );

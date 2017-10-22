@@ -1,6 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
 import { Map, List, fromJS } from 'immutable';
-import { pender } from 'redux-pender';
 import axios from 'axios';
 
 //액션타입

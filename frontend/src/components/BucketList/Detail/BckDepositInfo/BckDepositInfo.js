@@ -8,17 +8,17 @@ const BckDepositInfo = ({
 }) => {
 
     const depositRowList = depositList.map((depositInfo) => (
-        <CardItem key= {depositInfo.depositIdx}
-                  title= {depositInfo.depositDate}
-                  subTitle = ''
-                  extColor = 'brand'
-                  extInfo = {depositInfo.depositAmount+' 원'}/>
+        <CardItem key={depositInfo.depositIdx}
+                  title={depositInfo.depositDate}
+                  subTitle=''
+                  extColor='brand'
+                  extInfo={depositInfo.depositAmount+' 원'}/>
     ));
 
   return (
       <CardBlock
-          headerTitle = '입금내역'
-          headerSubArea = ''>
+          headerTitle='입금내역'
+          headerSubArea=''>
           {depositRowList}
       </CardBlock>
   );

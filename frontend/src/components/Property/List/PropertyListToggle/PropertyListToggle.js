@@ -13,7 +13,7 @@ const PropertyListToggle = ({
                 rightToggleValue='적급완료내역'
                 onLeftClick={(e)=>{onToggleClick('proceeding')}}
                 onRightClick={(e)=>{onToggleClick('complete')}}
-                toggleActive = {toggleMode == 'complete' ? 'right' : 'left'}
+                toggleActive={toggleMode === 'complete' ? 'right' : 'left'}
                 activeColor='ocean'
             />
         </div>

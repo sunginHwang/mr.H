@@ -9,17 +9,17 @@ const TitleHeader = ({
     titleName
 }) => {
   return (
-        <header className="title-header">
+        <header className='title-header'>
             <nav>
-                <div className="title-left">
+                <div className='title-left'>
                     <a href='javascript:history.back();'>
                         <Icon name='chevron left'
                               size={iconSize}
                               color={iconColor}  />
                     </a>
                 </div>
-                <span className="title-header-center-name">{titleName}</span>
-                <div className="title-right">
+                <span className='title-header-center-name'>{titleName}</span>
+                <div className='title-right'>
                 </div>
             </nav>
         </header>

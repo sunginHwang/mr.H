@@ -1,6 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
 import { Map, List, fromJS } from 'immutable';
-import { pender } from 'redux-pender';
 
 //액션타입
 const LOAD_PROPERTY_LIST_INFO = 'propertyList/LOAD_BCK_DETAIL_INFO';
@@ -33,28 +32,6 @@ const initialState = Map({
             propertyEndDate : '2017-08-01',
             propertyTargetAmount : 20000,
             propertyCurrentAmount : 10000,
-        }
-    ]),
-    propertyMoneyList : List([
-        {
-            date : '2017-02',
-            totalMoney : 30000
-        },
-        {
-            date : '2017-03',
-            totalMoney : 40000
-        },
-        {
-            date : '2017-04',
-            totalMoney : 33000
-        },
-        {
-            date : '2017-05',
-            totalMoney : 50000
-        },
-        {
-            date : '2017-06',
-            totalMoney : 80000
         }
     ])
 });

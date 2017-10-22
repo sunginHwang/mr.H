@@ -5,7 +5,7 @@ const ErrorBlock = ({
     positon
 }) => {
   return (
-    <div className={'common-error-block' +' '+ positon}>
+    <div className={'common-error-block ' + positon}>
         {errorMessage}
     </div>
   );

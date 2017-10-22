@@ -1,14 +1,20 @@
 import React from 'react';
-import {LineChart, Line , XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import {LineChart, Line , XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import './PropertyLineChart.css';
 
-const RotateAxisTick = ({x, y, stroke, payload}) => {
+const RotateAxisTick = ({
+    x,
+    y,
+    stroke,
+    payload
+}) => {
     return (
         <g transform={`translate(${x},${y})`}>
-            <text x={3} y={0} dy={16} textAnchor="end" fill="#666" >{payload.value}</text>
+            <text x={3} y={0} dy={16} textAnchor='end' fill='#666' >{payload.value}</text>
         </g>
     )
 };
+
 const PropertyLineChart = ({
     chartData,
     yAxisKey,

@@ -15,7 +15,7 @@ class BckDetailContainer extends Component {
 
     checkBckDetailAccess = () => {
         const { bckIdx } = this.props.match.params;
-        if(!Number.isInteger(Number.parseInt(bckIdx))){
+        if(!Number.isInteger(Number.parseInt(bckIdx,10))){
             alert('정상적인 접근이 아닙니다.');
             this.props.history.push('/bck');
         }
@@ -39,7 +39,9 @@ class BckDetailContainer extends Component {
    }
 
   render() {
+   /* 서버 사이드 전환시 해당 url 매치 idx 사용할것
    const { bckIdx } = this.props.match.params;
+   */
    const {bckDetailInfo} = this.props;
    const {handleGetRemainDate,
           handleModify
@@ -55,16 +57,16 @@ class BckDetailContainer extends Component {
                 titleName={bckInfo.bckTitle}
             />
             <BckDetailForm
-                bckIdx = {bckInfo.bckIdx}
-                bckTitle = {bckInfo.bckTitle}
-                bckDetail = {bckInfo.bckDetail}
-                currentAmount = {bckInfo.currentAmount}
-                targetAmount = {bckInfo.targetAmount}
-                regiDate = {bckInfo.regiDate}
-                remainDate = {remainDate}
-                completeDate = {bckInfo.completeDate}
-                bckDepositList = {bckInfo.depositList}
-                onModifyClick = {handleModify}
+                bckIdx={bckInfo.bckIdx}
+                bckTitle={bckInfo.bckTitle}
+                bckDetail={bckInfo.bckDetail}
+                currentAmount={bckInfo.currentAmount}
+                targetAmount={bckInfo.targetAmount}
+                regiDate={bckInfo.regiDate}
+                remainDate={remainDate}
+                completeDate={bckInfo.completeDate}
+                bckDepositList={bckInfo.depositList}
+                onModifyClick={handleModify}
             />
         </div>
     );

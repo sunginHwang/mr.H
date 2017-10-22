@@ -14,16 +14,16 @@ const BckModal = ({
 }) => {
     return (
         <ModalWrapper visible={visible}>
-            <div className="bck-modal">
+            <div className='bck-modal'>
                 <h3>{modalTitle}</h3>
                 {children}
-                <section className="bck-event-modal-button">
-                    <Button className="bck-deposit-modal-deposit-button"
+                <section className='bck-event-modal-button'>
+                    <Button className='bck-deposit-modal-deposit-button'
                             basic
                             color='teal'
                             onClick={onSuccessEvent}>{successButtonText}
                     </Button>
-                    <Button className="bck-deposit-modal-close-button"
+                    <Button className='bck-deposit-modal-close-button'
                             basic
                             color='red'
                             onClick={onFailEvent}>{failButtonText}

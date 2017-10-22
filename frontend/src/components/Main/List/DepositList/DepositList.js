@@ -1,6 +1,6 @@
-import React from 'react';import { Progress } from 'semantic-ui-react';
+import React from 'react';
+import { Progress } from 'semantic-ui-react';
 import ContentList from 'components/common/ContentList';
-import BckListEventButton from 'components/BucketList/List/BckListEventButton';
 
 import 'semantic-ui-css/semantic.min.css';
 import './DepositList.css';
@@ -23,7 +23,7 @@ const DepositList = ({
         <ContentList
             left_title={
                 <DepositListTitle title={depositTitle}
-                                  onTitleClick={(event)=>{console.log(222);}}
+                                  onTitleClick={(e)=>{console.log(222);}}
                 />}
             right_title={currentAmount}
         >

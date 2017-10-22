@@ -25,15 +25,15 @@ class BckListContainer extends Component {
 
     toggleBckModal = (type, toggleKey) => {
         const { bckListActions } = this.props;
-        type == 'deposit' && bckListActions.toggleBckDepositModal(toggleKey);
-        type == 'delete' && bckListActions.toggleBckDeleteModal(toggleKey);
+        type === 'deposit' && bckListActions.toggleBckDepositModal(toggleKey);
+        type === 'delete' && bckListActions.toggleBckDeleteModal(toggleKey);
 
     }
     
     handleGetBckList = () => {
         const { bckToggleMode ,bckList} = this.props;
         const bckListToJS = bckList.toJS();
-        return bckToggleMode == 'proceeding' ?
+        return bckToggleMode === 'proceeding' ?
                                             bckListToJS.filter(x => x.currentAmount < x.targetAmount) :
                                             bckListToJS.filter(x => x.currentAmount >= x.targetAmount);
     }
@@ -48,7 +48,7 @@ class BckListContainer extends Component {
         const { bckListActions } = this.props;
         const { value } = e.target;
 
-        bckListActions.changeBckDepositMoney(Number.parseInt(value));
+        bckListActions.changeBckDepositMoney(Number.parseInt(value,10));
     }
 
     handleSaveBckDeposit = async () => {
@@ -56,7 +56,7 @@ class BckListContainer extends Component {
         const bckListToJS = bckList.toJS();
         const overDepositMoney = this.checkBckOverDepositMoney(bckDepositIdx, bckDepositMoney);
 
-        if(bckDepositMoney == ''){
+        if(bckDepositMoney === ''){
             alert('입금액을 넣어주세요.');return;
         }
 
@@ -124,8 +124,8 @@ class BckListContainer extends Component {
         return (
            <div>
                <BckListToggle
-                   onToggleClick = {handleChangeBckToggleMode}
-                   toggleMode = {bckToggleMode}
+                   onToggleClick={handleChangeBckToggleMode}
+                   toggleMode={bckToggleMode}
                />
                <BckListForm
                        BucketListListData={bckList}
@@ -135,6 +135,7 @@ class BckListContainer extends Component {
                <InsertButton>
                    <Link to='/bck/insert'>
                        <Icon name='write'
+                             style={{color:'#fff'}}
                              size='big'/>
                    </Link>
                </InsertButton>

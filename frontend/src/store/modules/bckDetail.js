@@ -1,6 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
 import { Map, List, fromJS } from 'immutable';
-import { pender } from 'redux-pender';
 
 //액션타입
 const LOAD_BCK_DETAIL_INFO = 'bckDetail/LOAD_BCK_DETAIL_INFO';

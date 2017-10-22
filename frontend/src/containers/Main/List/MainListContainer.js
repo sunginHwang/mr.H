@@ -10,11 +10,9 @@ class MainListContainer extends Component {
 
 
     render() {
-        const { propertyMoneyList,
-            propertyList
-        } = this.props;
-
+        const { propertyMoneyList, propertyList } = this.props;
         const data = propertyMoneyList.toJS();
+        
         return (
             <div>
                 <MainListForm

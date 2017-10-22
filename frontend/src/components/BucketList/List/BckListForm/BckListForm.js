@@ -20,7 +20,7 @@ const BckListForm = ({
                 completeDate={data.completeDate}
                 currentAmount={data.currentAmount}
                 targetAmount={data.targetAmount}
-                onShowBckDetailInfo ={onShowBckDetailInfo}
+                onShowBckDetailInfo={onShowBckDetailInfo}
                 progressColor={progressColor[Math.floor(progressColor.length % data.bckIdx)]} // randomColorProcess
                 onDepositClick={()=>{onBckOpenModal('deposit',data.bckIdx)}}
                 onDeleteClick={()=>{onBckOpenModal('delete',data.bckIdx)}}
@@ -29,7 +29,7 @@ const BckListForm = ({
     );
 
     return(
-        <div className="bck-list-form">
+        <div className='bck-list-form'>
             {BckLstList}
         </div>
     );
