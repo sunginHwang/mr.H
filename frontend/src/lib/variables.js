@@ -27,6 +27,13 @@ export const InitinalBckDetailData = {
         ]
 };
 
+export const LoginUserSampleData = {
+    userIdx : 1,
+    userId : 'gommpo',
+    userName : '황성인',
+    userEmail : 'gommpo@naver.com'
+}
+
 export const InitinalAssetsData = {
     propertyMoneyList : [
         {

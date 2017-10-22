@@ -23,7 +23,7 @@ const BckSaveForm = ({
                   labelName='버킷리스트명'
                   placeHolderName='8글자 이하로 입력하세요.'
                   inputValue={bckTitle}
-                  inputType='inputType'
+                  inputType='text'
                   onInputChange={(e)=>{onChangeInput('bckTitle',e)}}
               />
               <InputLabel

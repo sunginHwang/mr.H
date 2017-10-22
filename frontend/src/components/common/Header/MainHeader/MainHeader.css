@@ -22,6 +22,12 @@
 .header-right{
 
 }
+.header-left-title{
+    color: #fff;
+}
+.header-left-title:hover{
+    color: #fff;
+}
 .header-left{
 
 }

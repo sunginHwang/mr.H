@@ -6,6 +6,7 @@ import BckDetailContainer from 'containers/BucketList/Detail/BckDetailContainer'
 import PropertyListContainer from 'containers/Property/List/PropertyListContainer';
 import MainHeaderContainer from 'containers/Main/Header/MainHeaderContainer';
 import MainListContainer from 'containers/Main/List/MainListContainer';
+import UserLoginContainer from 'containers/User/Login/UserLoginContainer';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -17,8 +18,11 @@ const Root = ({store}) => {
                     <Route path="/" component={MainHeaderContainer}/>
                     <Route exact path="/" component={MainListContainer}/>
                     <Route path="/board" component={BoardContainer}/>
+                    {/*유저 정보*/}
+                    <Route path="/login" component={UserLoginContainer}/>
+                    {/*예금, 적금 */}
                     <Route path="/property" component={PropertyListContainer}/>
-                    <Route path="/bck/insert" component={BckSaveContainer}/>
+                    {/*버킷리스트*/}
                     <Route exact path="/bck" component={BckListContainer}/>
                     <Route path="/bck/insert" component={BckSaveContainer}/>
                     <Route path="/bck/modify/:bckIdx" component={BckSaveContainer}/>

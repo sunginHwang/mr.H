@@ -5,6 +5,7 @@ import * as bckDetailActions from 'store/modules/bckDetail';
 import BckDetailForm from 'components/BucketList/Detail/BckDetailForm';
 import TitleHeader from 'components/common/Header/TitleHeader';
 import { InitinalBckDetailData } from 'lib/variables';
+import { getRemainDate } from 'lib/util';
 
 class BckDetailContainer extends Component {
 
@@ -24,13 +25,6 @@ class BckDetailContainer extends Component {
    loadBckDetailInfo = () => {
        const { bckDetailActions } = this.props;
        bckDetailActions.loadBckDetailInfo(InitinalBckDetailData);
-       this.handleGetRemainDate();
-   }
-
-   handleGetRemainDate = (regiDate, endDate) => {
-       const startDate = new Date(regiDate);
-       const completeDate = new Date(endDate);
-       return (completeDate.getTime() - startDate.getTime())/(1000*60*60*24);
    }
 
    handleModify = () => {
@@ -42,12 +36,10 @@ class BckDetailContainer extends Component {
    /* 서버 사이드 전환시 해당 url 매치 idx 사용할것
    const { bckIdx } = this.props.match.params;
    */
-   const {bckDetailInfo} = this.props;
-   const {handleGetRemainDate,
-          handleModify
-   } = this;
+   const { bckDetailInfo } = this.props;
+   const { handleModify } = this;
    const bckInfo = bckDetailInfo.toJS();
-   const remainDate = handleGetRemainDate(bckInfo.regiDate, bckInfo.completeDate);
+   const remainDate = getRemainDate(bckInfo.regiDate, bckInfo.completeDate);
 
     return (
         <div>

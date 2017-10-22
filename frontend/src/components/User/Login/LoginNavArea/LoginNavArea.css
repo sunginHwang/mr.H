@@ -1,0 +1,10 @@
+.login-nav-area{
+    width: 100%;
+    padding: 0 1em 0 1em;
+}
+.regist-user{
+    float: left;
+}
+.find-pwd{
+    float: right;
+}
