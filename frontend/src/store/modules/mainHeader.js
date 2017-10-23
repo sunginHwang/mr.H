@@ -17,6 +17,7 @@ const initialState = Map({
 // 리듀서
 export default handleActions({
     [toggleSideMenu] : (state, action) => {
-        return state.set('sideMenuVisible',!state.get('sideMenuVisible'));
+        const visible = state.get('sideMenuVisible');
+        return state.set('sideMenuVisible',!visible);
     }
 }, initialState);

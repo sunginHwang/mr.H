@@ -34,8 +34,8 @@ class BckListContainer extends Component {
         const { bckToggleMode ,bckList} = this.props;
         const bckListToJS = bckList.toJS();
         return bckToggleMode === 'proceeding' ?
-                                            bckListToJS.filter(x => x.currentAmount < x.targetAmount) :
-                                            bckListToJS.filter(x => x.currentAmount >= x.targetAmount);
+                        bckListToJS.filter(x => x.currentAmount < x.targetAmount) :
+                        bckListToJS.filter(x => x.currentAmount >= x.targetAmount);
     }
 
     handleBckOpenModal = async (type, bckIdx) => {

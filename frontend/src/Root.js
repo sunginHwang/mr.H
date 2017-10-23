@@ -7,6 +7,7 @@ import PropertyListContainer from 'containers/Property/List/PropertyListContaine
 import MainHeaderContainer from 'containers/Main/Header/MainHeaderContainer';
 import MainListContainer from 'containers/Main/List/MainListContainer';
 import UserLoginContainer from 'containers/User/Login/UserLoginContainer';
+import UserRegisterContainer from 'containers/User/Register/UserRegisterContainer';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -20,6 +21,7 @@ const Root = ({store}) => {
                     <Route path="/board" component={BoardContainer}/>
                     {/*유저 정보*/}
                     <Route path="/login" component={UserLoginContainer}/>
+                    <Route path="/user/register" component={UserRegisterContainer}/>
                     {/*예금, 적금 */}
                     <Route path="/property" component={PropertyListContainer}/>
                     {/*버킷리스트*/}

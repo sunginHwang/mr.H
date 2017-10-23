@@ -2,32 +2,38 @@ import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as mainHeaderActions from 'store/modules/mainHeader';
-import * as userActions from 'store/modules/user';
+import * as authActions from 'store/modules/auth';
 import MainHeader from 'components/common/Header/MainHeader';
 import SideMenu from 'components/Main/SideMenu';
+
 class MainHeaderContainer extends Component {
 
    handleLogout = async () => {
-        const { userActions } = this.props;
-        await userActions.userLogout();
+        const { authActions, history } = this.props;
+        await authActions.initialAuthUser();
         await alert('로그아웃 성공');
-        await this.props.history.push('/login');
+        await history.push('/login');
+   }
+
+   handleSideMenuClick = () => {
+       const { mainHeaderActions } = this.props;
+       mainHeaderActions.toggleSideMenu();
    }
 
   render() {
-    const { mainHeaderActions, sideMenuVisible, userName, userIdx } = this.props;
-    const { handleLogout } = this;
+    const { sideMenuVisible, userName, userIdx } = this.props;
+    const { handleLogout, handleSideMenuClick } = this;
 
     return (
         <div>
           <MainHeader
-            onSideMenuClick={mainHeaderActions.toggleSideMenu}
+            onSideMenuClick={handleSideMenuClick}
           />
           <SideMenu
             menuVisible={sideMenuVisible}
             userName={userName}
             userIdx={userIdx}
-            onSideMenuClick={mainHeaderActions.toggleSideMenu}
+            onSideMenuClick={handleSideMenuClick}
             onLogout={handleLogout}
           />
         </div>
@@ -38,12 +44,12 @@ class MainHeaderContainer extends Component {
 
 export default connect(
     (state) => ({
-        userIdx: state.user.get('userIdx'),
-        userName: state.user.get('userName'),
+        userIdx: state.auth.getIn(['user','userIdx']),
+        userName: state.auth.getIn(['user','userName']),
         sideMenuVisible: state.mainHeader.get('sideMenuVisible')
     }),
     (dispatch) => ({
         mainHeaderActions: bindActionCreators(mainHeaderActions, dispatch),
-        userActions: bindActionCreators(userActions, dispatch),
+        authActions: bindActionCreators(authActions, dispatch),
     })
 )(MainHeaderContainer);
