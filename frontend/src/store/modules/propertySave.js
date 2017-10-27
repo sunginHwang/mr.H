@@ -6,28 +6,24 @@ import { getNextMonthDate } from 'lib/util';
 import { Map } from 'immutable';
 
 //액션타입
-const CHANGE_INPUT_VALUE = 'bckSave/CHANGE_INPUT_VALUE';
-const SET_VALIDATE_ERROR_MESSAGE = 'bckSave/SET_VALIDATE_ERROR_MESSAGE';
-const GET_BCK_MODIFY_INFO = 'bckSave/GET_BCK_MODIFY_INFO';
-const INITIATE_BCK_INFO = 'bckSave/INITIATE_BCK_INFO';
+const CHANGE_INPUT_VALUE = 'propertySave/CHANGE_INPUT_VALUE'
+const SET_VALIDATE_ERROR_MESSAGE = 'propertySave/SET_VALIDATE_ERROR_MESSAGE';
+const INITIATE_PROPERTY_INFO = 'propertySave/INITIATE_PROPERTY_INFO';
 //액션 생성자
 export const changeInputValue = createAction(CHANGE_INPUT_VALUE);
 export const setValidateErrorMessage = createAction(SET_VALIDATE_ERROR_MESSAGE);
-export const getBckModifyInfo = createAction(GET_BCK_MODIFY_INFO);
-export const initiateBckInfo = createAction(INITIATE_BCK_INFO);
-
-
+export const initiatePropertyInfo = createAction(INITIATE_PROPERTY_INFO);
 
 const nextMonthDate = getNextMonthDate();
 //초기값
 const initialState = Map({
-    bckInfo : Map({
-        bckIdx : -1,
-        targetAmount : '',
-        currentAmount : '',
-        bckTitle : '',
-        bckDetail : '',
-        completeDate : nextMonthDate
+    propertyInfo : Map({
+        propertyIdx : -1,
+        propertyTitle : '',
+        targetAmount : 0,
+        completeDate : nextMonthDate,
+        monthlyDepositAmount : 0,
+        depositType : 0,
     }),
     error : Map({
         validateErrMessage : '',
@@ -39,17 +35,12 @@ const initialState = Map({
 export default handleActions({
     [changeInputValue]: (state, action) => {
         const {inputType, value} = action.payload;
-        return state.setIn(['bckInfo',inputType],value);
+        return state.setIn(['propertyInfo',inputType],value);
     },
     [setValidateErrorMessage]: (state, action) => {
         return state.setIn(['error','validateErrMessage'],action.payload);
     },
-    [getBckModifyInfo] : (state, action) => {
-        const bckInfo = action.payload;
-        return state.set('bckInfo',Map(bckInfo));
-    }
-    ,
-    [initiateBckInfo] : (state, action) => {
-        return state.set('bckInfo',initialState.get('bckInfo'));
+    [initiatePropertyInfo]: (state, action) => {
+        return state.set('propertyInfo',initialState.get('propertyInfo'));
     }
 }, initialState);

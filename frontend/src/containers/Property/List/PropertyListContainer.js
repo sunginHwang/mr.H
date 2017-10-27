@@ -24,7 +24,7 @@ class PropertyListContainer extends Component {
               propertyList={propertyList.toJS()}
           />
           <InsertButton>
-              <Link to='/bck/insert'>
+              <Link to='/property/insert'>
                   <Icon name='won'
                         style={{color:'#fff'}}
                         size='big'/>

@@ -1,4 +1,5 @@
 import React from 'react';
+import InsertLabel from 'components/common/Label/InsertLabel';
 import './InputLabel.css';
 
 const InputLabel = ({
@@ -9,17 +10,14 @@ const InputLabel = ({
     inputType
 }) => {
   return (
-      <div className='input-label-row'>
-          <label className='input-label'>
-              {labelName}
-          </label>
-          <input className='input-label-input'
-                 type={inputType}
-                 placeholder={placeHolderName}
-                 onChange={onInputChange}
-                 value={inputValue}
-          />
-      </div>
+      <InsertLabel
+         labelName={labelName}>
+        <input className='input-label-input'
+                type={inputType}
+                placeholder={placeHolderName}
+                onChange={onInputChange}
+                value={inputValue}/>
+      </InsertLabel>
   );
 };
  

@@ -1,5 +1,20 @@
 export const progressColor = ['teal','green','olive','teal','teal','olive','blue','grey','grey','brown'];
 export const pieChartColor = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+export const depositSelectInfo = [
+    {
+        text : '선택해주세요.',
+        value : 0
+    },
+    {
+        text : '예금',
+        value : 1
+    },
+    {
+        text : '적금',
+        value : 2
+    },
+];
+
 export const InitinalBckDetailData = {
         bckIdx : 2,
         targetAmount : 300000,

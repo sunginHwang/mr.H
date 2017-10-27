@@ -10,6 +10,7 @@ import bckList from './bckList';
 import bckSave from './bckSave';
 import bckDetail from './bckDetail';
 import propertyList from './propertyList';
+import propertySave from './propertySave';
 
 export default combineReducers({
     board,
@@ -21,5 +22,6 @@ export default combineReducers({
     bckSave,
     bckDetail,
     propertyList,
+    propertySave,
     pender: penderReducer
 });

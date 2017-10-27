@@ -1,4 +1,5 @@
 import React from 'react';
+import InsertLabel from 'components/common/Label/InsertLabel';
 import { TextArea, Form } from 'semantic-ui-react';
 
 const TextAreaLabel = ({
@@ -9,19 +10,17 @@ const TextAreaLabel = ({
     textAreaValue
 }) => {
   return (
-      <div className='input-label-row'>
-          <label className='input-label'>
-              {labelName}
-          </label>
-          <Form>
+          <InsertLabel
+              labelName={labelName}>
+              <Form>
                 <TextArea
                     style={{ minHeight: Number.parseInt(TextAreaHeight,10) }}
                     placeholder={placeHolderName}
                     onChange={onTextAreaChange}
                     value={textAreaValue}
                 />
-          </Form>
-      </div>
+              </Form>
+          </InsertLabel>
   );
 };
  

@@ -1,0 +1,11 @@
+.label-wrapper{
+    margin-bottom: 0.9245em;
+}
+.label-area{
+    display: block;
+    margin-bottom: .5rem;
+    color: #575962;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: none;
+}

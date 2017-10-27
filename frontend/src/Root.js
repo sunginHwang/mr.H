@@ -4,6 +4,7 @@ import BckListContainer from 'containers/BucketList/List/BckListContainer';
 import BckSaveContainer from 'containers/BucketList/Save/BckSaveContainer';
 import BckDetailContainer from 'containers/BucketList/Detail/BckDetailContainer';
 import PropertyListContainer from 'containers/Property/List/PropertyListContainer';
+import PropertySave from 'containers/Property/Save/PropertySaveContainer';
 import MainHeaderContainer from 'containers/Main/Header/MainHeaderContainer';
 import MainListContainer from 'containers/Main/List/MainListContainer';
 import UserLoginContainer from 'containers/User/Login/UserLoginContainer';
@@ -23,7 +24,8 @@ const Root = ({store}) => {
                     <Route path="/login" component={UserLoginContainer}/>
                     <Route path="/user/register" component={UserRegisterContainer}/>
                     {/*예금, 적금 */}
-                    <Route path="/property" component={PropertyListContainer}/>
+                    <Route exact path="/property" component={PropertyListContainer}/>
+                    <Route path="/property/insert" component={PropertySave}/>
                     {/*버킷리스트*/}
                     <Route exact path="/bck" component={BckListContainer}/>
                     <Route path="/bck/insert" component={BckSaveContainer}/>

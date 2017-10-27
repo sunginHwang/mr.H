@@ -1,5 +1,5 @@
 
-.input-label-input{
+.input-label-select{
     display: block;
     width: 100%;
     padding: .65rem 1.25rem;
@@ -13,8 +13,12 @@
     border: 1px solid rgba(0,0,0,.15);
     border-radius: .25rem;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-     font-family: sans-serif,Arial;
+    font-family: sans-serif,Arial;
 }
-.input-label-input::placeholder {
+.input-label-select::placeholder {
     color: #d1d5d7;
+}
+
+.input-label-select > option{
+    width: 100%;
 }
