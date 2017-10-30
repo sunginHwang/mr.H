@@ -7,21 +7,31 @@ import * as propertyListActions from 'store/modules/propertyList';
 import PropertyListToggle from 'components/Property/List/PropertyListToggle';
 import PropertyList from 'components/Property/List/PropertyList';
 import InsertButton from 'components/common/Button/InsertButton';
+import { SAVING_DEPOSIT, FIXED_DEPOSIT } from 'lib/constants';
 
 
 class PropertyListContainer extends Component {
 
+   handleShowPropertyDetail = (propertyIdx) => {
+       this.props.history.push('/property/detail/' + propertyIdx);
+   }
 
   render() {
     const { propertyList } = this.props;
+    const { handleShowPropertyDetail } = this;
+    const propertyListJS = propertyList.toJS();
+    const fixedDeposit = propertyListJS.filter(x => x.depositType === FIXED_DEPOSIT);
+    const SavingDeposit = propertyListJS.filter(x => x.depositType === SAVING_DEPOSIT);
 
-    return (
+      return (
       <div>
          <PropertyListToggle
              onToggleClick={(e)=>{console.log(1)}}
              toggleMode={'complete'}/>
           <PropertyList
-              propertyList={propertyList.toJS()}
+              fixedDeposit={fixedDeposit}
+              SavingDeposit={SavingDeposit}
+              onShowDetail={handleShowPropertyDetail}
           />
           <InsertButton>
               <Link to='/property/insert'>

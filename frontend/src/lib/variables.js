@@ -49,6 +49,33 @@ export const LoginUserSampleData = {
     userEmail : 'gommpo@naver.com'
 }
 
+/*예금 적금 상세보기 샘플 데이터*/
+export const InitialPropertyDetailData = {
+        propertyIdx : 1,
+        propertyTitle : '적금 예금 들어보자!',
+        startDate : '2017-04-13',
+        completeDate : '2018-04-13',
+        targetAmount : 100000000,
+        depositType : 2,
+        saveMoneyList : [
+            {
+                depositIdx : 1,
+                depositDate : '2017-08-01',
+                depositAmount : 20000
+            },
+            {
+                depositIdx : 2,
+                depositDate : '2017-09-02',
+                depositAmount : 30000
+            },
+            {
+                depositIdx : 3,
+                depositDate : '2017-10-03',
+                depositAmount : 40000
+            },
+        ]
+}
+
 export const InitinalAssetsData = {
     propertyMoneyList : [
         {

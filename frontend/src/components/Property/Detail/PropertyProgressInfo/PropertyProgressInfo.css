@@ -1,0 +1,47 @@
+.property-progress-wrapper{
+    background-color: #fb9678!important;
+    padding: 3em 2em;
+    width: 100%;
+    height: 270px;
+    color: #fff;
+    text-align: center;
+}
+
+
+.property-progress-wrapper .title{
+    margin-bottom: 1em;
+    opacity: 0.7;
+}
+
+.property-progress-wrapper .total-amount{
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.property-progress-wrapper .end-date{
+    margin: 2em 0;
+    opacity: 0.7;
+}
+
+.property-progress-wrapper .property-progress{
+    margin: 0 !important;
+}
+
+.property-progress-wrapper .property-progress > div > div{
+    font-size: 0.471429em !important;
+}
+
+.progress-bottom{
+    margin-top: .453219em;
+}
+
+.progress-bottom-txt{
+    opacity: 0.7;
+}
+.progress-bottom-txt:first-child{
+    float: left;
+}
+.progress-bottom-txt:last-child{
+    float: right;
+}

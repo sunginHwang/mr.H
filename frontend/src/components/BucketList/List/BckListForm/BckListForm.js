@@ -11,7 +11,10 @@ const BckListForm = ({
     onBckOpenModal
 }) => {
 
-    const BckLstList = BucketListListData.map((data) =>
+    const BckLstList = BucketListListData.length === 0 ?
+        <div><p>등록한 버킷리스트가 없습니다.</p></div>
+        :
+        BucketListListData.map((data) =>
         (
             <BckListContent
                 key={data.bckIdx}

@@ -7,13 +7,15 @@ const BckDepositInfo = ({
     depositList
 }) => {
 
-    const depositRowList = depositList.map((depositInfo) => (
-        <CardItem key={depositInfo.depositIdx}
-                  title={depositInfo.depositDate}
-                  subTitle=''
-                  extColor='brand'
-                  extInfo={depositInfo.depositAmount+' 원'}/>
-    ));
+    const depositRowList = depositList.length === 0 ?
+        <CardItem title='입금내역이 없습니다.'/> :
+        depositList.map((depositInfo) => (
+            <CardItem key={depositInfo.depositIdx}
+                      title={depositInfo.depositDate}
+                      subTitle=''
+                      extColor='brand'
+                      extInfo={depositInfo.depositAmount+' 원'}/>
+        ));
 
   return (
       <CardBlock
