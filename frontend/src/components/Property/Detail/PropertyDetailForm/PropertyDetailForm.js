@@ -13,7 +13,9 @@ const PropertyDetailForm = ({
     depositType,
     depositList,
     getCurrentAmount,
-    getRemainDatePercentage
+    getRemainDatePercentage,
+    onDepositSaveClick,
+    onPropertyDeleteClick
 }) => {
   return (
     <div>
@@ -35,10 +37,10 @@ const PropertyDetailForm = ({
             depositList={depositList}
         />
         <BottomTwoButton
-            onLeftBtnClick={(e)=>{console.log(1)}}
+            onLeftBtnClick={onDepositSaveClick}
             leftBtnName='입금'
             leftColor='whiteBlue'
-            onRightBtnClick={(e)=>{console.log(1)}}
+            onRightBtnClick={onPropertyDeleteClick}
             rightBtnName='삭제'
             rightColor='apricot'
         />

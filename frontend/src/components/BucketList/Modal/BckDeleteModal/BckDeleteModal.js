@@ -1,23 +1,24 @@
 import React from 'react';
-import BckModal from 'components/BucketList/Modal/BckModal';
+import TwoButtonModal from 'components/common/Modal/TwoButtonModal';
 import 'semantic-ui-css/semantic.min.css';
 import './BckDeleteModal.css';
 
 const BckDeleteModal = ({
     modalVisible,
-    toggleBckModal,
-    modalType,
+    toggleModal,
     onBckDelete
 }) => {
   return (
-      <BckModal visible={modalVisible}
-                modalTitle='삭제하기'
-                onSuccessEvent={onBckDelete}
-                successButtonText='삭제'
-                onFailEvent={(e)=>{toggleBckModal(modalType,false)}}
-                failButtonText='취소'>
+      <TwoButtonModal visible={modalVisible}
+                      leftButtonValue='삭제하기'
+                      leftButtonColor='teal'
+                      onLeftButtonClick={onBckDelete}
+                      rightButtonValue='취소'
+                      rightButtonColor='red'
+                      onRightButtonClick={toggleModal}>
+          <h3>삭제하기</h3>
           <label>정말 삭제하시겠습니까?</label>
-      </BckModal>
+      </TwoButtonModal>
   );
 };
 

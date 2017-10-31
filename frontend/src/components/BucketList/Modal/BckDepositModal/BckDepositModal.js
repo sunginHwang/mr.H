@@ -1,30 +1,34 @@
 import React from 'react';
 import { Input } from 'semantic-ui-react';
-import BckModal from 'components/BucketList/Modal/BckModal';
+import TwoButtonModal from 'components/common/Modal/TwoButtonModal';
 import 'semantic-ui-css/semantic.min.css';
 import './BckDepositModal.css';
+
+
 const BckDepositModal = ({
     modalVisible,
     bckDepositMoney,
-    toggleBckModal,
+    toggleModal,
     onChangeBckDepositMoney,
     onDepositSave,
-    modalType
 }) => {
   return (
-      <BckModal visible={modalVisible}
-                modalTitle='입금액'
-                onSuccessEvent={onDepositSave}
-                successButtonText='입금'
-                onFailEvent={(e)=>{toggleBckModal(modalType,false)}}
-                failButtonText='취소'>
+      <TwoButtonModal visible={modalVisible}
+                      leftButtonValue='입금'
+                      leftButtonColor='teal'
+                      onLeftButtonClick={onDepositSave}
+                      rightButtonValue='취소'
+                      rightButtonColor='red'
+                      onRightButtonClick={toggleModal}
+      >
+          <h3>입금액</h3>
           <Input className='bck-deposit-modal-input'
                  icon='krw'
                  iconPosition='left'
                  type='number'
                  onChange={onChangeBckDepositMoney}
                  value={bckDepositMoney}/>
-      </BckModal>
+      </TwoButtonModal>
   );
 };
  

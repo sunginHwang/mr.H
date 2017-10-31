@@ -14,13 +14,13 @@ class BckDetailContainer extends Component {
        this.loadBckDetailInfo();
     }
 
-    checkBckDetailAccess = () => {
-        const { bckIdx } = this.props.match.params;
-        if(!Number.isInteger(Number.parseInt(bckIdx,10))){
-            alert('정상적인 접근이 아닙니다.');
-            this.props.history.push('/bck');
-        }
-    }
+   checkBckDetailAccess = () => {
+      const { bckIdx } = this.props.match.params;
+      if(!Number.isInteger(Number.parseInt(bckIdx,10))){
+          alert('정상적인 접근이 아닙니다.');
+          this.props.history.push('/bck');
+      }
+   }
     
    loadBckDetailInfo = () => {
        const { bckDetailActions } = this.props;

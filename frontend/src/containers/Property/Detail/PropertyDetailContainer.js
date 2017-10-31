@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as propertyDetailActions from 'store/modules/propertyDetail';
 import PropertyDetailForm from 'components/Property/Detail/PropertyDetailForm';
+import PropertyDepositSaveModal from 'components/Property/Modal/PropertyDepositSaveModal';
+import PropertyDeleteModal from 'components/Property/Modal/PropertyDeleteModal';
 import TitleHeader from 'components/common/Header/TitleHeader';
 import { getRemainDate } from 'lib/util';
 
@@ -28,6 +30,19 @@ class PropertyDetailContainer extends Component {
     propertyDetailActions.loadPropertyDetailInfo(InitialPropertyDetailData);
   }
 
+  togglePropertyModal = (modalType) => {
+      const { propertyDetailActions } = this.props;
+      propertyDetailActions.togglePropertyModal(modalType);
+  }
+
+  handleSaveDepositMoney = () => {
+      console.log(1);
+  }
+
+    handlePropertyDelete = () => {
+      console.log('삭제완료');
+    }
+
   handleGetCurrentAmount = (amountList) => {
     return amountList.reduce((prev, save) => prev + save.depositAmount, 0);
   }
@@ -38,11 +53,23 @@ class PropertyDetailContainer extends Component {
     const passDateCount = getRemainDate(startDate,today);
     const remainDate = (passDateCount / totalDateCount) * 100;
     return parseInt(remainDate,10);
-}
+  }
+
+    handleChangeMonthlyDepositMoney = (e) => {
+      const { propertyDetailActions } = this.props;
+      propertyDetailActions.changeMonthlyDepositMoney(e.target.value);
+  }
 
   render() {
-    const { handleGetCurrentAmount, handleGetRemainDatePercentage } = this;
-    const { propertyDetailInfo } = this.props;
+    const {
+        handleGetCurrentAmount,
+        handleGetRemainDatePercentage,
+        handleChangeMonthlyDepositMoney,
+        handleSaveDepositMoney,
+        handlePropertyDelete,
+        togglePropertyModal
+    } = this;
+    const { propertyDetailInfo, modal, monthlyDepositMoney } = this.props;
     const propertyInfo = propertyDetailInfo.toJS();
 
     return (
@@ -61,6 +88,21 @@ class PropertyDetailContainer extends Component {
                 depositList={propertyInfo.saveMoneyList}
                 getCurrentAmount={handleGetCurrentAmount}
                 getRemainDatePercentage={handleGetRemainDatePercentage}
+                onDepositSaveClick={(e)=>{togglePropertyModal('deposit')}}
+                onPropertyDeleteClick={(e)=>{togglePropertyModal('delete')}}
+            />
+            <PropertyDepositSaveModal
+                modalVisible={modal.get('deposit')}
+                monthlyDepositMoney={monthlyDepositMoney}
+                toggleModal={(e)=>{togglePropertyModal('deposit')}}
+                onMoneyChange={handleChangeMonthlyDepositMoney}
+                onPropertyDepositSave={handleSaveDepositMoney}
+            />
+            <PropertyDeleteModal
+                propertyTitle={propertyInfo.propertyTitle}
+                modalVisible={modal.get('delete')}
+                toggleModal={(e)=>{togglePropertyModal('delete')}}
+                onPropertyDelete={handlePropertyDelete}
             />
         </div>
 
@@ -69,7 +111,9 @@ class PropertyDetailContainer extends Component {
 }
 export default connect(
     (state) => ({
-        propertyDetailInfo: state.propertyDetail.get('propertyDetailInfo')
+        propertyDetailInfo: state.propertyDetail.get('propertyDetailInfo'),
+        monthlyDepositMoney : state.propertyDetail.get('monthlyDepositMoney'),
+        modal : state.propertyDetail.get('modal')
     }),
     (dispatch) => ({
         propertyDetailActions: bindActionCreators(propertyDetailActions, dispatch),

@@ -23,11 +23,16 @@ class BckListContainer extends Component {
         bckListActions.loadBckList(InitinalBlListData);
     }
 
-    toggleBckModal = (type, toggleKey) => {
+    toggleBckModal = (modalType) => {
         const { bckListActions } = this.props;
-        type === 'deposit' && bckListActions.toggleBckDepositModal(toggleKey);
-        type === 'delete' && bckListActions.toggleBckDeleteModal(toggleKey);
+        bckListActions.toggleBckModal(modalType);
+    }
 
+    handleBckOpenModal = async (type, bckIdx) => {
+        const { bckListActions } = this.props;
+        await bckListActions.changeBckDepositIdx(bckIdx); // 리스트 중 어떤 버킷리스트 고를지
+        await bckListActions.changeBckDepositMoney(0); // 입금 액 초기화
+        await this.toggleBckModal(type);
     }
     
     handleGetBckList = () => {
@@ -36,12 +41,6 @@ class BckListContainer extends Component {
         return bckToggleMode === 'proceeding' ?
                         bckListToJS.filter(x => x.currentAmount < x.targetAmount) :
                         bckListToJS.filter(x => x.currentAmount >= x.targetAmount);
-    }
-
-    handleBckOpenModal = async (type, bckIdx) => {
-        const { bckListActions } = this.props;
-        await bckListActions.changeBckDepositIdx(bckIdx);
-        await this.toggleBckModal(type,true);
     }
 
     handleChangeBckDepositMoney = (e) => {
@@ -69,7 +68,7 @@ class BckListContainer extends Component {
             }catch(e){
                 await alert('입금에 실패하였습니다.');
             }
-            await this.toggleBckModal('deposit',false);
+            await this.toggleBckModal('deposit');
         }else{
             bckListActions.setError();
         }
@@ -112,13 +111,7 @@ class BckListContainer extends Component {
             handleChangeBckToggleMode,
             handleGetBckList
         } = this;
-
-        const {  bckDepositModal,
-                 bckDepositMoney,
-                 bckDeleteModal,
-                 bckToggleMode
-        } = this.props;
-
+        const { bckDepositMoney, bckToggleMode, modal} = this.props;
         const bckList = handleGetBckList();
 
         return (
@@ -140,18 +133,15 @@ class BckListContainer extends Component {
                    </Link>
                </InsertButton>
                 <BckDepositModal
-                    modalType='deposit'
-                    modalVisible={bckDepositModal}
+                    modalVisible={modal.get('deposit')}
                     bckDepositMoney={bckDepositMoney}
                     onChangeBckDepositMoney={handleChangeBckDepositMoney}
-                    checkBckDepositMoney={checkBckDepositMoney}
-                    toggleBckModal={toggleBckModal}
+                    toggleModal={(e)=>{toggleBckModal('deposit')}}
                     onDepositSave={handleSaveBckDeposit}
                 />
                <BckDeleteModal
-                   modalType='delete'
-                   modalVisible={bckDeleteModal}
-                   toggleBckModal={toggleBckModal}
+                   modalVisible={modal.get('delete')}
+                   toggleModal={(e)=>{toggleBckModal('delete')}}
                    onBckDelete={handleBckDelete}
                />
            </div>
@@ -161,8 +151,7 @@ class BckListContainer extends Component {
 
 export default connect(
     (state) => ({
-        bckDepositModal: state.bckList.get('bckDepositModal'),
-        bckDeleteModal: state.bckList.get('bckDeleteModal'),
+        modal: state.bckList.get('modal'),
         bckDepositMoney: state.bckList.get('bckDepositMoney'),
         bckDepositIdx: state.bckList.get('bckDepositIdx'),
         bckList :state.bckList.get('bckList'),

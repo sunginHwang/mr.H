@@ -1,0 +1,21 @@
+.two-btn-modal{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.two-btn-wrapper{
+    margin-top: 1em;
+    width: 100%;
+}
+
+.two-btn-wrapper > .modal-btn {
+    width: 45%;
+}
+
+.two-btn-wrapper > .left{
+    float: left;
+}
+
+.two-btn-wrapper > .right{
+    float: right;
+}
