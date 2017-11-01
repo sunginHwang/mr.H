@@ -1,3 +1,8 @@
 .property-deposit-modal-input{
     width: 100%;
 }
+
+.property-error-msg{
+    color: #f4516c;
+    margin: .3em 0 -.3em 0;
+}

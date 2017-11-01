@@ -7,7 +7,8 @@ import './PropertyList.css';
 const PropertyList = ({
     fixedDeposit,
     SavingDeposit,
-    onShowDetail
+    onShowDetail,
+    comma
 }) => {
 
 
@@ -18,9 +19,9 @@ const PropertyList = ({
             onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}>
             <CardItem key={depositInfo.propertyIdx}
                       title={depositInfo.propertyTitle+' (목표까지 '+getRemainDate(depositInfo.startDate, depositInfo.completeDate)+'일 남음)'}
-                      subTitle={'예금액 :'+depositInfo.targetAmount}
+                      subTitle={'예금액 :'+comma(depositInfo.targetAmount)}
                       extColor='brand'
-                      extInfo={depositInfo.targetAmount+' 원'}/>
+                      extInfo={comma(depositInfo.targetAmount)+' 원'}/>
         </div>
     ));
 
@@ -32,11 +33,11 @@ const PropertyList = ({
         return  <div key={depositInfo.propertyIdx}
                      onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}>
                         <CardItem key={depositInfo.propertyIdx}
-                                  title={depositInfo.propertyTitle+' (목표까지 '+(depositInfo.targetAmount-totalSaveMoney)+'원 남음)'}
+                                  title={depositInfo.propertyTitle+' (목표까지 '+(comma(depositInfo.targetAmount-totalSaveMoney))+'원 남음)'}
                                   onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}
-                                  subTitle={'적금만기금액 :'+depositInfo.targetAmount}
+                                  subTitle={'적금만기금액 :'+comma(depositInfo.targetAmount)}
                                   extColor='brand'
-                                  extInfo={totalSaveMoney+' 원'}/>
+                                  extInfo={comma(totalSaveMoney)+' 원'}/>
                 </div>
 
     });

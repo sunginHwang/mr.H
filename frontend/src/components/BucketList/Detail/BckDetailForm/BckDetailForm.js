@@ -16,7 +16,8 @@ const BckDetailForm = ({
     completeDate,
     remainDate,
     bckDepositList,
-    onModifyClick
+    onModifyClick,
+    comma
 }) => {
     return (
         <div className='bck-detail-form'>
@@ -24,6 +25,7 @@ const BckDetailForm = ({
               bckTitle={bckTitle}
               targetAmount={targetAmount}
               currentAmount={currentAmount}
+              comma={comma}
           />
           <BckDateInfo
             bckTitle={bckTitle}
@@ -38,11 +40,12 @@ const BckDetailForm = ({
           </CardBlock>
           <BckDepositInfo
               depositList={bckDepositList}
+              comma={comma}
           />
           <BottomButton
                 bottomButtonName='수정하기'
                 onButtonClick={onModifyClick}
-                color='teals'
+                color='whiteBlue'
           />
         </div>
   );

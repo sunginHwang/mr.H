@@ -4,7 +4,8 @@ import CardItem from 'components/common/Item/CardItem';
 import './PropertyDepositInfo.css';
 
 const PropertyDepositInfo = ({
-    depositList
+    depositList,
+    comma
 }) => {
     const depositRowList = depositList.length === 0 ?
         <CardItem title='입금내역이 없습니다.'/> :
@@ -13,7 +14,7 @@ const PropertyDepositInfo = ({
                   title={depositInfo.depositDate}
                   subTitle=''
                   extColor='brand'
-                  extInfo={depositInfo.depositAmount+' 원'}/>
+                  extInfo={comma(depositInfo.depositAmount)+' 원'}/>
     ));
 
     return (

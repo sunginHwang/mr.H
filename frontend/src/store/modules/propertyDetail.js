@@ -5,11 +5,13 @@ import { Map, List, fromJS } from 'immutable';
 const LOAD_PROPERTY_DETAIL_INFO = 'propertyDetail/LOAD_PROPERTY_DETAIL_INFO';
 const TOGGLE_PROPERTY_MODAL = 'propertyDetail/TOGGLE_PROPERTY_MODAL';
 const CHANGE_MONTHLY_DEPOSIT_MONEY = 'propertyDetail/CHANGE_MONTHLY_DEPOSIT_MONEY';
+const CHANGE_ERROR_MESSAGE = 'propertyDetail/CHANGE_ERROR_MESSAGE';
 
 //액션 생성자
 export const loadPropertyDetailInfo = createAction(LOAD_PROPERTY_DETAIL_INFO);
 export const togglePropertyModal = createAction(TOGGLE_PROPERTY_MODAL);
 export const changeMonthlyDepositMoney = createAction(CHANGE_MONTHLY_DEPOSIT_MONEY);
+export const changeErrorMessage = createAction(CHANGE_ERROR_MESSAGE);
 
 //초기값
 const initialState = Map({
@@ -26,6 +28,9 @@ const initialState = Map({
     modal : Map({
         deposit : false,
         delete : false
+    }),
+    error : Map({
+        modalErrMsg : ''
     })
 });
 
@@ -39,5 +44,9 @@ export default handleActions({
     },
     [CHANGE_MONTHLY_DEPOSIT_MONEY]: (state, action) => {
         return state.set('monthlyDepositMoney',action.payload);
+    },
+    [CHANGE_ERROR_MESSAGE]: (state, action) => {
+        const { type, value } = action.payload;
+        return state.setIn(['error',type],value);
     }
 }, initialState);

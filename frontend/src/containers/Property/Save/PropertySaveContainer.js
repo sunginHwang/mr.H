@@ -6,7 +6,7 @@ import PropertySaveForm from 'components/Property/Save/PropertySaveForm';
 import TitleHeader from 'components/common/Header/TitleHeader';
 import ErrorBlock from 'components/common/Block/ErrorBlock';
 import { depositSelectInfo } from 'lib/variables';
-import { isBiggerThenToday, getRemainMonth } from 'lib/util';
+import { isBiggerThenToday, getRemainMonth, calcMonthlyDepositMoney } from 'lib/util';
 import { SAVING_DEPOSIT } from 'lib/constants';
 
 
@@ -21,18 +21,12 @@ class PropertySaveContainer extends Component {
                                       prevProps.completeDate !== completeDate
                                   );
     isSavingDepositChange &&
-            propertySaveActions.changeInputValue({inputType : 'monthlyDepositAmount', value : this.calcMonthlyDepositAmount()});
+            propertySaveActions.changeInputValue({inputType : 'monthlyDepositAmount', value : calcMonthlyDepositMoney(targetAmount,completeDate)});
   }
 
     componentWillUnmount() {
         this.props.propertySaveActions.initiatePropertyInfo();
     }
-
-  calcMonthlyDepositAmount = () => {
-      const {targetAmount, completeDate} = this.props;
-      const today = new Date();
-      return parseInt(targetAmount / getRemainMonth(today,completeDate));
-  }
 
   handlePropertySaveChangeInputValue = (type, e) =>{
     const {propertySaveActions} = this.props;

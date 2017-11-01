@@ -8,6 +8,7 @@ import PropertyListToggle from 'components/Property/List/PropertyListToggle';
 import PropertyList from 'components/Property/List/PropertyList';
 import InsertButton from 'components/common/Button/InsertButton';
 import { SAVING_DEPOSIT, FIXED_DEPOSIT } from 'lib/constants';
+import { comma } from 'lib/util';
 
 
 class PropertyListContainer extends Component {
@@ -32,6 +33,7 @@ class PropertyListContainer extends Component {
               fixedDeposit={fixedDeposit}
               SavingDeposit={SavingDeposit}
               onShowDetail={handleShowPropertyDetail}
+              comma={comma}
           />
           <InsertButton>
               <Link to='/property/insert'>

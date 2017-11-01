@@ -5,7 +5,7 @@ import * as bckDetailActions from 'store/modules/bckDetail';
 import BckDetailForm from 'components/BucketList/Detail/BckDetailForm';
 import TitleHeader from 'components/common/Header/TitleHeader';
 import { InitinalBckDetailData } from 'lib/variables';
-import { getRemainDate } from 'lib/util';
+import { getRemainDate, comma } from 'lib/util';
 
 class BckDetailContainer extends Component {
 
@@ -59,6 +59,7 @@ class BckDetailContainer extends Component {
                 completeDate={bckInfo.completeDate}
                 bckDepositList={bckInfo.depositList}
                 onModifyClick={handleModify}
+                comma={comma}
             />
         </div>
     );

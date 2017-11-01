@@ -4,7 +4,8 @@ import CardItem from 'components/common/Item/CardItem';
 import './BckDepositInfo.css';
 
 const BckDepositInfo = ({
-    depositList
+    depositList,
+    comma
 }) => {
 
     const depositRowList = depositList.length === 0 ?
@@ -14,7 +15,7 @@ const BckDepositInfo = ({
                       title={depositInfo.depositDate}
                       subTitle=''
                       extColor='brand'
-                      extInfo={depositInfo.depositAmount+' 원'}/>
+                      extInfo={comma(depositInfo.depositAmount)+' 원'}/>
         ));
 
   return (

@@ -58,7 +58,7 @@ const BckSaveForm = ({
           <BottomButton
             bottomButtonName='저장하기'
             onButtonClick={onSaveClick}
-            color='teals'
+            color='whiteBlue'
           />
       </div>
 

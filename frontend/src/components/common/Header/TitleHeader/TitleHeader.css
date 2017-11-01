@@ -1,8 +1,19 @@
 .title-header{
+   /* height: 40px;
+    position: fixed;
+    width: 100%;
+    z-index: 100;*/
+    position: relative;
     height: 40px;
 }
 .title-header nav{
+    position: fixed;
     display: flex;
+    align-items: center;
+    top: 50px;
+    right: 0;
+    left: 0;
+    z-index: 100;
     align-items: center;
     border-bottom: 1px solid #d3d6d8;
     background-color: #fff;

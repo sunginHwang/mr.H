@@ -6,7 +6,8 @@ import OneLevelPieChart from 'components/common/Chart/OneLevelPieChart';
 const BckMoneyInfo = ({
     bckTitle,
     targetAmount,
-    currentAmount
+    currentAmount,
+    comma
 }) => {
   const chartData = [{name: '모은금액', value: currentAmount}, {name: '남은 금액', value: targetAmount - currentAmount}];
   const targetPercentage = '달성률 '+(currentAmount/targetAmount)*100 + '%';
@@ -25,15 +26,15 @@ const BckMoneyInfo = ({
               centerLableValue={targetPercentage}
           />
           <CardItem title='목표금액'
-                    extInfo={targetAmount}
+                    extInfo={comma(targetAmount)}
                     extColor='danger'
                     subTitle=''/>
           <CardItem title='모은금액'
-                    extInfo={currentAmount}
+                    extInfo={comma(currentAmount)}
                     extColor='ocean'
                     subTitle=''/>
           <CardItem title='남은금액'
-                    extInfo={targetAmount-currentAmount}
+                    extInfo={comma(targetAmount-currentAmount)}
                     extColor='teal'
                     subTitle=''/>
       </CardBlock>

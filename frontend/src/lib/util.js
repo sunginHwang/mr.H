@@ -38,3 +38,14 @@ export const getNextMonthDate = () =>{
     date = (date+'').length < 2 ? '0'+date : date;
     return year+'-'+month+'-'+date;
 };
+
+/*숫자에 콜론 붙여주기*/
+export const comma = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+/*한달 월 적금액 구하기*/
+export const calcMonthlyDepositMoney = (targetMoney, dueDate) => {
+    const today = new Date();
+    return parseInt(targetMoney / getRemainMonth(today,dueDate));
+}

@@ -14,6 +14,7 @@ const PropertyDetailForm = ({
     depositList,
     getCurrentAmount,
     getRemainDatePercentage,
+    comma,
     onDepositSaveClick,
     onPropertyDeleteClick
 }) => {
@@ -21,7 +22,7 @@ const PropertyDetailForm = ({
     <div>
         <PropertyProgressInfo
             title={propertyTitle}
-            targetAmount={targetAmount}
+            targetAmount={comma(targetAmount)}
             startDate={startDate}
             completeDate={completeDate}
             passedDate={getRemainDatePercentage(startDate,completeDate)}
@@ -31,10 +32,12 @@ const PropertyDetailForm = ({
             <PropertySavingDepositInfo
                 targetAmount={targetAmount}
                 currentAmount={getCurrentAmount(depositList)}
+                comma={comma}
             />
         }
         <PropertyDepositInfo
             depositList={depositList}
+            comma={comma}
         />
         <BottomTwoButton
             onLeftBtnClick={onDepositSaveClick}

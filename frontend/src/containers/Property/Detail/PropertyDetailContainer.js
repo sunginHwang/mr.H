@@ -6,7 +6,8 @@ import PropertyDetailForm from 'components/Property/Detail/PropertyDetailForm';
 import PropertyDepositSaveModal from 'components/Property/Modal/PropertyDepositSaveModal';
 import PropertyDeleteModal from 'components/Property/Modal/PropertyDeleteModal';
 import TitleHeader from 'components/common/Header/TitleHeader';
-import { getRemainDate } from 'lib/util';
+import { getRemainDate, calcMonthlyDepositMoney, comma } from 'lib/util';
+import { SAVING_DEPOSIT } from 'lib/constants';
 
 import { InitialPropertyDetailData } from 'lib/variables';
 
@@ -25,23 +26,54 @@ class PropertyDetailContainer extends Component {
     }
   }
 
-  loadPropertyDetailInfo = () => {
+  loadPropertyDetailInfo = async () => {
     const { propertyDetailActions } = this.props;
-    propertyDetailActions.loadPropertyDetailInfo(InitialPropertyDetailData);
+    await propertyDetailActions.loadPropertyDetailInfo(InitialPropertyDetailData);
+    await this.setMonthlyMoney();
   }
 
-  togglePropertyModal = (modalType) => {
+  setMonthlyMoney = () => {
+      const { propertyDetailInfo, propertyDetailActions } = this.props;
+      const depositType = propertyDetailInfo.get('depositType');
+
+      if(depositType === SAVING_DEPOSIT){
+          const monthlyMoney = calcMonthlyDepositMoney(propertyDetailInfo.get('targetAmount'), propertyDetailInfo.get('completeDate'));
+          propertyDetailActions.changeMonthlyDepositMoney(monthlyMoney);
+      }
+  }
+
+  togglePropertyModal = async (modalType) => {
       const { propertyDetailActions } = this.props;
-      propertyDetailActions.togglePropertyModal(modalType);
+      const { setPropertyErrorMsg } = this;
+
+      await modalType === 'deposit' && this.setMonthlyMoney(); // 월 입금액 자동계산 세팅
+      await setPropertyErrorMsg('modalErrMsg',''); // 에러 메세지 초기화
+      await propertyDetailActions.togglePropertyModal(modalType);
+  }
+
+  isOverDepositMoney = () => {
+      const { propertyDetailInfo, monthlyDepositMoney } = this.props;
+      const totalSaveDepositMoney = this.handleGetCurrentAmount(propertyDetailInfo.get('saveMoneyList').toJS());
+      return propertyDetailInfo.get('targetAmount') < totalSaveDepositMoney + monthlyDepositMoney;
+  }
+
+  setPropertyErrorMsg = (errorType, value) => {
+      const { propertyDetailActions } = this.props;
+      propertyDetailActions.changeErrorMessage({type : errorType , value : value});
   }
 
   handleSaveDepositMoney = () => {
-      console.log(1);
+      const { isOverDepositMoney, setPropertyErrorMsg } = this;
+      if(isOverDepositMoney()){
+          setPropertyErrorMsg('modalErrMsg','입금액이 목표액보다 많습니다.');
+      }else{
+          console.log('입금 성공');
+      }
   }
 
-    handlePropertyDelete = () => {
-      console.log('삭제완료');
-    }
+  handlePropertyDelete = () => {
+    console.log('삭제완료');
+  }
 
   handleGetCurrentAmount = (amountList) => {
     return amountList.reduce((prev, save) => prev + save.depositAmount, 0);
@@ -55,9 +87,9 @@ class PropertyDetailContainer extends Component {
     return parseInt(remainDate,10);
   }
 
-    handleChangeMonthlyDepositMoney = (e) => {
-      const { propertyDetailActions } = this.props;
-      propertyDetailActions.changeMonthlyDepositMoney(e.target.value);
+  handleChangeMonthlyDepositMoney = (e) => {
+    const { propertyDetailActions } = this.props;
+    propertyDetailActions.changeMonthlyDepositMoney(parseInt(e.target.value,10));
   }
 
   render() {
@@ -69,7 +101,7 @@ class PropertyDetailContainer extends Component {
         handlePropertyDelete,
         togglePropertyModal
     } = this;
-    const { propertyDetailInfo, modal, monthlyDepositMoney } = this.props;
+    const { propertyDetailInfo, modal, monthlyDepositMoney, error } = this.props;
     const propertyInfo = propertyDetailInfo.toJS();
 
     return (
@@ -88,6 +120,7 @@ class PropertyDetailContainer extends Component {
                 depositList={propertyInfo.saveMoneyList}
                 getCurrentAmount={handleGetCurrentAmount}
                 getRemainDatePercentage={handleGetRemainDatePercentage}
+                comma={comma}
                 onDepositSaveClick={(e)=>{togglePropertyModal('deposit')}}
                 onPropertyDeleteClick={(e)=>{togglePropertyModal('delete')}}
             />
@@ -97,6 +130,7 @@ class PropertyDetailContainer extends Component {
                 toggleModal={(e)=>{togglePropertyModal('deposit')}}
                 onMoneyChange={handleChangeMonthlyDepositMoney}
                 onPropertyDepositSave={handleSaveDepositMoney}
+                errorMessage={error.get('modalErrMsg')}
             />
             <PropertyDeleteModal
                 propertyTitle={propertyInfo.propertyTitle}
@@ -113,7 +147,8 @@ export default connect(
     (state) => ({
         propertyDetailInfo: state.propertyDetail.get('propertyDetailInfo'),
         monthlyDepositMoney : state.propertyDetail.get('monthlyDepositMoney'),
-        modal : state.propertyDetail.get('modal')
+        modal : state.propertyDetail.get('modal'),
+        error : state.propertyDetail.get('error')
     }),
     (dispatch) => ({
         propertyDetailActions: bindActionCreators(propertyDetailActions, dispatch),

@@ -9,6 +9,7 @@ const PropertyDepositSaveModal = ({
     modalVisible,
     monthlyDepositMoney,
     toggleModal,
+    errorMessage,
     onMoneyChange,
     onPropertyDepositSave
 }) => {
@@ -28,6 +29,9 @@ const PropertyDepositSaveModal = ({
                    type='number'
                    onChange={onMoneyChange}
                    value={monthlyDepositMoney}/>
+            {errorMessage !== '' &&
+                             <p className='property-error-msg'>{errorMessage}</p>
+            }
         </TwoButtonModal>
     );
 };
