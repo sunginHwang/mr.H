@@ -41,7 +41,7 @@ class PropertySaveContainer extends Component {
 
   SetErrorMsg = (ErrMsg) => {
       const { propertySaveActions } = this.props;
-      const timer = 800;
+      const timer = 1200;
       propertySaveActions.setValidateErrorMessage(ErrMsg);
       setTimeout(() => propertySaveActions.setValidateErrorMessage(''), timer);
   }
@@ -124,11 +124,9 @@ class PropertySaveContainer extends Component {
                 iconSize='large'
                 titleName='예금, 적금 입력'
             />
-            {validateErrMessage !== '' &&
             <ErrorBlock
                 errorMessage={validateErrMessage}
                 positon='top'/>
-            }
             <PropertySaveForm
                 propertyTitle={propertyTitle}
                 targetAmount={targetAmount}

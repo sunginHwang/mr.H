@@ -27,6 +27,7 @@ const initialState = Map({
         currentAmount : '',
         bckTitle : '',
         bckDetail : '',
+        completeType : 0,
         completeDate : nextMonthDate
     }),
     error : Map({

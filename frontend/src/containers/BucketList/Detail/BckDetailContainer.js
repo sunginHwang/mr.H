@@ -39,7 +39,7 @@ class BckDetailContainer extends Component {
    const { bckDetailInfo } = this.props;
    const { handleModify } = this;
    const bckInfo = bckDetailInfo.toJS();
-   const remainDate = getRemainDate(bckInfo.regiDate, bckInfo.completeDate);
+   const remainDate = getRemainDate(bckInfo.startDate, bckInfo.completeDate);
 
     return (
         <div>
@@ -54,7 +54,7 @@ class BckDetailContainer extends Component {
                 bckDetail={bckInfo.bckDetail}
                 currentAmount={bckInfo.currentAmount}
                 targetAmount={bckInfo.targetAmount}
-                regiDate={bckInfo.regiDate}
+                startDate={bckInfo.startDate}
                 remainDate={remainDate}
                 completeDate={bckInfo.completeDate}
                 bckDepositList={bckInfo.depositList}

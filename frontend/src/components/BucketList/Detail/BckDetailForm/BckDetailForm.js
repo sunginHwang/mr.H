@@ -12,7 +12,7 @@ const BckDetailForm = ({
     bckDetail,
     currentAmount,
     targetAmount,
-    regiDate,
+    startDate,
     completeDate,
     remainDate,
     bckDepositList,
@@ -29,7 +29,7 @@ const BckDetailForm = ({
           />
           <BckDateInfo
             bckTitle={bckTitle}
-            regiDate={regiDate}
+            startDate={startDate}
             completeDate={completeDate}
             remainDate={remainDate}
           />

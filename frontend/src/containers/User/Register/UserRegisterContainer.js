@@ -114,11 +114,9 @@ class UserRegisterContainer extends Component {
             iconSize='large'
             titleName='회원가입'
         />
-        {validateErrMessage !== '' &&
         <ErrorBlock
             errorMessage={validateErrMessage}
             positon='top'/>
-        }
         <UserRegisterForm
           userId={userId}
           userPassword={userPassword}

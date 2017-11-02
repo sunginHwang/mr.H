@@ -74,11 +74,9 @@ class UserLoginContainer extends Component {
               iconSize='large'
               titleName='로그인'
           />
-          {validateErrMessage !== '' &&
           <ErrorBlock
               errorMessage={validateErrMessage}
               positon='top'/>
-          }
           <LoginForm
               userId={userId}
               userPassword={userPassword}

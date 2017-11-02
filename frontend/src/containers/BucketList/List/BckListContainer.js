@@ -10,7 +10,9 @@ import BckListToggle from 'components/BucketList/List/BckListToggle';
 import BckDepositModal from 'components/BucketList/Modal/BckDepositModal';
 import BckDeleteModal from 'components/BucketList/Modal/BckDeleteModal';
 import InsertButton from 'components/common/Button/InsertButton';
+import { isBiggerThenToday } from 'lib/util';
 import { InitinalBlListData } from 'lib/variables';
+import { MONEY_COMPLETE } from 'lib/constants';
 
 class BckListContainer extends Component {
 
@@ -21,6 +23,18 @@ class BckListContainer extends Component {
     loadBckList = (valueTest) => {
         const { bckListActions } = this.props;
         bckListActions.loadBckList(InitinalBlListData);
+    }
+
+    filterProceedingBckList = (bckList) => {
+        return bckList.filter(bckInfo => bckInfo.completeType === MONEY_COMPLETE ?
+                                         bckInfo.currentAmount < bckInfo.targetAmount :
+                                         !isBiggerThenToday(bckInfo.completeDate));
+    }
+
+    filterCompleteBckList = (bckList) => {
+        return bckList.filter(bckInfo => bckInfo.completeType === MONEY_COMPLETE ?
+                                         bckInfo.currentAmount >= bckInfo.targetAmount :
+                                         isBiggerThenToday(bckInfo.completeDate));
     }
 
     toggleBckModal = (modalType) => {
@@ -36,11 +50,11 @@ class BckListContainer extends Component {
     }
     
     handleGetBckList = () => {
+        const { filterProceedingBckList, filterCompleteBckList } = this;
         const { bckToggleMode ,bckList} = this.props;
         const bckListToJS = bckList.toJS();
-        return bckToggleMode === 'proceeding' ?
-                        bckListToJS.filter(x => x.currentAmount < x.targetAmount) :
-                        bckListToJS.filter(x => x.currentAmount >= x.targetAmount);
+        return bckToggleMode === 'proceeding' ? filterProceedingBckList(bckList.toJS())
+                                              : filterCompleteBckList(bckList.toJS());
     }
 
     handleChangeBckDepositMoney = (e) => {
@@ -113,7 +127,7 @@ class BckListContainer extends Component {
         } = this;
         const { bckDepositMoney, bckToggleMode, modal} = this.props;
         const bckList = handleGetBckList();
-
+        console.log(bckList);
         return (
            <div>
                <BckListToggle
@@ -124,6 +138,7 @@ class BckListContainer extends Component {
                        BucketListListData={bckList}
                        onShowBckDetailInfo={handleShowBckDetail}
                        onBckOpenModal={handleBckOpenModal}
+                       toggleMode={bckToggleMode}
                />
                <InsertButton>
                    <Link to='/bck/insert'>

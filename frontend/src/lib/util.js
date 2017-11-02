@@ -11,6 +11,15 @@ export const getRemainMonth = (startDate, endDate) => {
     return (convertEndDate.getFullYear() - convertStartDate.getFullYear())*12 + convertEndDate.getMonth() - convertStartDate.getMonth();
 }
 
+/*시작일 ~ 종료일까지의 퍼센티지 구하기*/
+export const getRemainDatePercentage = (startDate, endDate) =>{
+    const today = new Date();
+    const totalDateCount = getRemainDate(startDate,endDate);
+    const passDateCount = getRemainDate(startDate,today);
+    const remainDate = (passDateCount / totalDateCount) * 100;
+    return parseInt(remainDate,10);
+}
+
 /*오늘보다 큰 날짜인지 계산*/
 export const isBiggerThenToday = (date) => {
     const today = new Date();

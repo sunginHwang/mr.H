@@ -7,6 +7,7 @@ import './BckListForm.css';
 
 const BckListForm = ({
     BucketListListData,
+    toggleMode,
     onShowBckDetailInfo,
     onBckOpenModal
 }) => {
@@ -20,9 +21,12 @@ const BckListForm = ({
                 key={data.bckIdx}
                 bckIdx={data.bckIdx}
                 bckTitle={data.bckTitle}
+                startDate={data.startDate}
                 completeDate={data.completeDate}
+                completeType={data.completeType}
                 currentAmount={data.currentAmount}
                 targetAmount={data.targetAmount}
+                toggleMode={toggleMode}
                 onShowBckDetailInfo={onShowBckDetailInfo}
                 progressColor={progressColor[Math.floor(progressColor.length % data.bckIdx)]} // randomColorProcess
                 onDepositClick={()=>{onBckOpenModal('deposit',data.bckIdx)}}

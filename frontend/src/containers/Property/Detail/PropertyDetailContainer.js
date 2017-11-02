@@ -6,7 +6,7 @@ import PropertyDetailForm from 'components/Property/Detail/PropertyDetailForm';
 import PropertyDepositSaveModal from 'components/Property/Modal/PropertyDepositSaveModal';
 import PropertyDeleteModal from 'components/Property/Modal/PropertyDeleteModal';
 import TitleHeader from 'components/common/Header/TitleHeader';
-import { getRemainDate, calcMonthlyDepositMoney, comma } from 'lib/util';
+import { getRemainDate, calcMonthlyDepositMoney, comma, getRemainDatePercentage } from 'lib/util';
 import { SAVING_DEPOSIT } from 'lib/constants';
 
 import { InitialPropertyDetailData } from 'lib/variables';
@@ -57,18 +57,29 @@ class PropertyDetailContainer extends Component {
       return propertyDetailInfo.get('targetAmount') < totalSaveDepositMoney + monthlyDepositMoney;
   }
 
-  setPropertyErrorMsg = (errorType, value) => {
+  isSavingDepositType = () => {
+      const { propertyDetailInfo } = this.props;
+      return propertyDetailInfo.get('depositType') === SAVING_DEPOSIT;
+  }
+
+
+    setPropertyErrorMsg = (errorType, value) => {
       const { propertyDetailActions } = this.props;
       propertyDetailActions.changeErrorMessage({type : errorType , value : value});
   }
 
   handleSaveDepositMoney = () => {
-      const { isOverDepositMoney, setPropertyErrorMsg } = this;
+      const { isOverDepositMoney,isSavingDepositType, setPropertyErrorMsg } = this;
+
       if(isOverDepositMoney()){
-          setPropertyErrorMsg('modalErrMsg','입금액이 목표액보다 많습니다.');
-      }else{
-          console.log('입금 성공');
+          setPropertyErrorMsg('modalErrMsg','입금액이 목표액보다 많습니다.');return ;
       }
+
+      if(!isSavingDepositType()){
+          setPropertyErrorMsg('modalErrMsg','예금에 추가 입금을 하실 수 없습니다.');return ;
+      }
+
+      console.log('입금 성공');
   }
 
   handlePropertyDelete = () => {
@@ -79,13 +90,6 @@ class PropertyDetailContainer extends Component {
     return amountList.reduce((prev, save) => prev + save.depositAmount, 0);
   }
 
-  handleGetRemainDatePercentage = (startDate, endDate) =>{
-    const today = new Date();
-    const totalDateCount = getRemainDate(startDate,endDate);
-    const passDateCount = getRemainDate(startDate,today);
-    const remainDate = (passDateCount / totalDateCount) * 100;
-    return parseInt(remainDate,10);
-  }
 
   handleChangeMonthlyDepositMoney = (e) => {
     const { propertyDetailActions } = this.props;
@@ -95,7 +99,6 @@ class PropertyDetailContainer extends Component {
   render() {
     const {
         handleGetCurrentAmount,
-        handleGetRemainDatePercentage,
         handleChangeMonthlyDepositMoney,
         handleSaveDepositMoney,
         handlePropertyDelete,
@@ -119,7 +122,7 @@ class PropertyDetailContainer extends Component {
                 depositType={propertyInfo.depositType}
                 depositList={propertyInfo.saveMoneyList}
                 getCurrentAmount={handleGetCurrentAmount}
-                getRemainDatePercentage={handleGetRemainDatePercentage}
+                getRemainDatePercentage={getRemainDatePercentage}
                 comma={comma}
                 onDepositSaveClick={(e)=>{togglePropertyModal('deposit')}}
                 onPropertyDeleteClick={(e)=>{togglePropertyModal('delete')}}

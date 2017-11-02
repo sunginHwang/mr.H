@@ -3,6 +3,7 @@ import PropertyProgressInfo from 'components/Property/Detail/PropertyProgressInf
 import PropertySavingDepositInfo from 'components/Property/Detail/PropertySavingDepositInfo';
 import PropertyDepositInfo from 'components/Property/Detail/PropertyDepositInfo';
 import BottomTwoButton from 'components/common/Button/BottomTwoButton';
+import BottomButton from 'components/common/Button/BottomButton';
 import { SAVING_DEPOSIT, FIXED_DEPOSIT } from 'lib/constants';
 
 const PropertyDetailForm = ({
@@ -39,14 +40,22 @@ const PropertyDetailForm = ({
             depositList={depositList}
             comma={comma}
         />
-        <BottomTwoButton
-            onLeftBtnClick={onDepositSaveClick}
-            leftBtnName='입금'
-            leftColor='whiteBlue'
-            onRightBtnClick={onPropertyDeleteClick}
-            rightBtnName='삭제'
-            rightColor='apricot'
-        />
+        {
+            depositType === SAVING_DEPOSIT ?
+                <BottomTwoButton
+                    onLeftBtnClick={onDepositSaveClick}
+                    leftBtnName='입금'
+                    leftColor='whiteBlue'
+                    onRightBtnClick={onPropertyDeleteClick}
+                    rightBtnName='삭제'
+                    rightColor='apricot'
+                /> :
+                <BottomButton
+                    bottomButtonName='삭제'
+                    onButtonClick={onPropertyDeleteClick}
+                    color='whiteBlue'
+                />
+        }
     </div>
   );
 };

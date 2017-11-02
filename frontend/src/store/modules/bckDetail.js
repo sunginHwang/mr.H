@@ -13,7 +13,7 @@ const initialState = Map({
         targetAmount : 0,
         currentAmount : 0,
         completeDate : '1999-01-01',
-        regiDate : '1991-02-13',
+        startDate : '1991-02-13',
         bckTitle : '',
         bckDetail : '',
         depositList : List([])
