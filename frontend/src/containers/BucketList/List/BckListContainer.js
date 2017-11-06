@@ -48,8 +48,8 @@ class BckListContainer extends Component {
         await bckListActions.changeBckDepositMoney(0); // 입금 액 초기화
         await this.toggleBckModal(type);
     }
-    
-    handleGetBckList = () => {
+
+    getBckList = () => {
         const { filterProceedingBckList, filterCompleteBckList } = this;
         const { bckToggleMode ,bckList} = this.props;
         const bckListToJS = bckList.toJS();
@@ -123,11 +123,11 @@ class BckListContainer extends Component {
             handleSaveBckDeposit,
             handleBckDelete,
             handleChangeBckToggleMode,
-            handleGetBckList
+            getBckList
         } = this;
         const { bckDepositMoney, bckToggleMode, modal} = this.props;
-        const bckList = handleGetBckList();
-        console.log(bckList);
+        const bckList = getBckList();
+
         return (
            <div>
                <BckListToggle

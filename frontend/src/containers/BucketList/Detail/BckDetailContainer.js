@@ -38,26 +38,18 @@ class BckDetailContainer extends Component {
    */
    const { bckDetailInfo } = this.props;
    const { handleModify } = this;
-   const bckInfo = bckDetailInfo.toJS();
-   const remainDate = getRemainDate(bckInfo.startDate, bckInfo.completeDate);
+   const remainDate = getRemainDate(bckDetailInfo.get('startDate'), bckDetailInfo.get('completeDate'));
 
     return (
         <div>
             <TitleHeader
                 iconColor='black'
                 iconSize='large'
-                titleName={bckInfo.bckTitle}
+                titleName={bckDetailInfo.get('bckTitle')}
             />
             <BckDetailForm
-                bckIdx={bckInfo.bckIdx}
-                bckTitle={bckInfo.bckTitle}
-                bckDetail={bckInfo.bckDetail}
-                currentAmount={bckInfo.currentAmount}
-                targetAmount={bckInfo.targetAmount}
-                startDate={bckInfo.startDate}
+                bckInfo={bckDetailInfo.toJS()}
                 remainDate={remainDate}
-                completeDate={bckInfo.completeDate}
-                bckDepositList={bckInfo.depositList}
                 onModifyClick={handleModify}
                 comma={comma}
             />

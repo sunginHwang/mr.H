@@ -4,44 +4,46 @@ import BckDateInfo from 'components/BucketList/Detail/BckDateInfo';
 import BckMoneyInfo from 'components/BucketList/Detail/BckMoneyInfo';
 import CardBlock from 'components/common/Block/CardBlock';
 import BottomButton from 'components/common/Button/BottomButton';
+import { MONEY_COMPLETE } from 'lib/constants';
 import './BckDetailForm.css';
 
 const BckDetailForm = ({
-    bckIdx,
-    bckTitle,
-    bckDetail,
-    currentAmount,
-    targetAmount,
-    startDate,
-    completeDate,
+    bckInfo,
     remainDate,
-    bckDepositList,
     onModifyClick,
     comma
 }) => {
     return (
         <div className='bck-detail-form'>
-          <BckMoneyInfo
-              bckTitle={bckTitle}
-              targetAmount={targetAmount}
-              currentAmount={currentAmount}
-              comma={comma}
-          />
+          {
+              bckInfo.completeType === MONEY_COMPLETE &&
+              <BckMoneyInfo
+                  bckTitle={bckInfo.bckTitle}
+                  targetAmount={bckInfo.targetAmount}
+                  currentAmount={bckInfo.currentAmount}
+                  comma={comma}
+              />
+          }
+
           <BckDateInfo
-            bckTitle={bckTitle}
-            startDate={startDate}
-            completeDate={completeDate}
+            bckTitle={bckInfo.bckTitle}
+            startDate={bckInfo.startDate}
+            completeDate={bckInfo.completeDate}
             remainDate={remainDate}
           />
           <CardBlock
-              headerTitle={bckTitle + ' 상세 내용'}
+              headerTitle={bckInfo.bckTitle + ' 상세 내용'}
               headerSubArea=''>
-            <span>{bckDetail}</span>
+            <span>{bckInfo.bckDetail}</span>
           </CardBlock>
-          <BckDepositInfo
-              depositList={bckDepositList}
-              comma={comma}
-          />
+          {
+            bckInfo.completeType === MONEY_COMPLETE &&
+            <BckDepositInfo
+                depositList={bckInfo.depositList}
+                comma={comma}
+            />
+          }
+
           <BottomButton
                 bottomButtonName='수정하기'
                 onButtonClick={onModifyClick}

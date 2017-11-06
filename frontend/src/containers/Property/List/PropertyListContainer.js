@@ -8,27 +8,42 @@ import PropertyListToggle from 'components/Property/List/PropertyListToggle';
 import PropertyList from 'components/Property/List/PropertyList';
 import InsertButton from 'components/common/Button/InsertButton';
 import { SAVING_DEPOSIT, FIXED_DEPOSIT } from 'lib/constants';
-import { comma } from 'lib/util';
+import { comma, isBiggerThenToday } from 'lib/util';
 
 
 class PropertyListContainer extends Component {
+
+    handleTogglePropertyMode = (modalType) => {
+        const { propertyListActions } = this.props;
+        propertyListActions.changePropertyToggleMode(modalType);
+    }
 
    handleShowPropertyDetail = (propertyIdx) => {
        this.props.history.push('/property/detail/' + propertyIdx);
    }
 
+   getPropertyList = () => {
+       const { propertyList, propertyToggleMode } = this.props;
+       const propertyListJS = propertyList.toJS();
+       return propertyToggleMode === 'complete' ?
+                propertyListJS.filter(x => isBiggerThenToday(x.completeDate)) :
+                propertyListJS.filter(x => !isBiggerThenToday(x.completeDate))
+   }
+
   render() {
-    const { propertyList } = this.props;
-    const { handleShowPropertyDetail } = this;
-    const propertyListJS = propertyList.toJS();
-    const fixedDeposit = propertyListJS.filter(x => x.depositType === FIXED_DEPOSIT);
-    const SavingDeposit = propertyListJS.filter(x => x.depositType === SAVING_DEPOSIT);
+    const { propertyToggleMode } = this.props;
+    const { handleShowPropertyDetail, handleTogglePropertyMode, getPropertyList } = this;
+
+    const PropertyLists = getPropertyList();
+
+    const fixedDeposit = PropertyLists.filter(x => x.depositType === FIXED_DEPOSIT);
+    const SavingDeposit = PropertyLists.filter(x => x.depositType === SAVING_DEPOSIT);
 
       return (
       <div>
          <PropertyListToggle
-             onToggleClick={(e)=>{console.log(1)}}
-             toggleMode={'complete'}/>
+             onToggleClick={handleTogglePropertyMode}
+             toggleMode={propertyToggleMode}/>
           <PropertyList
               fixedDeposit={fixedDeposit}
               SavingDeposit={SavingDeposit}
@@ -49,7 +64,8 @@ class PropertyListContainer extends Component {
 
 export default connect(
     (state) => ({
-        propertyList: state.propertyList.get('propertyList')
+        propertyList: state.propertyList.get('propertyList'),
+        propertyToggleMode : state.propertyList.get('propertyToggleMode')
     }),
     (dispatch) => ({
         propertyListActions: bindActionCreators(propertyListActions, dispatch),
