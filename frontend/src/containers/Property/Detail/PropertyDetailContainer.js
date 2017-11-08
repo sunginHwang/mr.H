@@ -63,7 +63,7 @@ class PropertyDetailContainer extends Component {
   }
 
 
-    setPropertyErrorMsg = (errorType, value) => {
+  setPropertyErrorMsg = (errorType, value) => {
       const { propertyDetailActions } = this.props;
       propertyDetailActions.changeErrorMessage({type : errorType , value : value});
   }

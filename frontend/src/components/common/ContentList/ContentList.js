@@ -4,11 +4,12 @@ import './ContentList.css'
 const ContentList = ({
     left_title,
     right_title,
+    style,
     children
 }) => {
     return (
 
-    <div className='item_list'>
+    <div className='item_list' style={style}>
         <div>
             <div className='list-left-title'>
                 {left_title}

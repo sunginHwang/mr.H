@@ -36,6 +36,7 @@ const BckListContent = ({
 
     return(
         <ContentList
+            style={{borderBottom: '.07rem dashed #ebedf2', marginTop: '0.5em'}}
             left_title={
                 <BckListTitle title={bckTitle}
                               onTitleClick={(event)=>{onShowBckDetailInfo(bckIdx)}}

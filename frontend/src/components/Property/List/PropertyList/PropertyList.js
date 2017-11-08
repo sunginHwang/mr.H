@@ -1,6 +1,7 @@
 import React from 'react';
 import CardBlock from 'components/common/Block/CardBlock';
 import CardItem from 'components/common/Item/CardItem';
+import { Icon } from 'semantic-ui-react';
 import { getRemainDate } from 'lib/util';
 import './PropertyList.css';
  
@@ -11,6 +12,7 @@ const PropertyList = ({
     comma
 }) => {
 
+    const IconTag = <Icon name='ellipsis horizontal' size='large'/>;
 
     const fixedDepositRowList = fixedDeposit.length === 0 ?
         <CardItem title='예금내역이 없습니다.'/>:
@@ -21,7 +23,7 @@ const PropertyList = ({
                       title={depositInfo.propertyTitle+' (목표까지 '+getRemainDate(depositInfo.startDate, depositInfo.completeDate)+'일 남음)'}
                       subTitle={'예금액 :'+comma(depositInfo.targetAmount)}
                       extColor='brand'
-                      extInfo={comma(depositInfo.targetAmount)+' 원'}/>
+                      extInfo={IconTag}/>
         </div>
     ));
 
@@ -37,7 +39,7 @@ const PropertyList = ({
                                       onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}
                                       subTitle={'적금만기금액 :'+comma(depositInfo.targetAmount)}
                                       extColor='brand'
-                                      extInfo={comma(totalSaveMoney)+' 원'}/>
+                                      extInfo={IconTag}/>
                     </div>
 
     });

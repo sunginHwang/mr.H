@@ -2,8 +2,9 @@ import React from 'react';
 import CardBlock from 'components/common/Block/CardBlock';
 import CardItem from 'components/common/Item/CardItem';
 import PropertyLineChart from 'components/Main/List/PropertyLineChart';
-import DepositList from 'components/Main/List/DepositList';
+import ItemListForm from 'components/Main/List/ItemListForm';
 import { progressColor } from 'lib/variables';
+import { SAVING_DEPOSIT, DATE_COMPLETE } from 'lib/constants';
 
 import './MainListForm.css';
 
@@ -17,20 +18,33 @@ const TotalMoneyArea = ({
 
 const MainListForm = ({
     propertyMoneyList,
-    propertyList
+    propertyList,
+    bucketList,
+    filterBckListForCompleteType,
+    getRemainDatePercentage
 }) => {
 
-    const depositList = propertyList.map((data) =>
+    const depositListForm = propertyList.map((data) =>
         (
-            <DepositList
+            <ItemListForm
                 key={data.propertyIdx}
-                propertyIdx={data.propertyIdx}
-                depositTitle={data.propertyTitle}
-                startDate={data.propertyStartDate}
-                completeDate={data.propertyEndDate}
-                currentAmount={data.propertyCurrentAmount}
-                targetAmount={data.propertyTargetAmount}
+                title={data.depositType === SAVING_DEPOSIT ? data.propertyTitle+' (적금)'
+                                                           : data.propertyTitle+' (예금)'}
+                percent={getRemainDatePercentage(data.startDate,data.completeDate)}
                 progressColor={progressColor[Math.floor(progressColor.length % data.propertyIdx)]} // randomColorProcess
+            />
+        )
+    );
+
+    const bucketListForm = bucketList.map((data) =>
+        (
+            <ItemListForm
+                key={data.bckIdx}
+                title={data.bckTitle}
+                percent={data.completeType === DATE_COMPLETE ? getRemainDatePercentage(data.startDate,data.completeDate):
+                                                               parseInt(((data.currentAmount/data.targetAmount)*100),10)
+                }
+                progressColor={progressColor[Math.floor(progressColor.length % data.bckIdx)]} // randomColorProcess
             />
         )
     );
@@ -62,7 +76,12 @@ const MainListForm = ({
           <CardBlock
               headerTitle='예금, 적금 리스트'
               headerSubArea=''>
-              {depositList}
+              {depositListForm}
+          </CardBlock>
+          <CardBlock
+              headerTitle='버킷리스트'
+              headerSubArea=''>
+              {bucketListForm}
           </CardBlock>
 
       </div>
