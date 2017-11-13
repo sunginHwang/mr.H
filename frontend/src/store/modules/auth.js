@@ -6,12 +6,10 @@ import { Map } from 'immutable';
 
 //액션타입
 const CHANGE_LOGIN_INPUT_VALUE = 'auth/CHANGE_LOGIN_INPUT_VALUE';
-const SET_VALIDATE_ERROR_MESSAGE = 'auth/SET_VALIDATE_ERROR_MESSAGE';
 const USER_LOGIN = 'auth/USER_LOGIN';
 const INITIAL_AUTH_USER = 'auth/INITIAL_AUTH_USER';
 //액션 생성자
 export const changeLoginInputValue = createAction(CHANGE_LOGIN_INPUT_VALUE);
-export const setValidateErrorMessage = createAction(SET_VALIDATE_ERROR_MESSAGE);
 export const userLogin = createAction(USER_LOGIN);
 export const initialAuthUser = createAction(INITIAL_AUTH_USER);
 
@@ -22,10 +20,6 @@ const initialState = Map({
         userId : '',
         userPassword : '',
         userName : ''
-    }),
-    error : Map({
-        validateErrMessage : '',
-        saveErrMessage : '저장에 실패하였습니다.'
     })
 });
 
@@ -34,9 +28,6 @@ export default handleActions({
     [changeLoginInputValue]: (state, action) => {
         const {inputType, value} = action.payload;
         return state.setIn(['user',inputType],value);
-    },
-    [setValidateErrorMessage]: (state, action) => {
-        return state.setIn(['error','validateErrMessage'],action.payload);
     },
     [userLogin]: (state, action) => {
         const { userIdx, userId, userName } = action.payload;

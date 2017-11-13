@@ -12,3 +12,4 @@ export const MONEY_COMPLETE = 4;
 export const PROCEEDING = 'proceeding';
 /*완료 상태*/
 export const COMPLETE = 'complete';
+

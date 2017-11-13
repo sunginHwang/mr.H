@@ -1,10 +1,10 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+import WithError from 'hoc/WithError';
 import * as propertySaveActions from 'store/modules/propertySave';
 import PropertySaveForm from 'components/Property/Save/PropertySaveForm';
 import TitleHeader from 'components/common/Header/TitleHeader';
-import ErrorBlock from 'components/common/Block/ErrorBlock';
 import { depositSelectInfo } from 'lib/variables';
 import { isBiggerThenToday, getRemainMonth, calcMonthlyDepositMoney } from 'lib/util';
 import { SAVING_DEPOSIT } from 'lib/constants';
@@ -39,49 +39,41 @@ class PropertySaveContainer extends Component {
 
   }
 
-  SetErrorMsg = (ErrMsg) => {
-      const { propertySaveActions } = this.props;
-      const timer = 1200;
-      propertySaveActions.setValidateErrorMessage(ErrMsg);
-      setTimeout(() => propertySaveActions.setValidateErrorMessage(''), timer);
-  }
-
   validatePropertyInputChange = (type, value) => {
-      const { SetErrorMsg } = this;
+      const { setErrorMessage } = this.props;
       if(type === 'completeDate' && isBiggerThenToday(value)){
-          SetErrorMsg('날짜가 너무 이릅니다. 오늘 이후로 설정해주세요.');
+          setErrorMessage('날짜가 너무 이릅니다. 오늘 이후로 설정해주세요.');
           return false;
       }
       return true;
   }
 
   validatePropertySaveForm = () => {
-      const { SetErrorMsg } = this;
-      const { depositType, propertyTitle, targetAmount, completeDate,} = this.props;
+      const { depositType, propertyTitle, targetAmount, completeDate, setErrorMessage } = this.props;
       const depositTypeName = depositType === SAVING_DEPOSIT ? '적금' : '예금';
 
       if(Number.parseInt(depositType,10) === 0){
-          SetErrorMsg('예금, 적금 종류를 선택해주세요.');
+          setErrorMessage('예금, 적금 종류를 선택해주세요.');
           return false;
       }
 
       if(propertyTitle.length <2 || propertyTitle.length >11){
-          SetErrorMsg(depositTypeName+'명을 2~10글자 사이로 입력하세요.');
+          setErrorMessage(depositTypeName+'명을 2~10글자 사이로 입력하세요.');
           return false;
       }
 
       if(isBiggerThenToday(completeDate)){
-          SetErrorMsg('만기일이 너무 이릅니다. 오늘 이후로 설정해주세요.');
+          setErrorMessage('만기일이 너무 이릅니다. 오늘 이후로 설정해주세요.');
           return false;
       }
 
       if(completeDate === ''){
-          SetErrorMsg('만기일 날짜 형식을 제대로 입력해주세요.');
+          setErrorMessage('만기일 날짜 형식을 제대로 입력해주세요.');
           return false;
       }
 
       if(Number.parseInt(targetAmount,10) <= 0){
-          SetErrorMsg(depositTypeName+'액을 0원이상 입력해주세요.');
+          setErrorMessage(depositTypeName+'액을 0원이상 입력해주세요.');
           return false;
       }
 
@@ -91,15 +83,15 @@ class PropertySaveContainer extends Component {
   }
 
   handlePropertySave = async () => {
-      const { validatePropertySaveForm, SetErrorMsg } = this;
-      const { saveErrMessage } = this.props;
+      const { validatePropertySaveForm } = this;
+      const { setErrorMessage } = this.props;
 
       if(validatePropertySaveForm()){
           try{
               await console.log('saveProcess');
               await alert('예, 적금 작성 완료.');
           }catch(e){
-              await SetErrorMsg(saveErrMessage);
+              await setErrorMessage('적금 저장 실패');
           }
       }
   }
@@ -112,8 +104,7 @@ class PropertySaveContainer extends Component {
         propertyTitle,
         targetAmount,
         monthlyDepositAmount,
-        completeDate,
-        validateErrMessage
+        completeDate
     } = this.props;
     const { handlePropertySaveChangeInputValue, handlePropertySave } = this;
 
@@ -124,9 +115,6 @@ class PropertySaveContainer extends Component {
                 iconSize='large'
                 titleName='예금, 적금 입력'
             />
-            <ErrorBlock
-                errorMessage={validateErrMessage}
-                positon='top'/>
             <PropertySaveForm
                 propertyTitle={propertyTitle}
                 targetAmount={targetAmount}
@@ -142,18 +130,17 @@ class PropertySaveContainer extends Component {
     );
   }
 }
-export default connect(
+export default WithError(connect(
     (state) => ({
         propertyIdx : state.propertySave.getIn(['propertyInfo','propertyIdx']),
         propertyTitle : state.propertySave.getIn(['propertyInfo','propertyTitle']),
         targetAmount : state.propertySave.getIn(['propertyInfo','targetAmount']),
         monthlyDepositAmount : state.propertySave.getIn(['propertyInfo','monthlyDepositAmount']),
         completeDate : state.propertySave.getIn(['propertyInfo','completeDate']),
-        depositType: state.propertySave.getIn(['propertyInfo','depositType']),
-        validateErrMessage: state.propertySave.getIn(['error','validateErrMessage']),
-        saveErrMessage: state.propertySave.getIn(['error','saveErrMessage'])
+        depositType: state.propertySave.getIn(['propertyInfo','depositType'])
     }),
     (dispatch) => ({
         propertySaveActions: bindActionCreators(propertySaveActions, dispatch),
     })
-)(PropertySaveContainer);
+)(PropertySaveContainer));
+

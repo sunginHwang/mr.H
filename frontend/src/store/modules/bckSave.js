@@ -7,12 +7,10 @@ import { Map } from 'immutable';
 
 //액션타입
 const CHANGE_INPUT_VALUE = 'bckSave/CHANGE_INPUT_VALUE';
-const SET_VALIDATE_ERROR_MESSAGE = 'bckSave/SET_VALIDATE_ERROR_MESSAGE';
 const GET_BCK_MODIFY_INFO = 'bckSave/GET_BCK_MODIFY_INFO';
 const INITIATE_BCK_INFO = 'bckSave/INITIATE_BCK_INFO';
 //액션 생성자
 export const changeInputValue = createAction(CHANGE_INPUT_VALUE);
-export const setValidateErrorMessage = createAction(SET_VALIDATE_ERROR_MESSAGE);
 export const getBckModifyInfo = createAction(GET_BCK_MODIFY_INFO);
 export const initiateBckInfo = createAction(INITIATE_BCK_INFO);
 
@@ -29,10 +27,6 @@ const initialState = Map({
         bckDetail : '',
         completeType : 0,
         completeDate : nextMonthDate
-    }),
-    error : Map({
-        validateErrMessage : '',
-        saveErrMessage : '저장에 실패하였습니다.'
     })
 });
 
@@ -41,9 +35,6 @@ export default handleActions({
     [changeInputValue]: (state, action) => {
         const {inputType, value} = action.payload;
         return state.setIn(['bckInfo',inputType],value);
-    },
-    [setValidateErrorMessage]: (state, action) => {
-        return state.setIn(['error','validateErrMessage'],action.payload);
     },
     [getBckModifyInfo] : (state, action) => {
         const bckInfo = action.payload;

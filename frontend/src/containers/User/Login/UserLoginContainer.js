@@ -1,10 +1,10 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+import WithError from 'hoc/WithError';
 import * as authActions from 'store/modules/auth';
 import TitleHeader from 'components/common/Header/TitleHeader';
 import LoginForm from 'components/User/Login/LoginForm';
-import ErrorBlock from 'components/common/Block/ErrorBlock';
 import { LoginUserSampleData } from 'lib/variables';
 
 class UserLoginContainer extends Component {
@@ -27,45 +27,36 @@ class UserLoginContainer extends Component {
    }
 
    handleLogin = async () => {
-       const { loginValidate, handleSetErrorMsg } = this;
-       const { authActions, saveErrMessage } = this.props;
+       const { loginValidate } = this;
+       const { authActions, setErrorMessage } = this.props;
        if(loginValidate()){
           try{
               await authActions.userLogin(LoginUserSampleData);
               await this.props.history.push('/');
           }catch(e){
-              await handleSetErrorMsg(saveErrMessage);
+              await setErrorMessage('로그인 실패');
           }
       }
    }
 
    loginValidate = () => {
-       const { userId, userPassword } = this.props;
-       const { handleSetErrorMsg } = this;
+       const { userId, userPassword, setErrorMessage } = this.props;
        if(userId.length < 1 ){
-           handleSetErrorMsg('아이디를 입력해주세요.');
+           setErrorMessage('아이디를 입력해주세요.');
            return false;
        }
 
        if(userPassword.length < 1 ){
-           handleSetErrorMsg('비밀번호를 입력해주세요.');
+           setErrorMessage('비밀번호를 입력해주세요.');
            return false;
        }
 
        return true;
    }
 
-    // 공통점 빼야 할 부분 
-    handleSetErrorMsg = (ErrMsg) => {
-        const { authActions } = this.props;
-        const timer = 800;
-        authActions.setValidateErrorMessage(ErrMsg);
-        setTimeout(() => authActions.setValidateErrorMessage(''), timer);
-    }
-
   render() {
      const { handleChangeLoginInputValue, handleLogin } = this;
-     const { userId, userPassword, validateErrMessage } = this.props;
+     const { userId, userPassword } = this.props;
 
     return (
       <div>
@@ -74,9 +65,6 @@ class UserLoginContainer extends Component {
               iconSize='large'
               titleName='로그인'
           />
-          <ErrorBlock
-              errorMessage={validateErrMessage}
-              positon='top'/>
           <LoginForm
               userId={userId}
               userPassword={userPassword}
@@ -87,7 +75,7 @@ class UserLoginContainer extends Component {
     );
   }
 }
-export default connect(
+export default WithError(connect(
     (state) => ({
         userIdx: state.auth.getIn(['user','userIdx']),
         userId: state.auth.getIn(['user','userId']),
@@ -98,4 +86,4 @@ export default connect(
     (dispatch) => ({
         authActions: bindActionCreators(authActions, dispatch),
     })
-)(UserLoginContainer);
+)(UserLoginContainer));
