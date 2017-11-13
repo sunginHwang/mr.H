@@ -28,26 +28,26 @@ class UserLoginContainer extends Component {
 
    handleLogin = async () => {
        const { loginValidate } = this;
-       const { authActions, setErrorMessage } = this.props;
+       const { authActions, withSetErrorMessage } = this.props;
        if(loginValidate()){
           try{
               await authActions.userLogin(LoginUserSampleData);
               await this.props.history.push('/');
           }catch(e){
-              await setErrorMessage('로그인 실패');
+              await withSetErrorMessage('로그인 실패');
           }
       }
    }
 
    loginValidate = () => {
-       const { userId, userPassword, setErrorMessage } = this.props;
+       const { userId, userPassword, withSetErrorMessage } = this.props;
        if(userId.length < 1 ){
-           setErrorMessage('아이디를 입력해주세요.');
+           withSetErrorMessage('아이디를 입력해주세요.');
            return false;
        }
 
        if(userPassword.length < 1 ){
-           setErrorMessage('비밀번호를 입력해주세요.');
+           withSetErrorMessage('비밀번호를 입력해주세요.');
            return false;
        }
 

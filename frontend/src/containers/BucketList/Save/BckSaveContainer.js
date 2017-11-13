@@ -44,7 +44,7 @@ class BckSaveContainer extends Component {
 
    handleSaveBucketList = async () => {
        const { handleValidateBckForm } = this;
-       const { setErrorMessage } = this.props;
+       const { withSetErrorMessage } = this.props;
 
        if(handleValidateBckForm()){
            try{
@@ -52,40 +52,40 @@ class BckSaveContainer extends Component {
                await console.log('saveProcess');
                await alert('버킷리스트 작성 완료.');
            }catch(e){
-               await setErrorMessage('저장 실패');
+               await withSetErrorMessage('저장 실패');
            }
        }
    }
 
    handleValidateBckForm = () =>{
-       const { bckTitle, targetAmount, currentAmount, completeType, completeDate, setErrorMessage} = this.props;
+       const { bckTitle, targetAmount, currentAmount, completeType, completeDate, withSetErrorMessage} = this.props;
 
 
        const today = new Date();
 
        if(bckTitle.length <1 || bckTitle.length >9){
-           setErrorMessage('제목은 1~8글자 사이로 입력하세요.');
+           withSetErrorMessage('제목은 1~8글자 사이로 입력하세요.');
            return false;
        }
 
        if(today >= new Date(completeDate)){
-           setErrorMessage('목표달성일은 오늘 이후로 정해주세요.');
+           withSetErrorMessage('목표달성일은 오늘 이후로 정해주세요.');
            return false;
        }
 
        if(parseInt(completeType,10) === 0){
-           setErrorMessage('목표 달성 타입을 선택해주세요.');
+           withSetErrorMessage('목표 달성 타입을 선택해주세요.');
            return false;
        }
 
        if(parseInt(completeType,10) === MONEY_COMPLETE &&
          (parseInt(targetAmount,10) === 0 || !targetAmount)){
-           setErrorMessage('목표금액을 설정해주세요.');
+           withSetErrorMessage('목표금액을 설정해주세요.');
            return false;
        }
 
        if(parseInt(currentAmount,10) > parseInt(targetAmount,10)){
-           setErrorMessage('초기금이 목표액보다 많습니다.');
+           withSetErrorMessage('초기금이 목표액보다 많습니다.');
            return false;
        }
 

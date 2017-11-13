@@ -8,10 +8,10 @@ export default function WithError(WrappedComponent) {
             this.state = {
                 errorMessage: ''
             };
-            this.setErrorMessage = this.setErrorMessage.bind(this);
+            this.withSetErrorMessage = this.withSetErrorMessage.bind(this);
         }
 
-        setErrorMessage(errorMsg) {
+        withSetErrorMessage(errorMsg) {
             const timer = 800;
             this.setState({errorMessage: errorMsg});
             setTimeout(() =>  this.setState({errorMessage: ''}), timer);
@@ -24,7 +24,7 @@ export default function WithError(WrappedComponent) {
                         <ErrorBlock
                             errorMessage={errorMessage}
                             positon='top'/>
-                        <WrappedComponent {...this.props} setErrorMessage={this.setErrorMessage} />;
+                        <WrappedComponent {...this.props} withSetErrorMessage={this.withSetErrorMessage} />;
                    </div>
         }
     };

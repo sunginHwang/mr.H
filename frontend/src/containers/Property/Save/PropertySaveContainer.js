@@ -40,40 +40,40 @@ class PropertySaveContainer extends Component {
   }
 
   validatePropertyInputChange = (type, value) => {
-      const { setErrorMessage } = this.props;
+      const { withSetErrorMessage } = this.props;
       if(type === 'completeDate' && isBiggerThenToday(value)){
-          setErrorMessage('날짜가 너무 이릅니다. 오늘 이후로 설정해주세요.');
+          withSetErrorMessage('날짜가 너무 이릅니다. 오늘 이후로 설정해주세요.');
           return false;
       }
       return true;
   }
 
   validatePropertySaveForm = () => {
-      const { depositType, propertyTitle, targetAmount, completeDate, setErrorMessage } = this.props;
+      const { depositType, propertyTitle, targetAmount, completeDate, withSetErrorMessage } = this.props;
       const depositTypeName = depositType === SAVING_DEPOSIT ? '적금' : '예금';
 
       if(Number.parseInt(depositType,10) === 0){
-          setErrorMessage('예금, 적금 종류를 선택해주세요.');
+          withSetErrorMessage('예금, 적금 종류를 선택해주세요.');
           return false;
       }
 
       if(propertyTitle.length <2 || propertyTitle.length >11){
-          setErrorMessage(depositTypeName+'명을 2~10글자 사이로 입력하세요.');
+          withSetErrorMessage(depositTypeName+'명을 2~10글자 사이로 입력하세요.');
           return false;
       }
 
       if(isBiggerThenToday(completeDate)){
-          setErrorMessage('만기일이 너무 이릅니다. 오늘 이후로 설정해주세요.');
+          withSetErrorMessage('만기일이 너무 이릅니다. 오늘 이후로 설정해주세요.');
           return false;
       }
 
       if(completeDate === ''){
-          setErrorMessage('만기일 날짜 형식을 제대로 입력해주세요.');
+          withSetErrorMessage('만기일 날짜 형식을 제대로 입력해주세요.');
           return false;
       }
 
       if(Number.parseInt(targetAmount,10) <= 0){
-          setErrorMessage(depositTypeName+'액을 0원이상 입력해주세요.');
+          withSetErrorMessage(depositTypeName+'액을 0원이상 입력해주세요.');
           return false;
       }
 
@@ -84,14 +84,14 @@ class PropertySaveContainer extends Component {
 
   handlePropertySave = async () => {
       const { validatePropertySaveForm } = this;
-      const { setErrorMessage } = this.props;
+      const { withSetErrorMessage } = this.props;
 
       if(validatePropertySaveForm()){
           try{
               await console.log('saveProcess');
               await alert('예, 적금 작성 완료.');
           }catch(e){
-              await setErrorMessage('적금 저장 실패');
+              await withSetErrorMessage('적금 저장 실패');
           }
       }
   }

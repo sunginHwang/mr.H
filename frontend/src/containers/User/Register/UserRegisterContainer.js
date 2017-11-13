@@ -39,41 +39,41 @@ class UserRegisterContainer extends Component {
     }
 
     registerValidate = () => {
-        const { userId, userPassword, userPasswordCheck, userName, userEmail, setErrorMessage } = this.props;
+        const { userId, userPassword, userPasswordCheck, userName, userEmail, withSetErrorMessage } = this.props;
         const { checkDuplicateUserId } = this;
 
         if(userId.length <= 2 || userId.length >= 10){
-            setErrorMessage('아이디는 2~10글자 사이로 입력해주세요.');
+            withSetErrorMessage('아이디는 2~10글자 사이로 입력해주세요.');
             return false;
         }
 
         if(userPassword.length <= 4 || userPassword.length >= 12){
-            setErrorMessage('비밀번호는 4~12글자 사이로 입력해주세요.');
+            withSetErrorMessage('비밀번호는 4~12글자 사이로 입력해주세요.');
             return false;
         }
 
         if(userPassword !== userPasswordCheck){
-            setErrorMessage('각 비밀번호가 일치하지 않습니다.');
+            withSetErrorMessage('각 비밀번호가 일치하지 않습니다.');
             return false;
         }
 
         if(userName.length < 1){
-            setErrorMessage('이름을 입력해주세요.');
+            withSetErrorMessage('이름을 입력해주세요.');
             return false;
         }
 
         if(userEmail.length < 1){
-            setErrorMessage('이메일을 입력해주세요.');
+            withSetErrorMessage('이메일을 입력해주세요.');
             return false;
         }
 
         if(!checkEmailReg(userEmail)){
-            setErrorMessage('이메일 형식을 확인해주세요.');
+            withSetErrorMessage('이메일 형식을 확인해주세요.');
             return false;
         }
 
         if(!checkDuplicateUserId(userEmail)){
-            setErrorMessage('이미 해당 아이디가 존재합니다.');
+            withSetErrorMessage('이미 해당 아이디가 존재합니다.');
             return false;
         }
 
