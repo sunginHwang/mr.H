@@ -1,4 +1,4 @@
-.modal-wrapper{
+.ModalWrapper{
     position: fixed;
     top: 0!important;
     left: 0!important;
@@ -10,7 +10,7 @@
     z-index: 400;
 }
 
-.modal{
+.ModalWrapper-modal{
     position: fixed;
     top: 35%;
     left: 12.5%;

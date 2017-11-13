@@ -1,4 +1,4 @@
-.title-header{
+.TitleHeader{
    /* height: 40px;
     position: fixed;
     width: 100%;
@@ -6,7 +6,7 @@
     position: relative;
     height: 40px;
 }
-.title-header nav{
+.TitleHeader nav{
     position: fixed;
     display: flex;
     align-items: center;
@@ -22,10 +22,5 @@
     padding-left: 10px;
     padding-right: 10px;
 }
-.header-right{
 
-}
-.header-left{
-
-}
-.title-header-center-name{flex: 1 auto;text-align: center;margin-right: 1em;font-weight: 700;}
+.TitleHeader-center-name{flex: 1 auto;text-align: center;margin-right: 1em;font-weight: 700;}

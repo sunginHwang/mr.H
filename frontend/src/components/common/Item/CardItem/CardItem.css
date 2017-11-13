@@ -1,4 +1,4 @@
-.common-card-item{
+.CardItem{
     display: table;
     flex-wrap: wrap;
     width: 100%;
@@ -7,7 +7,7 @@
     border-bottom: .07rem dashed #ebedf2;
 }
 
-.common-card-item > .card-item-info{
+.CardItem > .CardItem-info{
     display: table-cell;
     max-width: 100%;
     padding-left: 1.2rem;
@@ -16,7 +16,7 @@
     vertical-align: middle;
 }
 
-.common-card-item > .card-info-ext{
+.CardItem > .CardItem-info-ext{
     display: table-cell;
     max-width: 100%;
     text-align: right;
@@ -25,30 +25,30 @@
     font-weight: 600;
 }
 
-.card-item-info > .card-info-title{
+.CardItem > .CardItem-info-title{
     font-size: 1rem;
     font-weight: 600;
     color: #575962;
 }
 
-.card-item-info .card-info-sub-title{
+.CardItem .CardItem-info-sub-title{
     font-size: .85rem;
     color: #7b7e8a;
 }
 
-.card-info-ext > .ocean {
+.CardItem-info-ext > .ocean {
     color: #0088FE!important;
 }
 
-.card-info-ext > .teal {
+.CardItem-info-ext > .teal {
     color: #00C49F!important;
 }
 
-.card-info-ext > .danger {
+.CardItem-info-ext > .danger {
     color: #f4516c!important;
 }
 
-.card-info-ext > .brand {
+.CardItem-info-ext > .brand {
     color : #716aca!important;
 
 }

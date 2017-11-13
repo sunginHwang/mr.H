@@ -1,5 +1,5 @@
 
-.input-label-input{
+.InputLabel{
     display: block;
     width: 100%;
     padding: .65rem 1.25rem;
@@ -15,6 +15,6 @@
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
      font-family: sans-serif,Arial;
 }
-.input-label-input::placeholder {
+.InputLabel::placeholder {
     color: #d1d5d7;
 }

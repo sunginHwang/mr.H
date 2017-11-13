@@ -1,24 +1,24 @@
-.toggle-tap-wrapper{
+.ToggleTap{
     height: 40px;
     line-height: 40px;
     background-color: #fff;
     width: 100%;
 }
-.toggle-tap{
+.ToggleTap-tap{
     text-align: center;
     display: inline-block;
     width: 50%;
 }
 
-.toggle-left{
+.ToggleTap-left{
     float: left;
 }
-.toggle-right{
+.ToggleTap-right{
     float: right;
 }
 
 /*active toggle color*/
-.toggle-tap-wrapper > .ocean{
+.ToggleTap > .ocean{
     color: #65a6ff;
     border-bottom: 3px solid #65a6ff;
 }

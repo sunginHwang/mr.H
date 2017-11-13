@@ -1,8 +1,8 @@
-.main-header{
+.MainHeader{
     position: relative;
     height: 50px;
 }
-.main-header nav{
+.MainHeader nav{
     position: fixed;
     display: flex;
     align-items: center;
@@ -19,16 +19,14 @@
     color: #f6f7f7;
 
 }
-.header-right{
 
-}
-.header-left-title{
+.MainHeader-left-title{
     color: #fff;
 }
-.header-left-title:hover{
+.MainHeader-left-title:hover{
     color: #fff;
 }
-.header-left{
+.MainHeader .MainHeader-left{
 
 }
 .flex-auto{flex: 1 auto;}

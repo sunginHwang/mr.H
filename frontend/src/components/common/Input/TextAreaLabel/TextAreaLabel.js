@@ -1,7 +1,7 @@
 import React from 'react';
 import InsertLabel from 'components/common/Label/InsertLabel';
 import { TextArea, Form } from 'semantic-ui-react';
-
+import './TextAreaLabel.css';
 const TextAreaLabel = ({
     labelName,
     onTextAreaChange,

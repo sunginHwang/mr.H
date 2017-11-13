@@ -12,13 +12,13 @@ const ToggleTap = ({
   const leftActiveMode  = toggleActive === 'left'&&  activeColor;
   const rightActiveMode =   toggleActive === 'right'&&  activeColor;
   return (
-      <div className='toggle-tap-wrapper'>
-          <div className={'toggle-tap toggle-left ' + leftActiveMode }
+      <div className='ToggleTap'>
+          <div className={'ToggleTap-tap ToggleTap-left ' + leftActiveMode }
                onClick={onLeftClick}
           >
               {leftToggleValue}
           </div>
-          <div className={'toggle-tap toggle-right ' + rightActiveMode}
+          <div className={'ToggleTap-tap ToggleTap-right ' + rightActiveMode}
                onClick={onRightClick}
           >
               {rightToggleValue}

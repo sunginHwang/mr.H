@@ -5,8 +5,8 @@ const InsertLabel = ({
     children
 }) => {
   return (
-      <div className='label-wrapper'>
-          <label className='label-area'>
+      <div className='InsertLabel'>
+          <label className='InsertLabel-label'>
               {labelName}
           </label>
           {children}

@@ -1,7 +1,7 @@
-.label-wrapper{
+.InsertLabel{
     margin-bottom: 0.9245em;
 }
-.label-area{
+.InsertLabel-label{
     display: block;
     margin-bottom: .5rem;
     color: #575962;

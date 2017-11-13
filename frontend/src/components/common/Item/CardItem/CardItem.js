@@ -8,16 +8,16 @@ const CardItem = ({
     extColor
 }) => {
   return (
-    <div className='common-card-item'>
-      <div className='card-item-info'>
-        <span className='card-info-title'>
+    <div className='CardItem'>
+      <div className='CardItem-info'>
+        <span className='CardItem-info-title'>
             {title}
         </span><br/>
-        <span className='card-info-sub-title'>
+        <span className='CardItem-info-sub-title'>
             {subTitle}
         </span>
       </div>
-      <div className='card-info-ext'>
+      <div className='CardItem-info-ext'>
         <span className={extColor}>{extInfo}</span>
       </div>
 

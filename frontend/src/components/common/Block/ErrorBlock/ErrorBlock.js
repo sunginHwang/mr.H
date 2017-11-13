@@ -5,7 +5,8 @@ const ErrorBlock = ({
     positon
 }) => {
   return (
-    <div className={errorMessage ? 'www '+ 'common-error-block ' + positon :  'common-error-block ' + positon }>
+    <div className={errorMessage ? 'on-error '+ 'ErrorBlock ' + positon
+                                 : 'ErrorBlock ' + positon }>
         {errorMessage}
     </div>
   );

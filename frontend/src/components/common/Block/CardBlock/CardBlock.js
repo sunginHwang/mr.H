@@ -7,16 +7,16 @@ const CardBlock = ({
     children
 }) => {
   return (
-    <div className='common-card-block'>
-        <div className='card-block-header'>
-            <span className='header-title'>
+    <div className='CardBlock'>
+        <div className='CardBlock-header'>
+            <span className='CardBlock-header-title'>
                 {headerTitle}
             </span>
-            <div className='header-sub-area'>
+            <div className='CardBlock-header-sub-area'>
                 {headerSubArea}
             </div>
         </div>
-        <div className='card-block-body'>
+        <div className='CardBlock-body'>
             {children}
         </div>
     </div>

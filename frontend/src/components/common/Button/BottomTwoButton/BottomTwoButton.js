@@ -10,11 +10,11 @@ const BottomTwoButton = ({
     rightColor,
 }) => {
   return (
-      <div className={'common-two-bottom-button'}>
-        <div className={'two-button ' + leftColor} onClick={onLeftBtnClick}>
+      <div className={'BottomTwoButton'}>
+        <div className={'BottomTwoButton-two-button ' + leftColor} onClick={onLeftBtnClick}>
             {leftBtnName}
         </div>
-          <div className={'two-button ' + rightColor} onClick={onRightBtnClick}>
+          <div className={'BottomTwoButton-two-button ' + rightColor} onClick={onRightBtnClick}>
               {rightBtnName}
           </div>
       </div>

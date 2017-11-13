@@ -1,21 +1,21 @@
-.two-btn-modal{
+.TwoButtonModal{
     width: 90%;
     margin: 0 auto;
 }
 
-.two-btn-wrapper{
+.TwoButtonModal-area{
     margin-top: 1em;
     width: 100%;
 }
 
-.two-btn-wrapper > .modal-btn {
+.TwoButtonModal-area > .TwoButtonModal-btn {
     width: 45%;
 }
 
-.two-btn-wrapper > .left{
+.TwoButtonModal-area > .left{
     float: left;
 }
 
-.two-btn-wrapper > .right{
+.TwoButtonModal-area > .right{
     float: right;
 }

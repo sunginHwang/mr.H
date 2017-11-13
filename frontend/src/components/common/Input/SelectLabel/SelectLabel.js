@@ -13,7 +13,7 @@ const SelectLabel = ({
 
       <InsertLabel
           labelName={labelName}>
-          <select className='input-label-select'
+          <select className='SelectLabel'
                   onChange={onSelectChange}>
               {optionList}
           </select>

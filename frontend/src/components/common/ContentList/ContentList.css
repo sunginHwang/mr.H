@@ -1,12 +1,12 @@
 
-.item_list{
+.ContentList{
 }
-.list-left-title{
+.ContentList-left-title{
     float: left;
 }
-.list-right-title{
+.ContentList-right-title{
     float: right;
 }
-.list_content{
+.ContentList_content{
     clear: both;
 }

@@ -12,7 +12,7 @@ const InputLabel = ({
   return (
       <InsertLabel
          labelName={labelName}>
-        <input className='input-label-input'
+        <input className='InputLabel'
                 type={inputType}
                 placeholder={placeHolderName}
                 onChange={onInputChange}

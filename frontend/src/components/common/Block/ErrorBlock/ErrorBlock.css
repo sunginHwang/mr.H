@@ -1,4 +1,4 @@
-.common-error-block{
+.ErrorBlock{
     display: block;
     position: fixed;
     top: 0;
@@ -10,7 +10,7 @@
     color: #fff;
 }
 
-.www{
+.on-error{
     top: 15%;
     transition: all .5s ease;
 }

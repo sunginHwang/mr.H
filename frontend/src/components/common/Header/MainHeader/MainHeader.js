@@ -7,15 +7,15 @@ const MainHeader = ({
     onSideMenuClick
 }) => {
   return (
-    <header className='main-header'>
+    <header className='MainHeader'>
         <nav>
-            <div className='header-left'>
-                <Link className='header-left-title' to='/'>
+            <div className='MainHeader-left'>
+                <Link className='MainHeader-left-title' to='/'>
                 <h3><Icon name='currency'/> mr. H</h3>
                 </Link>
             </div>
             <span className='flex-auto'></span>
-            <div className='header-right' onClick={onSideMenuClick}>
+            <div className='MainHeader-right' onClick={onSideMenuClick}>
                 <Icon name='list layout' size='big'/>
             </div>
         </nav>
