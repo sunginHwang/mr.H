@@ -6,7 +6,13 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
-    "path": "^0.12.7"
+    "express-wrap-async": "^1.0.3",
+    "mysql": "^2.15.0",
+    "mysql2": "^1.5.0",
+    "path": "^0.12.7",
+    "pg": "^7.4.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.22.6"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -15,8 +21,8 @@
   },
   "scripts": {
     "build": "babel src -d build --presets=es2015",
-    "start": "node ./build/main.js",
-    "development": "node ./scripts/development.js",
+    "start": "cross-env NODE_ENV=production node ./build/main.js",
+    "development": "cross-env NODE_ENV=development nodemon --exec babel-node --presets=es2015 ./src/main.js --watch server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "sunginhwang",
