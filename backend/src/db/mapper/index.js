@@ -1,13 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'Sequelize';
+import dbConfig from '../../config/dbConfig';
 
-const env       = process.env.NODE_ENV || "development";
-const sequelize = new Sequelize('ohjic', 'root', 'as455748', {host: 'localhost', port : '3306', dialect: 'mysql'});
-/*var sequelizeNas = new Sequelize('ohjic', 'root', 'as455748', {host: 'localhost', port : '3306', dialect: 'mysql'});
-var sequelizeOhjic = new Sequelize('ohjic', 'root', 'as455748', {host: 'localhost', port : '3306', dialect: 'mysql'});*/
+const env       = process.env.NODE_ENV !== 'production' && 'development' ;
+const sequelize = new Sequelize(dbConfig.development.database, dbConfig.development.id, dbConfig.development.password,
+                                {host: dbConfig.development.host, port : dbConfig.development.port, dialect: dbConfig.development.dialect});
 
-const db   = {};
+let db   = {};
 
 fs
     .readdirSync(__dirname)
@@ -15,7 +15,7 @@ fs
         return (file.indexOf(".") !== 0) && (file !== "index.js");
     })
     .forEach(function(file) {
-        var model = sequelize.import(path.join(__dirname, file));
+        let model = sequelize.import(path.join(__dirname, file));
         db[model.name] = model;
     });
 
@@ -26,6 +26,5 @@ Object.keys(db).forEach(function(modelName) {
 });
 
 db.sequelize = sequelize;
-db.Sequelize = Sequelize;
 
 module.exports = db;
