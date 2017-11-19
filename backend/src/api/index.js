@@ -1,10 +1,8 @@
 import express from 'express';
-import board from './board/board.ctrl';
-import test from './board/test';
+import bucketList from './bucketList';
 
 const router = express.Router();
 
-router.use('/board', board);
-router.use('/test', test.paymentInfo);
+router.use('/bucketList', bucketList);
 
 export default router;

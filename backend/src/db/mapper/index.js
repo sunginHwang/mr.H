@@ -25,6 +25,15 @@ Object.keys(db).forEach(function(modelName) {
     }
 });
 
+db.commonType.hasMany(db.bucketList, { foreignKey: 'typeIdx', targetKey: 'typeIdx'});
+db.bucketList.belongsTo(db.commonType, { foreignKey: 'typeIdx', targetKey: 'typeIdx'});
+
+db.commonType.hasMany(db.property, { foreignKey: 'typeIdx', targetKey: 'typeIdx'});
+db.property.belongsTo(db.commonType, { foreignKey: 'typeIdx', targetKey: 'typeIdx'});
+
+db.bucketList.hasMany(db.depositList, { foreignKey: 'targetIdx', targetKey: 'bckIdx'});
+db.property.hasMany(db.depositList, { foreignKey: 'targetIdx', targetKey: 'propertyIdx'});
+
 db.sequelize = sequelize;
 
 module.exports = db;

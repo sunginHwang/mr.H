@@ -3,7 +3,7 @@ import churchInfoModel from '../../db/model/churchInfoModel';
 
 
 exports.paymentInfo = wrapAsync( async (req, res) => {
-    const PaymentInfoList = await churchInfoModel.getPaymentInfoListM();
+    const PaymentInfoList = await churchInfoModel.testM();
 
 
     if(PaymentInfoList.length === 0){

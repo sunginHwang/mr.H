@@ -2,7 +2,7 @@ export default {
     "development": {
         "id": "root",
         "password": "as455748",
-        "database": "ohjic",
+        "database": "mrH",
         "host": "localhost",
         "dialect": "mysql",
         "port":3306
