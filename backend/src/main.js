@@ -7,6 +7,9 @@ let port = 8080;
 
 // SETUP MIDDLEWARE
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+    extended: true
+}));
 
 // SERVE STATIC FILES - REACT PROJECT
 app.use('/', express.static(__dirname + '/../../build'));

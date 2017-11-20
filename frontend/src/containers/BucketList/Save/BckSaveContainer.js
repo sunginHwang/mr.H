@@ -4,7 +4,6 @@ import {bindActionCreators} from 'redux';
 import * as bckSaveActions from 'store/modules/bckSave';
 import BckSaveForm from 'components/BucketList/Save/BckSaveForm';
 import TitleHeader from 'components/common/Header/TitleHeader';
-import ErrorBlock from 'components/common/Block/ErrorBlock';
 import WithError from 'hoc/WithError';
 import { InitinalBckModifyData, bckCompleteSelectInfo } from 'lib/variables';
 import { MONEY_COMPLETE, DATE_COMPLETE } from 'lib/constants';
