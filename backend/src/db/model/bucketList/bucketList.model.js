@@ -8,7 +8,7 @@ exports.getBckListM = (userIdx) => {
             include: [{
                 model: mapper.depositList,
                 where: {
-                    targetIdx : {$col: 'bucketList.typeIdx'}
+                    targetType : {$col: 'bucketList.typeIdx'}
                 },
                 required: false
             }],
@@ -25,14 +25,14 @@ exports.getBckListM = (userIdx) => {
         });
 };
 
-exports.getBckDetailInfoM = (bckIdx, userIdx) => {
+exports.findBckInfoM = (bckIdx, userIdx) => {
     return mapper.bucketList
         .findOne({
             attributes: ['bckIdx','bckTitle','bckDetail',`targetAmount`,'typeIdx',`startDate`,'completeDate'],
             include: [{
                 model: mapper.depositList,
                 where: {
-                    targetIdx : {$col: 'bucketList.typeIdx'}
+                    targetType : {$col: 'bucketList.typeIdx'}
                 },
                 required: false
             }],

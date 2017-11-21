@@ -10,7 +10,7 @@ exports.getBckList =  async (userIdx) => {
 exports.getBckDetailInfo =  async (bckIdx) => {
     const userIdx = 1;
 
-    const bckInfo = await bucketListModel.getBckDetailInfoM(bckIdx, userIdx);
+    const bckInfo = await bucketListModel.findBckInfoM(bckIdx, userIdx);
     return bckInfo;
 };
 
@@ -23,7 +23,7 @@ exports.saveBucketList = async (bucketListInfo, bckType) => {
 };
 
 exports.bckTypeValidate = async  (bckType) => {
-    const isBckType = bckType == DATE_COMPLETE || bckType == DATE_COMPLETE;
+    const isBckType = bckType == DATE_COMPLETE || bckType == MONEY_COMPLETE;
     return isBckType;
 };
 
@@ -35,7 +35,7 @@ exports.modifyBucketList = async (bckIdx, bucketListInfo) => {
 };
 
 exports.deleteBucketList = async (bckIdx) => {
-    const deleteFlag = await bucketListModel.deleteBucketListM(bckIdx);
+    const deleteFlag = await bucketListModel.delBucketListM(bckIdx, bucketListInfo);
     return deleteFlag;
 }
 
