@@ -4,10 +4,11 @@ exports.createDepositM = (depositInfo) => {
     return mapper.depositList
         .create(depositInfo)
         .then(function(results) {
-            return results.bckIdx;
+            return results.depositIdx;
         })
         .catch(function(err) {
             console.log(err);
+            return null;
         });
 };
 
@@ -23,5 +24,6 @@ exports.findTargetType = (targetIdx) => {
         })
         .catch(function(err) {
             console.log(err);
+            return null;
         });
 };

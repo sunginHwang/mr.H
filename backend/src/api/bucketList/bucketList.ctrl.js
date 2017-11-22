@@ -77,12 +77,14 @@ exports.modify = wrapAsync( async (req, res) => {
 exports.delete = wrapAsync( async (req, res) => {
     const { bckIdx } = req.params;
 
-    const bckInfo = await bckService.findBckInfoM(bckIdx);
+    const bckInfo = await bckService.getBckDetailInfo(bckIdx);
+
     if(util.isEmptyJson(bckInfo)){
         res.status(403).send({errorMsg : '존재하지 않는 버킷리스트 입니다.'});return;
     }
 
     const deleteSuccess = await bckService.deleteBucketList(bckIdx);
+
     if(!deleteSuccess){
         res.status(403).send({errorMsg : '버킷리스트 삭제 실패.'});return;
     }
@@ -90,7 +92,4 @@ exports.delete = wrapAsync( async (req, res) => {
     res.json({successMsg : '버킷리스트 삭제 성공'});
 });
 
-exports.createDeposit = wrapAsync( async (req, res) => {
-
-});
 

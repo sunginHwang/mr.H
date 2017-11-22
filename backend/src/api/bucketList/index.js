@@ -8,7 +8,6 @@ router.get('/:bckIdx', bucketListCtrl.getDetailInfo); // 버킷리스트 상세 
 router.put('/:bckIdx', bucketListCtrl.modify); // 버킷리스트 수정하기
 router.post('/:bckType', bucketListCtrl.create); // 버킷리스트 생성하기
 router.delete('/:bckIdx', bucketListCtrl.delete); // 버킷리스트 삭제하기
-router.post('/deposit/:bckIdx', bucketListCtrl.createDeposit); // 버킷리스트 입금처리
 
 
 
