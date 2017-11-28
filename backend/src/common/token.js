@@ -2,11 +2,12 @@ import jwt from 'jsonwebtoken';
 
 const SECRET_TOKEN_KEY = 'sunginHwang';
 const EXPIRE_DATE = 60 * 24 * 30 * 6; // 반년
+const HASH_ALGORITHM = 'HS256';
 
 
 exports.tokenGenerator = (userInfo) => {
     return  jwt.sign({userId : userInfo.userId,userIdx: userInfo.userIdx}, SECRET_TOKEN_KEY, {
-        algorithm: 'HS256',
+        algorithm: HASH_ALGORITHM,
         expiresIn: EXPIRE_DATE
     });
 };

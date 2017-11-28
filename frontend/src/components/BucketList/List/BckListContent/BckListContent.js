@@ -28,7 +28,6 @@ const BckListContent = ({
     onDepositClick,
     onDeleteClick
 }) => {
-    console.log(getRemainDatePercentage('2017-11-02',completeDate));
 
     const progressPercent = completeType === MONEY_COMPLETE ? (currentAmount/targetAmount)*100
                                                             : getRemainDatePercentage(startDate,completeDate);
@@ -53,7 +52,7 @@ const BckListContent = ({
                 />
             }
         >
-            <Progress percent={progressPercent}
+            <Progress percent={progressPercent.toFixed(2)}
                       onClick={(e)=>{onShowBckDetailInfo(bckIdx)}}
                       progress='percent'
                       color={progressColor}/>

@@ -6,7 +6,7 @@ import { MONEY_COMPLETE } from '../../common/constants';
 
 exports.create = wrapAsync( async (req, res) => {
     const { targetIdx, typeIdx } = req.params;
-    const { currentAmount, completeDate } = req.body;
+    const { depositAmount } = req.body;
 
     /*입금 타입 검사*/
     if(! await depositService.depositTargetTypeValidate(typeIdx)){
@@ -18,11 +18,11 @@ exports.create = wrapAsync( async (req, res) => {
         res.status(403).send({errorMsg : '입금할 수 없는 종류 입니다.'});return;
     }
 
-    const depositIdx = await depositService.saveDeposit(targetIdx, typeIdx, currentAmount, completeDate);
+    const depositIdx = await depositService.saveDeposit(targetIdx, typeIdx, depositAmount);
 
     if(depositIdx <= 0){
         res.status(403).send({errorMsg : '입금 실패.'});return;
     }
 
-    res.json({successMsg : currentAmount+' 원이 입금되었습니다.'});
+    res.json({successMsg : depositAmount+' 원이 입금되었습니다.'});
 });

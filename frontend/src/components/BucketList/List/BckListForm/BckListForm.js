@@ -10,6 +10,7 @@ const BckListForm = ({
     BucketListListData,
     toggleMode,
     onShowBckDetailInfo,
+    getCurrentMoney,
     onBckOpenModal
 }) => {
 
@@ -24,8 +25,8 @@ const BckListForm = ({
                 bckTitle={data.bckTitle}
                 startDate={data.startDate}
                 completeDate={data.completeDate}
-                completeType={data.completeType}
-                currentAmount={data.currentAmount}
+                completeType={data.typeIdx}
+                currentAmount={getCurrentMoney(data.depositLists)}
                 targetAmount={data.targetAmount}
                 toggleMode={toggleMode}
                 onShowBckDetailInfo={onShowBckDetailInfo}

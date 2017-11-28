@@ -19,7 +19,6 @@ exports.login = wrapAsync( async (req, res, next) => {
             access_token: token,
             msg : '로그인 성공'
         });
-        res.json(user);
     })(req, res, next);
 
 });

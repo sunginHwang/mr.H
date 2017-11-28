@@ -4,7 +4,10 @@ import mapper from '../../mapper';
 exports.getBckListM = (userIdx) => {
     return mapper.bucketList
         .findAll({
-            attributes: ['bckIdx','bckTitle',`targetAmount`,'typeIdx',`startDate`,'completeDate'],
+            attributes: ['bckIdx','bckTitle',`targetAmount`,'typeIdx',
+                [mapper.sequelize.fn('date_format', mapper.sequelize.col('startDate'), '%Y-%m-%d'), 'startDate'],
+                [mapper.sequelize.fn('date_format', mapper.sequelize.col('completeDate'), '%Y-%m-%d'), 'completeDate']
+            ],
             include: [{
                 model: mapper.depositList,
                 where: {

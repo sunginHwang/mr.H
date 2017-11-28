@@ -35,7 +35,7 @@ exports.modifyBucketList = async (bckIdx, bucketListInfo) => {
 };
 
 exports.deleteBucketList = async (bckIdx) => {
-    const deleteFlag = await bucketListModel.delBucketListM(bckIdx, bucketListInfo);
+    const deleteFlag = await bucketListModel.deleteBucketListM(bckIdx);
     return deleteFlag;
 }
 

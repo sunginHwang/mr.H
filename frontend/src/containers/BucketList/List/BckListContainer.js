@@ -10,8 +10,9 @@ import BckListToggle from 'components/BucketList/List/BckListToggle';
 import BckDepositModal from 'components/BucketList/Modal/BckDepositModal';
 import BckDeleteModal from 'components/BucketList/Modal/BckDeleteModal';
 import InsertButton from 'components/common/Button/InsertButton';
+
+import { getDepositTotalMoney } from 'lib/deposit';
 import { isBiggerThenToday } from 'lib/util';
-import { InitinalBlListData } from 'lib/variables';
 import { MONEY_COMPLETE } from 'lib/constants';
 
 class BckListContainer extends Component {
@@ -20,109 +21,124 @@ class BckListContainer extends Component {
         this.loadBckList();
     }
 
-    loadBckList = (valueTest) => {
+    /*버킷리스트 데이터 가져오기*/
+    loadBckList = () => {
         const { bckListActions } = this.props;
-        bckListActions.loadBckList(InitinalBlListData);
-    }
+        bckListActions.loadBckList();
+    };
 
+    /*완료된 or 진행중인 버킷리스트 가져오기*/
+    getBckList = () => {
+        const { filterProceedingBckList, filterCompleteBckList } = this;
+        const { bckToggleMode ,bckList} = this.props;
+        return bckToggleMode === 'proceeding' ? filterProceedingBckList(bckList)
+                                              : filterCompleteBckList(bckList);
+    };
+
+    /*진행중인 버킷리스트 필터링*/
     filterProceedingBckList = (bckList) => {
-        return bckList.filter(bckInfo => bckInfo.completeType === MONEY_COMPLETE ?
-                                         bckInfo.currentAmount < bckInfo.targetAmount :
-                                         !isBiggerThenToday(bckInfo.completeDate));
-    }
+        return bckList.filter(bckInfo => bckInfo.typeIdx === MONEY_COMPLETE ?
+                                           getDepositTotalMoney(bckInfo.depositLists) < bckInfo.targetAmount :
+                                           !isBiggerThenToday(bckInfo.completeDate));
+    };
 
+    /*완료된 버킷리스트 필터링*/
     filterCompleteBckList = (bckList) => {
-        return bckList.filter(bckInfo => bckInfo.completeType === MONEY_COMPLETE ?
-                                         bckInfo.currentAmount >= bckInfo.targetAmount :
-                                         isBiggerThenToday(bckInfo.completeDate));
-    }
+        return bckList.filter(bckInfo => bckInfo.typeIdx === MONEY_COMPLETE ?
+                                             getDepositTotalMoney(bckInfo.depositLists) >= bckInfo.targetAmount :
+                                             isBiggerThenToday(bckInfo.completeDate));
+    };
 
-    toggleBckModal = (modalType) => {
-        const { bckListActions } = this.props;
-        bckListActions.toggleBckModal(modalType);
-    }
-
+    /*모달 여닫기 함수*/
     handleBckOpenModal = async (type, bckIdx) => {
         const { bckListActions } = this.props;
         await bckListActions.changeBckDepositIdx(bckIdx); // 리스트 중 어떤 버킷리스트 고를지
         await bckListActions.changeBckDepositMoney(0); // 입금 액 초기화
         await this.toggleBckModal(type);
-    }
+    };
 
-    getBckList = () => {
-        const { filterProceedingBckList, filterCompleteBckList } = this;
-        const { bckToggleMode ,bckList} = this.props;
-        const bckListToJS = bckList.toJS();
-        return bckToggleMode === 'proceeding' ? filterProceedingBckList(bckList.toJS())
-                                              : filterCompleteBckList(bckList.toJS());
-    }
+    /*모달 열기 닫기*/
+    toggleBckModal = (modalType) => {
+        const { bckListActions } = this.props;
+        bckListActions.toggleBckModal(modalType);
+    };
 
+    /*입금액 변경 처리 핸들러*/
     handleChangeBckDepositMoney = (e) => {
         const { bckListActions } = this.props;
         const { value } = e.target;
 
         bckListActions.changeBckDepositMoney(Number.parseInt(value,10));
-    }
+    };
 
-    handleSaveBckDeposit = async () => {
+    /*버킷리스트 목표액 입금*/
+    handleBckSaveDeposit = async () => {
         const { bckListActions, bckDepositMoney, bckDepositIdx, bckList } = this.props;
-        const bckListToJS = bckList.toJS();
-        const overDepositMoney = this.checkBckOverDepositMoney(bckDepositIdx, bckDepositMoney);
+        const saveBckInfo = bckList.find((x) => x.bckIdx === bckDepositIdx);
 
-        if(bckDepositMoney === ''){
+        if(bckDepositMoney === '' || bckDepositMoney === 0){
             alert('입금액을 넣어주세요.');return;
         }
 
-        if(!overDepositMoney){
+        if(!this.validOverDepositMoney(bckDepositIdx, bckDepositMoney)){
             try{
-                await bckListActions.saveBckDepositMoney(bckDepositMoney, bckDepositIdx);
-                await alert('입금성공');
+                await bckListActions.saveBckDepositMoney(saveBckInfo.bckIdx, saveBckInfo.typeIdx, bckDepositMoney);
                 await bckListActions.changeBckDepositMoney('');
+                await alert('입금성공');
                 await this.loadBckList();
             }catch(e){
-                await alert('입금에 실패하였습니다.');
+                await alert('입금실패');
             }
             await this.toggleBckModal('deposit');
         }else{
-            bckListActions.setError();
+             alert('입금액이 남은 목표금액보다 많습니다.');
         }
-    }
+    };
 
-    handleBckDelete = () => {
-        console.log(this.props.bckDepositIdx);
-    }
-
-    checkBckOverDepositMoney = (bckIdx, depositMoney) => {
+    /*입금액 초과 검사*/
+    validOverDepositMoney = (bckIdx, depositMoney) => {
         const { bckList } = this.props;
-        const bckListToJS = bckList.toJS();
-        const DepositBckInfo = bckListToJS.filter(x => x.bckIdx === bckIdx)
-                                          .reduce((x)=>x);
-
-        const overTotalDepositMoney = depositMoney + DepositBckInfo.currentAmount  > DepositBckInfo.targetAmount;
+        const bckInfo = bckList.find(x => x.bckIdx === bckIdx);
+        const overTotalDepositMoney = depositMoney + getDepositTotalMoney(bckInfo.depositLists)  > bckInfo.targetAmount;
 
         return overTotalDepositMoney;
-    }
+    };
 
+    /*버킷리스트 삭제*/
+    handleBckDelete = async() => {
+        const { bckListActions, bckDepositIdx } = this.props;
+
+        try{
+            await bckListActions.deleteBck(bckDepositIdx);
+            await alert('버킷리스트 삭제성공');
+            await this.loadBckList();
+        }catch(e){
+            await alert('버킷리스트 삭제 실패');
+        }
+        await this.toggleBckModal('delete');
+    };
+
+    /*버킷리스트 상세보기*/
     handleShowBckDetail = (bckIdx) => {
         this.props.history.push('/bck/detail/'+bckIdx);
-    }
+    };
 
-    handleChangeBckToggleMode = (toggleMode) => {
+    /*토글 변경*/
+    handleChangeToggle = (toggleMode) => {
         const { bckListActions } = this.props;
         bckListActions.changeBckToggleMode(toggleMode);
-    }
+    };
 
 
     render() {
         const {
             toggleBckModal,
-            checkBckDepositMoney,
             handleShowBckDetail,
             handleBckOpenModal,
             handleChangeBckDepositMoney,
-            handleSaveBckDeposit,
+            handleBckSaveDeposit,
             handleBckDelete,
-            handleChangeBckToggleMode,
+            handleChangeToggle,
             getBckList
         } = this;
         const { bckDepositMoney, bckToggleMode, modal} = this.props;
@@ -131,13 +147,14 @@ class BckListContainer extends Component {
         return (
            <div>
                <BckListToggle
-                   onToggleClick={handleChangeBckToggleMode}
+                   onToggleClick={handleChangeToggle}
                    toggleMode={bckToggleMode}
                />
                <BckListForm
                        BucketListListData={bckList}
                        onShowBckDetailInfo={handleShowBckDetail}
                        onBckOpenModal={handleBckOpenModal}
+                       getCurrentMoney={getDepositTotalMoney}
                        toggleMode={bckToggleMode}
                />
                <InsertButton>
@@ -152,7 +169,7 @@ class BckListContainer extends Component {
                     bckDepositMoney={bckDepositMoney}
                     onChangeBckDepositMoney={handleChangeBckDepositMoney}
                     toggleModal={(e)=>{toggleBckModal('deposit')}}
-                    onDepositSave={handleSaveBckDeposit}
+                    onDepositSave={handleBckSaveDeposit}
                 />
                <BckDeleteModal
                    modalVisible={modal.get('delete')}
@@ -169,8 +186,8 @@ export default connect(
         modal: state.bckList.get('modal'),
         bckDepositMoney: state.bckList.get('bckDepositMoney'),
         bckDepositIdx: state.bckList.get('bckDepositIdx'),
-        bckList :state.bckList.get('bckList'),
-        bckToggleMode : state.bckList.get('bckToggleMode')
+        bckList :state.bckList.get('bckList').toJS(),
+        bckToggleMode : state.bckList.get('bckToggleMode'),
     }),
     (dispatch) => ({
         bckListActions: bindActionCreators(bckListActions, dispatch),
