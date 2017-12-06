@@ -28,13 +28,15 @@ class PropertyDetailContainer extends Component {
 
   loadPropertyDetailInfo = async () => {
     const { propertyDetailActions } = this.props;
-    await propertyDetailActions.loadPropertyDetailInfo(InitialPropertyDetailData);
+    const { propertyIdx } = this.props.match.params;
+
+    await propertyDetailActions.loadPropertyDetailInfo(propertyIdx);
     await this.setMonthlyMoney();
   }
 
   setMonthlyMoney = () => {
       const { propertyDetailInfo, propertyDetailActions } = this.props;
-      const depositType = propertyDetailInfo.get('depositType');
+      const depositType = propertyDetailInfo.get('typeIdx');
 
       if(depositType === SAVING_DEPOSIT){
           const monthlyMoney = calcMonthlyDepositMoney(propertyDetailInfo.get('targetAmount'), propertyDetailInfo.get('completeDate'));
@@ -53,13 +55,13 @@ class PropertyDetailContainer extends Component {
 
   isOverDepositMoney = () => {
       const { propertyDetailInfo, monthlyDepositMoney } = this.props;
-      const totalSaveDepositMoney = this.handleGetCurrentAmount(propertyDetailInfo.get('saveMoneyList').toJS());
+      const totalSaveDepositMoney = this.handleGetCurrentAmount(propertyDetailInfo.get('depositLists').toJS());
       return propertyDetailInfo.get('targetAmount') < totalSaveDepositMoney + monthlyDepositMoney;
   }
 
   isSavingDepositType = () => {
       const { propertyDetailInfo } = this.props;
-      return propertyDetailInfo.get('depositType') === SAVING_DEPOSIT;
+      return propertyDetailInfo.get('typeIdx') === SAVING_DEPOSIT;
   }
 
 
@@ -119,8 +121,8 @@ class PropertyDetailContainer extends Component {
                 targetAmount={propertyInfo.targetAmount}
                 startDate={propertyInfo.startDate}
                 completeDate={propertyInfo.completeDate}
-                depositType={propertyInfo.depositType}
-                depositList={propertyInfo.saveMoneyList}
+                depositType={propertyInfo.typeIdx}
+                depositList={propertyInfo.depositLists}
                 getCurrentAmount={handleGetCurrentAmount}
                 getRemainDatePercentage={getRemainDatePercentage}
                 comma={comma}

@@ -32,8 +32,16 @@ exports.getPropertyListM = (userIdx) => {
 exports.findPropertyInfoM = (propertyIdx, userIdx) => {
     return mapper.property
         .findOne({
+            attributes: ['propertyIdx','propertyTitle',`targetAmount`,'typeIdx',
+                [mapper.sequelize.fn('date_format', mapper.sequelize.col('startDate'), '%Y-%m-%d'), 'startDate'],
+                [mapper.sequelize.fn('date_format', mapper.sequelize.col('completeDate'), '%Y-%m-%d'), 'completeDate']
+            ],
             include: [{
                 model: mapper.depositList,
+                attributes : [
+                    'depositIdx', 'targetIdx', 'depositAmount', 'delFlag',
+                    [mapper.sequelize.fn('date_format', mapper.sequelize.col('depositDate'), '%Y-%m-%d'), 'depositDate'],
+                ],
                 where: {
                     targetType : {$col: 'property.typeIdx'}
                 },

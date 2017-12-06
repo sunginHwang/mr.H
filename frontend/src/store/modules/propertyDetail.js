@@ -1,5 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { Map, List, fromJS } from 'immutable';
+import { pender } from 'redux-pender';
+import axios from 'axios';
 
 //액션타입
 const LOAD_PROPERTY_DETAIL_INFO = 'propertyDetail/LOAD_PROPERTY_DETAIL_INFO';
@@ -7,8 +9,11 @@ const TOGGLE_PROPERTY_MODAL = 'propertyDetail/TOGGLE_PROPERTY_MODAL';
 const CHANGE_MONTHLY_DEPOSIT_MONEY = 'propertyDetail/CHANGE_MONTHLY_DEPOSIT_MONEY';
 const CHANGE_ERROR_MESSAGE = 'propertyDetail/CHANGE_ERROR_MESSAGE';
 
+//비동기 호출
+export const apiGetPropertyInfo = (propertyIdx) => axios.get(`/api/property/${propertyIdx}`);
+
 //액션 생성자
-export const loadPropertyDetailInfo = createAction(LOAD_PROPERTY_DETAIL_INFO);
+export const loadPropertyDetailInfo = createAction(LOAD_PROPERTY_DETAIL_INFO,apiGetPropertyInfo);
 export const togglePropertyModal = createAction(TOGGLE_PROPERTY_MODAL);
 export const changeMonthlyDepositMoney = createAction(CHANGE_MONTHLY_DEPOSIT_MONEY);
 export const changeErrorMessage = createAction(CHANGE_ERROR_MESSAGE);
@@ -21,8 +26,8 @@ const initialState = Map({
         startDate : '1991-02-13',
         completeDate : '1999-12-31',
         targetAmount : 0,
-        depositType : 0,
-        saveMoneyList : List([])
+        typeIdx : 0,
+        depositLists : List([])
     }),
     monthlyDepositMoney : 0,
     modal : Map({
@@ -36,9 +41,12 @@ const initialState = Map({
 
 // 리듀서
 export default handleActions({
-    [LOAD_PROPERTY_DETAIL_INFO]: (state, action) => {
-        return state.set('propertyDetailInfo',fromJS(action.payload));
-    },
+    ...pender({
+        type: LOAD_PROPERTY_DETAIL_INFO,
+        onSuccess: (state, action) => {
+            return state.set('propertyDetailInfo',fromJS(action.payload.data));
+        }
+    }),
     [TOGGLE_PROPERTY_MODAL]: (state, action) => {
         return state.updateIn(['modal',action.payload], value => !value);
     },
