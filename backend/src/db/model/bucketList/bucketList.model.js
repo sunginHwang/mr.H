@@ -31,9 +31,16 @@ exports.getBckListM = (userIdx) => {
 exports.findBckInfoM = (bckIdx, userIdx) => {
     return mapper.bucketList
         .findOne({
-            attributes: ['bckIdx','bckTitle','bckDetail',`targetAmount`,'typeIdx',`startDate`,'completeDate'],
+            attributes: ['bckIdx','bckTitle','bckDetail',`targetAmount`,'typeIdx',
+                [mapper.sequelize.fn('date_format', mapper.sequelize.col('startDate'), '%Y-%m-%d'), 'startDate'],
+                [mapper.sequelize.fn('date_format', mapper.sequelize.col('completeDate'), '%Y-%m-%d'), 'completeDate']
+            ],
             include: [{
                 model: mapper.depositList,
+                attributes : [
+                    'depositIdx', 'targetIdx', 'depositAmount', 'delFlag',
+                    [mapper.sequelize.fn('date_format', mapper.sequelize.col('depositDate'), '%Y-%m-%d'), 'depositDate'],
+                ],
                 where: {
                     targetType : {$col: 'bucketList.typeIdx'}
                 },
@@ -56,8 +63,8 @@ exports.findBckInfoM = (bckIdx, userIdx) => {
 exports.createBucketListM = (bucketListInfo, bckType, userIdx) => {
     return mapper.bucketList
         .create({
-            bckTitle : bucketListInfo.title,
-            bckDetail : bucketListInfo.detail,
+            bckTitle : bucketListInfo.bckTitle,
+            bckDetail : bucketListInfo.bckDetail,
             targetAmount : bucketListInfo.targetAmount,
             completeDate : bucketListInfo.completeDate,
             typeIdx : bckType,

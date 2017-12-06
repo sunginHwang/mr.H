@@ -4,7 +4,10 @@ import mapper from '../../mapper';
 exports.getPropertyListM = (userIdx) => {
     return mapper.property
         .findAll({
-            attributes: ['propertyIdx','propertyTitle',`targetAmount`,'typeIdx',`startDate`,'completeDate'],
+            attributes: ['propertyIdx','propertyTitle',`targetAmount`,'typeIdx',
+                [mapper.sequelize.fn('date_format', mapper.sequelize.col('startDate'), '%Y-%m-%d'), 'startDate'],
+                [mapper.sequelize.fn('date_format', mapper.sequelize.col('completeDate'), '%Y-%m-%d'), 'completeDate']
+            ],
             include: [{
                 model: mapper.depositList,
                 where: {

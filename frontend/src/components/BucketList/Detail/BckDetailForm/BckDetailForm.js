@@ -5,6 +5,7 @@ import BckMoneyInfo from 'components/BucketList/Detail/BckMoneyInfo';
 import CardBlock from 'components/common/Block/CardBlock';
 import BottomButton from 'components/common/Button/BottomButton';
 import { MONEY_COMPLETE } from 'lib/constants';
+import { getDepositTotalMoney } from 'lib/deposit';
 import './BckDetailForm.css';
 
 const BckDetailForm = ({
@@ -16,11 +17,11 @@ const BckDetailForm = ({
     return (
         <div className='bck-detail-form'>
           {
-              bckInfo.completeType === MONEY_COMPLETE &&
+              bckInfo.typeIdx === MONEY_COMPLETE &&
               <BckMoneyInfo
                   bckTitle={bckInfo.bckTitle}
                   targetAmount={bckInfo.targetAmount}
-                  currentAmount={bckInfo.currentAmount}
+                  currentAmount={getDepositTotalMoney(bckInfo.depositLists)}
                   comma={comma}
               />
           }
@@ -37,9 +38,9 @@ const BckDetailForm = ({
             <span>{bckInfo.bckDetail}</span>
           </CardBlock>
           {
-            bckInfo.completeType === MONEY_COMPLETE &&
+            bckInfo.typeIdx === MONEY_COMPLETE &&
             <BckDepositInfo
-                depositList={bckInfo.depositList}
+                depositList={bckInfo.depositLists}
                 comma={comma}
             />
           }

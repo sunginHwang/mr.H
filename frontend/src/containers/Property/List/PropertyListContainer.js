@@ -13,6 +13,15 @@ import { comma, isBiggerThenToday } from 'lib/util';
 
 class PropertyListContainer extends Component {
 
+    componentDidMount() {
+        this.loadPropertyList();
+    }
+
+    loadPropertyList = () => {
+        const { propertyListActions } = this.props;
+        propertyListActions.loadPropertyList();
+    };
+
     handleTogglePropertyMode = (modalType) => {
         const { propertyListActions } = this.props;
         propertyListActions.changePropertyToggleMode(modalType);
@@ -24,10 +33,9 @@ class PropertyListContainer extends Component {
 
    getPropertyList = () => {
        const { propertyList, propertyToggleMode } = this.props;
-       const propertyListJS = propertyList.toJS();
        return propertyToggleMode === 'complete' ?
-                propertyListJS.filter(x => isBiggerThenToday(x.completeDate)) :
-                propertyListJS.filter(x => !isBiggerThenToday(x.completeDate))
+                   propertyList.filter(x => isBiggerThenToday(x.completeDate)) :
+                   propertyList.filter(x => !isBiggerThenToday(x.completeDate))
    }
 
   render() {
@@ -36,8 +44,8 @@ class PropertyListContainer extends Component {
 
     const PropertyLists = getPropertyList();
 
-    const fixedDeposit = PropertyLists.filter(x => x.depositType === FIXED_DEPOSIT);
-    const SavingDeposit = PropertyLists.filter(x => x.depositType === SAVING_DEPOSIT);
+    const fixedDeposit = PropertyLists.filter(x => x.typeIdx === FIXED_DEPOSIT);
+    const SavingDeposit = PropertyLists.filter(x => x.typeIdx === SAVING_DEPOSIT);
 
       return (
       <div>
@@ -64,7 +72,7 @@ class PropertyListContainer extends Component {
 
 export default connect(
     (state) => ({
-        propertyList: state.propertyList.get('propertyList'),
+        propertyList: state.propertyList.get('propertyList').toJS(),
         propertyToggleMode : state.propertyList.get('propertyToggleMode')
     }),
     (dispatch) => ({

@@ -2,46 +2,80 @@
  * Created by hwangseong-in on 2017. 10. 6..
  */
 import { createAction, handleActions } from 'redux-actions';
+import { pender } from 'redux-pender';
 import { getNextMonthDate } from 'lib/util';
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
+import axios from 'axios';
 
 //액션타입
 const CHANGE_INPUT_VALUE = 'bckSave/CHANGE_INPUT_VALUE';
 const GET_BCK_MODIFY_INFO = 'bckSave/GET_BCK_MODIFY_INFO';
+const CHANGE_FIRST_DEPOSIT = 'bckSave/CHANGE_FIRST_DEPOSIT'
 const INITIATE_BCK_INFO = 'bckSave/INITIATE_BCK_INFO';
+const MODIFY_BCK_INFO = 'bckSave/MODIFY_BCK_INFO';
+const INSERT_BCK_INFO = 'bckSave/INSERT_BCK_INFO';
+
+//비동기 호출
+export const apiGetBckModifyInfo = (bckIdx) => axios.get(`/api/bucketList/${bckIdx}`);
+export const apiModifyBck = (bckIdx, bckInfo) => axios.put(`/api/bucketList/${bckIdx}`, bckInfo);
+export const apiInsertBck = (typeIdx, bckInfo, currentAmount) => axios.post(`/api/bucketList/${typeIdx}`, {bckInfo, currentAmount});
+
 //액션 생성자
+export const getBckModifyInfo = createAction(GET_BCK_MODIFY_INFO,apiGetBckModifyInfo);
+export const modifyBckInfo  = createAction(MODIFY_BCK_INFO,apiModifyBck);
+export const insertBckInfo  = createAction(INSERT_BCK_INFO,apiInsertBck);
+export const changeFirstDeposit = createAction(CHANGE_FIRST_DEPOSIT);
 export const changeInputValue = createAction(CHANGE_INPUT_VALUE);
-export const getBckModifyInfo = createAction(GET_BCK_MODIFY_INFO);
 export const initiateBckInfo = createAction(INITIATE_BCK_INFO);
-
-
 
 const nextMonthDate = getNextMonthDate();
 //초기값
 const initialState = Map({
     bckInfo : Map({
         bckIdx : -1,
-        targetAmount : '',
-        currentAmount : '',
+        targetAmount : 0,
         bckTitle : '',
         bckDetail : '',
-        completeType : 0,
+        typeIdx : 0,
         completeDate : nextMonthDate
-    })
+    }),
+    currentAmount : 0,
 });
 
 // 리듀서
 export default handleActions({
-    [changeInputValue]: (state, action) => {
+    ...pender({
+        type: GET_BCK_MODIFY_INFO,
+        onSuccess: (state, action) => {
+            const bckInfo = fromJS(action.payload.data).toJS();
+            return state.setIn(['bckInfo','bckIdx'],bckInfo.bckIdx)
+                        .setIn(['bckInfo','targetAmount'],bckInfo.targetAmount)
+                        .setIn(['bckInfo','bckTitle'],bckInfo.bckTitle)
+                        .setIn(['bckInfo','bckDetail'],bckInfo.bckDetail)
+                        .setIn(['bckInfo','completeDate'],bckInfo.completeDate)
+                        .setIn(['bckInfo','typeIdx'],bckInfo.typeIdx);
+        }
+    }),
+    ...pender({
+        type: MODIFY_BCK_INFO,
+        onSuccess: (state, action) => {
+            return state;
+        }
+    }),
+    ...pender({
+        type: INSERT_BCK_INFO,
+        onSuccess: (state, action) => {
+            return state;
+        }
+    }),
+    [CHANGE_INPUT_VALUE]: (state, action) => {
         const {inputType, value} = action.payload;
         return state.setIn(['bckInfo',inputType],value);
     },
-    [getBckModifyInfo] : (state, action) => {
-        const bckInfo = action.payload;
-        return state.set('bckInfo',Map(bckInfo));
-    }
-    ,
-    [initiateBckInfo] : (state, action) => {
+    [CHANGE_FIRST_DEPOSIT]: (state, action) => {
+        return state.set('currentAmount',action.payload);
+    },
+    [INITIATE_BCK_INFO] : (state, action) => {
         return state.set('bckInfo',initialState.get('bckInfo'));
     }
 }, initialState);

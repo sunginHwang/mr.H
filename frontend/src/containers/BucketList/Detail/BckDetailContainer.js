@@ -4,7 +4,6 @@ import {bindActionCreators} from 'redux';
 import * as bckDetailActions from 'store/modules/bckDetail';
 import BckDetailForm from 'components/BucketList/Detail/BckDetailForm';
 import TitleHeader from 'components/common/Header/TitleHeader';
-import { InitinalBckDetailData } from 'lib/variables';
 import { getRemainDate, comma } from 'lib/util';
 
 class BckDetailContainer extends Component {
@@ -23,8 +22,9 @@ class BckDetailContainer extends Component {
    }
     
    loadBckDetailInfo = () => {
+       const { bckIdx } = this.props.match.params;
        const { bckDetailActions } = this.props;
-       bckDetailActions.loadBckDetailInfo(InitinalBckDetailData);
+       bckDetailActions.loadBckDetailInfo(bckIdx);
    }
 
    handleModify = () => {
@@ -38,17 +38,17 @@ class BckDetailContainer extends Component {
    */
    const { bckDetailInfo } = this.props;
    const { handleModify } = this;
-   const remainDate = getRemainDate(bckDetailInfo.get('startDate'), bckDetailInfo.get('completeDate'));
+   const remainDate = getRemainDate(bckDetailInfo.startDate, bckDetailInfo.completeDate);
 
     return (
         <div>
             <TitleHeader
                 iconColor='black'
                 iconSize='large'
-                titleName={bckDetailInfo.get('bckTitle')}
+                titleName={bckDetailInfo.bckTitle}
             />
             <BckDetailForm
-                bckInfo={bckDetailInfo.toJS()}
+                bckInfo={bckDetailInfo}
                 remainDate={remainDate}
                 onModifyClick={handleModify}
                 comma={comma}
@@ -60,7 +60,7 @@ class BckDetailContainer extends Component {
 
 export default connect(
     (state) => ({
-        bckDetailInfo: state.bckDetail.get('bckDetailInfo')
+        bckDetailInfo: state.bckDetail.get('bckDetailInfo').toJS()
     }),
     (dispatch) => ({
         bckDetailActions: bindActionCreators(bckDetailActions, dispatch),

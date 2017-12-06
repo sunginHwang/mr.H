@@ -17,6 +17,7 @@ const BckSaveForm = ({
     saveMode,
     bckSelectOptionInfo,
     onChangeInput,
+    onChangeFirstDeposit,
     onSaveClick,
 }) => {
     const optionList = bckSelectOptionInfo.map((dataInfo) => (
@@ -46,12 +47,12 @@ const BckSaveForm = ({
                   saveMode === 'insert' &&
                   <SelectLabel
                       labelName='목표달성 방법을 선택해주세요.'
-                      onSelectChange={(e)=>{onChangeInput('completeType',e)}}
+                      onSelectChange={(e)=>{onChangeInput('typeIdx',e)}}
                       optionList={optionList}/>
               }
 
               {
-                  completeType === MONEY_COMPLETE &&
+                  saveMode === 'insert' && completeType === MONEY_COMPLETE &&
                   <div>
                       <InputLabel
                           labelName='목표달성액'
@@ -65,7 +66,21 @@ const BckSaveForm = ({
                           placeHolderName='목표달성액 이하로 적어주세요.'
                           inputValue={currentAmount}
                           inputType='number'
-                          onInputChange={(e)=>{onChangeInput('currentAmount',e)}}
+                          onInputChange={(e)=>{onChangeFirstDeposit(e)}}
+                      />
+                  </div>
+
+              }
+
+              {
+                  saveMode !== 'insert' && completeType === MONEY_COMPLETE &&
+                  <div>
+                      <InputLabel
+                          labelName='목표달성액'
+                          placeHolderName='ex.) 10000'
+                          inputValue={targetAmount}
+                          inputType='number'
+                          onInputChange={(e)=>{onChangeInput('targetAmount',e)}}
                       />
                   </div>
 
@@ -80,7 +95,7 @@ const BckSaveForm = ({
               />
           </CardBlock>
           <BottomButton
-            bottomButtonName='저장하기'
+            bottomButtonName={saveMode === 'insert' ? '저장하기' : '수정하기'}
             onButtonClick={onSaveClick}
             color='whiteBlue'
           />

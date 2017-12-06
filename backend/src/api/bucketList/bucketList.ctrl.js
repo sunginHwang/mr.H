@@ -29,13 +29,13 @@ exports.getDetailInfo = wrapAsync( async (req, res) => {
 
 exports.create = wrapAsync( async (req, res) => {
     const { bckType } = req.params;
-    const bucketListInfo = req.body;
+    const { bckInfo, currentAmount } = req.body;
 
     if(! await bckService.bckTypeValidate(bckType)){
         res.status(403).send({errorMsg : '등록할 수 없는 완료타입 입니다.'});return;
     }
 
-    const bckIdx = await bckService.saveBucketList(bucketListInfo, bckType);
+    const bckIdx = await bckService.saveBucketList(bckInfo, bckType);
 
     if(!bckIdx){
         res.status(403).send({errorMsg : '버킷리스트 등록 실패.'});return;
@@ -43,7 +43,7 @@ exports.create = wrapAsync( async (req, res) => {
 
     /*버킷리스트 타입이 돈일경우 초기 금액 설정*/
     if(bckType == MONEY_COMPLETE){
-        const { currentAmount, completeDate } = bucketListInfo;
+        const { completeDate } = bckInfo;
         
         const depositIdx = await depositService.saveDeposit(bckIdx, bckType, currentAmount, completeDate);
       
@@ -57,15 +57,15 @@ exports.create = wrapAsync( async (req, res) => {
 
 exports.modify = wrapAsync( async (req, res) => {
     const { bckIdx } = req.params;
-    const bucketListInfo = req.body;
-
-    const bckInfo = await bckService.findBckInfoM(bckIdx);
+    const bckInfo = req.body;
     
-    if(util.isEmptyJson(bckInfo)){
+    const bucketListInfo = await bckService.getBckDetailInfo(bckIdx);
+    
+    if(util.isEmptyJson(bucketListInfo)){
         res.status(403).send({errorMsg : '존재하지 않는 버킷리스트 입니다.'});return;
     }
 
-    const updateSuccess = await bckService.modifyBucketList(bckIdx, bucketListInfo);
+    const updateSuccess = await bckService.modifyBucketList(bckIdx, bckInfo);
   
     if(!updateSuccess){
         res.status(403).send({errorMsg : '버킷리스트 수정 실패.'});return;

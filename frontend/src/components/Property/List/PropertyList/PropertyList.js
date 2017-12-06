@@ -30,8 +30,8 @@ const PropertyList = ({
     const SavingDepositRowList = SavingDeposit.length === 0 ?
         <CardItem title='적금내역이 없습니다.'/>:
         SavingDeposit.map((depositInfo) => {
-            const SaveMoneyList = depositInfo.saveMoneyList.toJS();
-            const totalSaveMoney = SaveMoneyList.reduce((prev, save) => prev + save.money, 0);
+            const SaveMoneyList = depositInfo.depositLists;
+            const totalSaveMoney = SaveMoneyList.reduce((prev, save) => prev + save.depositAmount, 0);
             return  <div key={depositInfo.propertyIdx}
                          onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}>
                             <CardItem key={depositInfo.propertyIdx}

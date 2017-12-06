@@ -12,9 +12,12 @@ const CHANGE_BCK_TOGGLE_MODE = 'bckList/CHANGE_BCK_TOGGLE_MODE';
 const TOGGLE_BCK_MODAL = 'bckList/TOGGLE_BCK_MODAL';
 const DELETE_BCK = 'bckList/DELETE_BCK';
 //서버호출
-export const apiGetList = () => axios.get('/api/bucketList/list');
-export const apiDeleteBck = (bckIdx) => axios.delete(`/api/bucketList/${bckIdx}`);
-export const apiSaveDepositMoney = (targetIdx, typeIdx ,depositAmount) => axios.post(`/api/deposit/save/${targetIdx}/type/${typeIdx}`,{depositAmount : depositAmount});
+let axiosAuth = axios.create();
+axiosAuth.defaults.headers.common['Authorization'] = 'sungin';
+
+export const apiGetList = () => axiosAuth.get('/api/bucketList/list');
+export const apiDeleteBck = (bckIdx) => axiosAuth.delete(`/api/bucketList/${bckIdx}`);
+export const apiSaveDepositMoney = (targetIdx, typeIdx ,depositAmount) => axiosAuth.post(`/api/deposit/save/${targetIdx}/type/${typeIdx}`,{depositAmount : depositAmount});
 
 //액션 생성자
 export const loadBckList = createAction(LOAD_BCK_LIST,apiGetList);

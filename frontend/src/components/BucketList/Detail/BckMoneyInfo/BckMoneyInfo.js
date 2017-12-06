@@ -10,7 +10,7 @@ const BckMoneyInfo = ({
     comma
 }) => {
   const chartData = [{name: '모은금액', value: currentAmount}, {name: '남은 금액', value: targetAmount - currentAmount}];
-  const targetPercentage = '달성률 '+(currentAmount/targetAmount)*100 + '%';
+  const targetPercentage = '달성률 '+((currentAmount/targetAmount)*100).toFixed(3) + '%';
 
   return (
       <CardBlock

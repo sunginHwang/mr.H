@@ -5,7 +5,7 @@ import * as bckSaveActions from 'store/modules/bckSave';
 import BckSaveForm from 'components/BucketList/Save/BckSaveForm';
 import TitleHeader from 'components/common/Header/TitleHeader';
 import WithError from 'hoc/WithError';
-import { InitinalBckModifyData, bckCompleteSelectInfo } from 'lib/variables';
+import { bckCompleteSelectInfo } from 'lib/variables';
 import { MONEY_COMPLETE, DATE_COMPLETE } from 'lib/constants';
 
 class BckSaveContainer extends Component {
@@ -27,11 +27,11 @@ class BckSaveContainer extends Component {
        const { bckIdx } = this.props.match.params;
        const bckMode = bckIdx ? 'modify' : 'insert';
        this.setState({mode: bckMode});
-       bckMode ==='modify' && this.getModifyData();
+       bckMode ==='modify' && this.getModifyData(bckIdx);
    }
 
-   getModifyData = () => {
-       this.props.bckSaveActions.getBckModifyInfo(InitinalBckModifyData);
+   getModifyData = (bckIdx) => {
+       this.props.bckSaveActions.getBckModifyInfo(bckIdx);
    }
 
    handleChangeInputValue = (type, e) =>{
@@ -41,23 +41,32 @@ class BckSaveContainer extends Component {
        bckSaveActions.changeInputValue(inputParam);
    }
 
+   handleChangeDepositMoney = (e) => {
+       const {bckSaveActions} = this.props;
+       bckSaveActions.changeFirstDeposit(e.target.value);
+   }
+
    handleSaveBucketList = async () => {
        const { handleValidateBckForm } = this;
-       const { withSetErrorMessage } = this.props;
+       const { mode } = this.state;
+       const { withSetErrorMessage, bckSaveActions, bckInfo, currentAmount } = this.props;
+       const alertMsg =  mode === 'insert' ? '버킷리스트 저장 ' : `${bckInfo.bckTitle} 수정`;
 
        if(handleValidateBckForm()){
            try{
-               throw "InvalidMonthNo";
-               await console.log('saveProcess');
-               await alert('버킷리스트 작성 완료.');
+               await mode === 'insert' ? bckSaveActions.insertBckInfo(bckInfo.typeIdx,bckInfo, currentAmount)
+                                       : bckSaveActions.modifyBckInfo(bckInfo.bckIdx, bckInfo);
+               await alert(alertMsg+' 완료.');
+               await this.props.history.goBack();
            }catch(e){
-               await withSetErrorMessage('저장 실패');
+               await withSetErrorMessage(alertMsg+'에 실패하였습니다.');
            }
        }
    }
 
    handleValidateBckForm = () =>{
-       const { bckTitle, targetAmount, currentAmount, completeType, completeDate, withSetErrorMessage} = this.props;
+       const { bckInfo, currentAmount, withSetErrorMessage} = this.props;
+       const { bckTitle, targetAmount, typeIdx, completeDate } = bckInfo;
 
 
        const today = new Date();
@@ -72,12 +81,12 @@ class BckSaveContainer extends Component {
            return false;
        }
 
-       if(parseInt(completeType,10) === 0){
+       if(parseInt(typeIdx,10) === 0){
            withSetErrorMessage('목표 달성 타입을 선택해주세요.');
            return false;
        }
 
-       if(parseInt(completeType,10) === MONEY_COMPLETE &&
+       if(parseInt(typeIdx,10) === MONEY_COMPLETE &&
          (parseInt(targetAmount,10) === 0 || !targetAmount)){
            withSetErrorMessage('목표금액을 설정해주세요.');
            return false;
@@ -96,19 +105,13 @@ class BckSaveContainer extends Component {
 
 
   render() {
-     const { bckTitle,
-             bckDetail,
-             targetAmount,
-             currentAmount,
-             completeDate,
-             completeType}
-     = this.props;
+     const { bckInfo, currentAmount }= this.props;
 
-     const { bckMode } = this.state;
 
      const {
          handleChangeInputValue,
-         handleSaveBucketList
+         handleSaveBucketList,
+         handleChangeDepositMoney
      } = this;
 
      const { mode } = this.state;
@@ -122,15 +125,16 @@ class BckSaveContainer extends Component {
             titleName={titleName}
         />
         <BckSaveForm
-            bckTitle={bckTitle}
-            bckDetail={bckDetail}
-            targetAmount={targetAmount}
+            bckTitle={bckInfo.bckTitle}
+            bckDetail={bckInfo.bckDetail}
+            targetAmount={bckInfo.targetAmount}
             currentAmount={currentAmount}
-            completeDate={completeDate}
-            completeType={Number.parseInt(completeType,10)}
+            completeDate={bckInfo.completeDate}
+            completeType={Number.parseInt(bckInfo.typeIdx,10)}
             bckSelectOptionInfo={bckCompleteSelectInfo}
             saveMode={mode}
             onChangeInput={handleChangeInputValue}
+            onChangeFirstDeposit={handleChangeDepositMoney}
             onSaveClick={handleSaveBucketList}
         />
       </div>
@@ -139,12 +143,8 @@ class BckSaveContainer extends Component {
 }
 export default WithError(connect(
     (state) => ({
-        bckTitle: state.bckSave.getIn(['bckInfo','bckTitle']),
-        bckDetail: state.bckSave.getIn(['bckInfo','bckDetail']),
-        targetAmount: state.bckSave.getIn(['bckInfo','targetAmount']),
-        currentAmount: state.bckSave.getIn(['bckInfo','currentAmount']),
-        completeDate :state.bckSave.getIn(['bckInfo','completeDate']),
-        completeType :state.bckSave.getIn(['bckInfo','completeType']),
+        bckInfo: state.bckSave.get('bckInfo').toJS(),
+        currentAmount: state.bckSave.get('currentAmount')
     }),
     (dispatch) => ({
         bckSaveActions: bindActionCreators(bckSaveActions, dispatch),
