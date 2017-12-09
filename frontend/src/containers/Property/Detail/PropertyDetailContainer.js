@@ -70,9 +70,9 @@ class PropertyDetailContainer extends Component {
       propertyDetailActions.changeErrorMessage({type : errorType , value : value});
   }
 
-  handleSaveDepositMoney = () => {
-      const { isOverDepositMoney,isSavingDepositType, setPropertyErrorMsg } = this;
-
+  handleSaveDepositMoney = async() => {
+      const { isOverDepositMoney,isSavingDepositType, setPropertyErrorMsg, togglePropertyModal, loadPropertyDetailInfo } = this;
+      const { propertyDetailInfo, monthlyDepositMoney, propertyDetailActions } = this.props;
       if(isOverDepositMoney()){
           setPropertyErrorMsg('modalErrMsg','입금액이 목표액보다 많습니다.');return ;
       }
@@ -81,11 +81,32 @@ class PropertyDetailContainer extends Component {
           setPropertyErrorMsg('modalErrMsg','예금에 추가 입금을 하실 수 없습니다.');return ;
       }
 
-      console.log('입금 성공');
+      try{
+          await propertyDetailActions.saveDepositMoney(propertyDetailInfo.get('propertyIdx'),propertyDetailInfo.get('typeIdx'),monthlyDepositMoney);
+          await alert(this.props.notifyMessage);
+          await loadPropertyDetailInfo();
+      }catch(e){
+          await alert(this.props.notifyMessage);
+      }
+
+      await togglePropertyModal('deposit');
   }
 
-  handlePropertyDelete = () => {
-    console.log('삭제완료');
+  handlePropertyDelete = async( propertyIdx ) => {
+
+      const { togglePropertyModal } = this;
+      const { propertyDetailActions } = this.props;
+
+      try{
+          await propertyDetailActions.deleteProperty(propertyIdx);
+          await alert(this.props.notifyMessage);
+          await this.props.history.goBack();
+      }catch(e){
+          await alert(this.props.notifyMessage);
+      }
+
+      await togglePropertyModal('delete');
+
   }
 
   handleGetCurrentAmount = (amountList) => {
@@ -141,7 +162,7 @@ class PropertyDetailContainer extends Component {
                 propertyTitle={propertyInfo.propertyTitle}
                 modalVisible={modal.get('delete')}
                 toggleModal={(e)=>{togglePropertyModal('delete')}}
-                onPropertyDelete={handlePropertyDelete}
+                onPropertyDelete={(e)=>{handlePropertyDelete(propertyInfo.propertyIdx)}}
             />
         </div>
 
@@ -153,7 +174,8 @@ export default connect(
         propertyDetailInfo: state.propertyDetail.get('propertyDetailInfo'),
         monthlyDepositMoney : state.propertyDetail.get('monthlyDepositMoney'),
         modal : state.propertyDetail.get('modal'),
-        error : state.propertyDetail.get('error')
+        error : state.propertyDetail.get('error'),
+        notifyMessage : state.propertyDetail.get('notifyMessage')
     }),
     (dispatch) => ({
         propertyDetailActions: bindActionCreators(propertyDetailActions, dispatch),

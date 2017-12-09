@@ -1,5 +1,5 @@
 import depositListModel from '../../db/model/depositList/deposit.model';
-import bckModel from '../../db/model/bucketList/bucketList.model';
+import propertyModel from '../../db/model/property/property.model';
 import { MONEY_COMPLETE, SAVING_DEPOSIT, FIXED_DEPOSIT, DATE_COMPLETE } from '../../common/constants';
 
 exports.saveDeposit = async (targetIdx, targetType, money) =>{
@@ -27,9 +27,8 @@ exports.depositTypeValidate = async (targetIdx, typeIdx) => {
     const isProperty = typeIdx == FIXED_DEPOSIT || typeIdx == SAVING_DEPOSIT;
     let validateResult = null;
 
-
     validateResult = isBucketList && await bckModel.findBckInfoM(targetIdx, userIdx);
-    //validateResult = isProperty && 0;
+    validateResult = isProperty && await propertyModel.findPropertyInfoM(targetIdx, userIdx);
 
     return validateResult;
 }

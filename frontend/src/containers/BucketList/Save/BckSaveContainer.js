@@ -50,16 +50,15 @@ class BckSaveContainer extends Component {
        const { handleValidateBckForm } = this;
        const { mode } = this.state;
        const { withSetErrorMessage, bckSaveActions, bckInfo, currentAmount } = this.props;
-       const alertMsg =  mode === 'insert' ? '버킷리스트 저장 ' : `${bckInfo.bckTitle} 수정`;
 
        if(handleValidateBckForm()){
            try{
-               await mode === 'insert' ? bckSaveActions.insertBckInfo(bckInfo.typeIdx,bckInfo, currentAmount)
-                                       : bckSaveActions.modifyBckInfo(bckInfo.bckIdx, bckInfo);
-               await alert(alertMsg+' 완료.');
+               await mode === 'insert' ? await bckSaveActions.insertBckInfo(bckInfo.typeIdx,bckInfo, currentAmount)
+                                       : await bckSaveActions.modifyBckInfo(bckInfo.bckIdx, bckInfo);
+               await alert(this.props.notifyMessage);
                await this.props.history.goBack();
            }catch(e){
-               await withSetErrorMessage(alertMsg+'에 실패하였습니다.');
+               await withSetErrorMessage(this.props.notifyMessage);
            }
        }
    }
@@ -144,6 +143,7 @@ class BckSaveContainer extends Component {
 export default WithError(connect(
     (state) => ({
         bckInfo: state.bckSave.get('bckInfo').toJS(),
+        notifyMessage : state.bckSave.get('notifyMessage'),
         currentAmount: state.bckSave.get('currentAmount')
     }),
     (dispatch) => ({

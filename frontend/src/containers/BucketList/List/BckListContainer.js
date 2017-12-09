@@ -80,19 +80,19 @@ class BckListContainer extends Component {
             alert('입금액을 넣어주세요.');return;
         }
 
-        if(!this.validOverDepositMoney(bckDepositIdx, bckDepositMoney)){
-            try{
-                await bckListActions.saveBckDepositMoney(saveBckInfo.bckIdx, saveBckInfo.typeIdx, bckDepositMoney);
-                await bckListActions.changeBckDepositMoney('');
-                await alert('입금성공');
-                await this.loadBckList();
-            }catch(e){
-                await alert('입금실패');
-            }
-            await this.toggleBckModal('deposit');
-        }else{
-             alert('입금액이 남은 목표금액보다 많습니다.');
+        if(this.validOverDepositMoney(bckDepositIdx, bckDepositMoney)){
+            alert('입금액이 남은 목표금액보다 많습니다.');return;
         }
+
+        try{
+            await bckListActions.saveBckDepositMoney(saveBckInfo.bckIdx, saveBckInfo.typeIdx, bckDepositMoney);
+            await bckListActions.changeBckDepositMoney('');
+            await alert(this.props.notifyMessage);
+            await this.loadBckList();
+        }catch(e){
+            await alert(this.props.notifyMessage);
+        }
+        await this.toggleBckModal('deposit');
     };
 
     /*입금액 초과 검사*/
@@ -110,10 +110,10 @@ class BckListContainer extends Component {
 
         try{
             await bckListActions.deleteBck(bckDepositIdx);
-            await alert('버킷리스트 삭제성공');
+            await alert(this.props.notifyMessage);
             await this.loadBckList();
         }catch(e){
-            await alert('버킷리스트 삭제 실패');
+            await alert(this.props.notifyMessage);
         }
         await this.toggleBckModal('delete');
     };
@@ -186,6 +186,7 @@ export default connect(
         modal: state.bckList.get('modal'),
         bckDepositMoney: state.bckList.get('bckDepositMoney'),
         bckDepositIdx: state.bckList.get('bckDepositIdx'),
+        notifyMessage: state.bckList.get('notifyMessage'),
         bckList :state.bckList.get('bckList').toJS(),
         bckToggleMode : state.bckList.get('bckToggleMode'),
     }),

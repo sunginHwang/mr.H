@@ -39,6 +39,7 @@ const initialState = Map({
         typeIdx : 0,
         completeDate : nextMonthDate
     }),
+    notifyMessage : '',
     currentAmount : 0,
 });
 
@@ -59,13 +60,21 @@ export default handleActions({
     ...pender({
         type: MODIFY_BCK_INFO,
         onSuccess: (state, action) => {
-            return state;
+            return state.set('notifyMessage',action.payload.data.successMsg);
+        },
+        onFailure: (state, action) => {
+            const { response } = action.payload;
+            return state.set('notifyMessage',response.data.errorMsg);
         }
     }),
     ...pender({
         type: INSERT_BCK_INFO,
         onSuccess: (state, action) => {
-            return state;
+            return state.set('notifyMessage',action.payload.data.successMsg);
+        },
+        onFailure: (state, action) => {
+            const { response } = action.payload;
+            return state.set('notifyMessage',response.data.errorMsg);
         }
     }),
     [CHANGE_INPUT_VALUE]: (state, action) => {

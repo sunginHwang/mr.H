@@ -32,6 +32,7 @@ export const toggleBckModal = createAction(TOGGLE_BCK_MODAL);
 const initialState = Map({
     bckDepositMoney : '', //  Deposit for bucketListMoney
     bckDepositIdx : 0, //  Deposit for bucketListMoney
+    notifyMessage : '',
     bckToggleMode : 'proceeding',
     bckList : List([]),
     modal : Map({
@@ -51,13 +52,21 @@ export default handleActions({
     ...pender({
         type: SAVE_BCK_DEPOSIT_MONEY,
         onSuccess: (state, action) => {
-            return state;
+            return state.set('notifyMessage',action.payload.data.successMsg);
+        },
+        onFailure: (state, action) => {
+            const { response } = action.payload;
+            return state.set('notifyMessage',response.data.errorMsg);
         }
     }),
     ...pender({
         type: DELETE_BCK,
         onSuccess: (state, action) => {
-            return state;
+            return state.set('notifyMessage',action.payload.data.successMsg);
+        },
+        onFailure: (state, action) => {
+            const { response } = action.payload;
+            return state.set('notifyMessage',response.data.errorMsg);
         }
     }),
     [TOGGLE_BCK_MODAL]: (state, action) => {

@@ -73,10 +73,11 @@ exports.delete = wrapAsync( async (req, res) => {
     const typeName = await propertyService.findPropertyTypeName(propertyInfo.typeIdx);
 
     const deleteSuccess = await propertyService.deleteProperty(propertyIdx);
+    const notifyMsg = propertyInfo.propertyTitle + ' '+typeName+' ';
     if(!deleteSuccess){
-        res.status(403).send({errorMsg : typeName+' 삭제 실패.'});return;
+        res.status(403).send({errorMsg : notifyMsg+' 삭제 실패.'});return;
     }
 
-    res.json({successMsg : typeName+' 삭제 삭제 성공'});
+    res.json({successMsg : notifyMsg+' 삭제 성공'});
 });
 
