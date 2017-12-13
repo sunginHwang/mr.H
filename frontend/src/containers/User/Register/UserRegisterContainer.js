@@ -12,7 +12,7 @@ class UserRegisterContainer extends Component {
     componentDidMount() {
       const { userIdx, history } = this.props;
         if(userIdx !== -1){
-            alert('로그인 상태에서 접근할 수 없습니다.');
+            alert('로그아웃 후 회원가입이 가능합니다.');
             history.push('/');
         }
     }
@@ -29,18 +29,25 @@ class UserRegisterContainer extends Component {
     }
 
     handleUserRegister = async () =>{
-      const { registerValidate } = this;
-      const isValidate = await registerValidate();
+        const { registerValidate } = this;
+        const { userId, userPassword,  userName, userEmail, userActions } = this.props;
+        const isValidate = await registerValidate();
 
       if(isValidate){
-          alert('회원가입에 성공하였습니다. 로그인해주세요.');
-          this.props.history.push('/login');
+          try {
+              await userActions.registerUser(userId, userPassword,  userName, userEmail);
+              await alert(this.props.notifyMessage);
+              await this.props.history.push('/login');
+          } catch (e){
+              await this.props.withSetErrorMessage(this.props.notifyMessage);
+          }
       }
+
     }
+
 
     registerValidate = () => {
         const { userId, userPassword, userPasswordCheck, userName, userEmail, withSetErrorMessage } = this.props;
-        const { checkDuplicateUserId } = this;
 
         if(userId.length <= 2 || userId.length >= 10){
             withSetErrorMessage('아이디는 2~10글자 사이로 입력해주세요.');
@@ -72,19 +79,10 @@ class UserRegisterContainer extends Component {
             return false;
         }
 
-        if(!checkDuplicateUserId(userEmail)){
-            withSetErrorMessage('이미 해당 아이디가 존재합니다.');
-            return false;
-        }
-
 
         return true;
     }
 
-    checkDuplicateUserId = (userId) => {
-      /*something asnyc working*/
-      return true;
-    }
 
   render() {
     const {
@@ -124,7 +122,8 @@ export default WithError(connect(
         userPassword: state.user.get('userPassword'),
         userPasswordCheck: state.user.get('userPasswordCheck'),
         userName: state.user.get('userName'),
-        userEmail: state.user.get('userEmail')
+        userEmail: state.user.get('userEmail'),
+        notifyMessage : state.user.get('notifyMessage')
     }),
     (dispatch) => ({
         userActions: bindActionCreators(userActions, dispatch),

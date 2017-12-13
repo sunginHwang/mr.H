@@ -32,3 +32,20 @@ exports.checkPassword = (password) => {
             return null;
         });
 };
+
+exports.registerUserM = (userInfo) => {
+    return mapper.user
+        .create({
+            userId : userInfo.userId,
+            userPassword : userInfo.userPassword,
+            userName : userInfo.userName,
+            userEmail : userInfo.userEmail
+        })
+        .then(function(results) {
+            return results.userIdx;
+        })
+        .catch(function(err) {
+            console.log(err);
+            return null;
+        });
+};

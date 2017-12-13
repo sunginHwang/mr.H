@@ -65,7 +65,7 @@ exports.findPropertyInfoM = (propertyIdx, userIdx) => {
 exports.createPropertyM = (propertyInfo, propertyType, userIdx) => {
     return mapper.property
         .create({
-            propertyTitle : propertyInfo.title,
+            propertyTitle : propertyInfo.propertyTitle,
             targetAmount : propertyInfo.targetAmount,
             completeDate : propertyInfo.completeDate,
             typeIdx : propertyType,

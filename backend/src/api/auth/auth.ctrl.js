@@ -2,6 +2,7 @@ import wrapAsync from 'express-wrap-async';
 import passport from 'passport';
 import tokenHelper from '../../common/token';
 import passportSetting from '../passport/passport';
+import authService from './auth.service';
 import userModel from '../../db/model/user/user.model';
 
 
@@ -26,5 +27,26 @@ exports.login = wrapAsync( async (req, res, next) => {
 exports.findUser = wrapAsync( async (req, res) => {
     const userDate = await userModel.getUser();
     res.json({'test':userDate});
+});
+
+exports.register = wrapAsync( async (req, res) =>{
+    const registerInfo = req.body;
+
+
+    const userInfo = await authService.checkUserId(registerInfo.userId);
+
+    if(userInfo){
+        res.status(403).send({errorMsg : '존재하는 아이디 입니다.'});return;
+    }
+
+    const userIdx = await authService.userRegister(registerInfo);
+
+    if(!userIdx){
+        res.status(403).send({errorMsg : ' 회원가입 실패.'});return;
+    }
+
+
+    res.json({successMsg : '회원가입 성공.'});
+
 });
 

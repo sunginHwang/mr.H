@@ -32,18 +32,19 @@ exports.create = wrapAsync( async (req, res) => {
     const { propertyType } = req.params;
     const propertyInfo = req.body;
 
-    const { targetAmount, monthlyDepositAmount, completeDate } = propertyInfo;
+    const { targetAmount, monthlyDepositAmount, completeDate, propertyTitle } = propertyInfo;
 
     if(! await propertyService.validatePropertyType(propertyType)){
         res.status(403).send({errorMsg : '등록할 수 없는 타입 입니다.'});return;
     }
 
     const propertyIdx = await propertyService.saveProperty(propertyInfo, propertyType);
+
     //예금, 적금 명칭 구하기
     const typeName = await propertyService.findPropertyTypeName(propertyType);
 
     if(!propertyIdx){
-        res.status(403).send({errorMsg : typeName+' 등록 실패.'});return;
+        res.status(403).send({errorMsg : propertyTitle+'('+typeName+') 등록 실패.'});return;
     }
 
     //예,적금에 따른 초기 입금액 설정
@@ -53,11 +54,11 @@ exports.create = wrapAsync( async (req, res) => {
     const depositIdx = await depositService.saveDeposit(propertyIdx, propertyType, depositAmount, completeDate);
 
     if(!depositIdx){
-        res.status(403).send({errorMsg : typeName+' 초기금액 등록 실패.'});return;
+        res.status(403).send({errorMsg : propertyTitle+'('+typeName+') 초기금액 등록 실패.'});return;
     }
 
 
-    res.json({successMsg : typeName+' 등록 성공'});
+    res.json({successMsg : propertyTitle+'('+typeName+') 등록 성공'});
 });
 
 

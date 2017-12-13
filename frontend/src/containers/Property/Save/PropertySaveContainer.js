@@ -14,14 +14,14 @@ class PropertySaveContainer extends Component {
 
 
   componentDidUpdate(prevProps, prevState) {
-    const { targetAmount, completeDate, depositType, propertySaveActions } = this.props;
-    const isSavingDepositChange = depositType == SAVING_DEPOSIT &&
-                                  (
-                                      prevProps.targetAmount !== targetAmount ||
-                                      prevProps.completeDate !== completeDate
+    const { propertyInfo, propertySaveActions } = this.props;
+    const isSavingDepositChange = propertyInfo.depositType == SAVING_DEPOSIT && (
+                                      prevProps.propertyInfo.targetAmount !== propertyInfo.targetAmount ||
+                                      prevProps.propertyInfo.completeDate !== propertyInfo.completeDate
                                   );
-    isSavingDepositChange &&
-            propertySaveActions.changeInputValue({inputType : 'monthlyDepositAmount', value : calcMonthlyDepositMoney(targetAmount,completeDate)});
+
+      isSavingDepositChange &&
+            propertySaveActions.changeInputValue({inputType : 'monthlyDepositAmount', value : calcMonthlyDepositMoney(propertyInfo.targetAmount,propertyInfo.completeDate)});
   }
 
     componentWillUnmount() {
@@ -49,7 +49,8 @@ class PropertySaveContainer extends Component {
   }
 
   validatePropertySaveForm = () => {
-      const { depositType, propertyTitle, targetAmount, completeDate, withSetErrorMessage } = this.props;
+      const { propertyInfo, withSetErrorMessage } = this.props;
+      const { depositType, propertyTitle, targetAmount, completeDate } = propertyInfo;
       const depositTypeName = depositType === SAVING_DEPOSIT ? '적금' : '예금';
 
       if(Number.parseInt(depositType,10) === 0){
@@ -82,16 +83,17 @@ class PropertySaveContainer extends Component {
       return true;
   }
 
-  handlePropertySave = async () => {
+  handlePropertySave = async (propertySaveInfo) => {
       const { validatePropertySaveForm } = this;
-      const { withSetErrorMessage } = this.props;
+      const { withSetErrorMessage, propertySaveActions } = this.props;
 
       if(validatePropertySaveForm()){
           try{
-              await console.log('saveProcess');
-              await alert('예, 적금 작성 완료.');
+              await propertySaveActions.insertProperty(propertySaveInfo.depositType,propertySaveInfo);
+              await alert(this.props.notifyMessage);
+              await this.props.history.goBack();
           }catch(e){
-              await withSetErrorMessage('적금 저장 실패');
+              await withSetErrorMessage(this.props.notifyMessage);
           }
       }
   }
@@ -99,13 +101,7 @@ class PropertySaveContainer extends Component {
 
 
   render() {
-    const {
-        depositType,
-        propertyTitle,
-        targetAmount,
-        monthlyDepositAmount,
-        completeDate
-    } = this.props;
+    const { propertyInfo } = this.props;
     const { handlePropertySaveChangeInputValue, handlePropertySave } = this;
 
     return (
@@ -116,14 +112,14 @@ class PropertySaveContainer extends Component {
                 titleName='예금, 적금 입력'
             />
             <PropertySaveForm
-                propertyTitle={propertyTitle}
-                targetAmount={targetAmount}
-                monthlyDepositAmount={monthlyDepositAmount}
-                completeDate={completeDate}
+                propertyTitle={propertyInfo.propertyTitle}
+                targetAmount={propertyInfo.targetAmount}
+                monthlyDepositAmount={propertyInfo.monthlyDepositAmount}
+                completeDate={propertyInfo.completeDate}
                 depositSelectInfo={depositSelectInfo}
-                depositType={Number.parseInt(depositType,10)}
+                depositType={Number.parseInt(propertyInfo.depositType,10)}
                 onChangeValue={handlePropertySaveChangeInputValue}
-                onSaveClick={handlePropertySave}
+                onSaveClick={(e)=>{handlePropertySave(propertyInfo)}}
             />
         </div>
 
@@ -132,12 +128,8 @@ class PropertySaveContainer extends Component {
 }
 export default WithError(connect(
     (state) => ({
-        propertyIdx : state.propertySave.getIn(['propertyInfo','propertyIdx']),
-        propertyTitle : state.propertySave.getIn(['propertyInfo','propertyTitle']),
-        targetAmount : state.propertySave.getIn(['propertyInfo','targetAmount']),
-        monthlyDepositAmount : state.propertySave.getIn(['propertyInfo','monthlyDepositAmount']),
-        completeDate : state.propertySave.getIn(['propertyInfo','completeDate']),
-        depositType: state.propertySave.getIn(['propertyInfo','depositType'])
+        propertyInfo : state.propertySave.get('propertyInfo').toJS(),
+        notifyMessage : state.propertySave.get('notifyMessage')
     }),
     (dispatch) => ({
         propertySaveActions: bindActionCreators(propertySaveActions, dispatch),
