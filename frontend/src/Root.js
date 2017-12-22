@@ -9,7 +9,9 @@ import PropertyDetailContainer from 'containers/Property/Detail/PropertyDetailCo
 import MainHeaderContainer from 'containers/Main/Header/MainHeaderContainer';
 import MainListContainer from 'containers/Main/List/MainListContainer';
 import UserLoginContainer from 'containers/User/Login/UserLoginContainer';
+import UserInfoLoadContainer from 'containers/User/Login/UserInfoLoadContainer';
 import UserRegisterContainer from 'containers/User/Register/UserRegisterContainer';
+import WithAuthCheck from 'hoc/WithAuthCheck';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -18,6 +20,7 @@ const Root = ({store}) => {
         <Provider store={store}>
             <Router>
                 <div>
+                    <UserInfoLoadContainer/>
                     <Route path="/" component={MainHeaderContainer}/>
                     <Route exact path="/" component={MainListContainer}/>
                     <Route path="/board" component={BoardContainer}/>
@@ -25,7 +28,7 @@ const Root = ({store}) => {
                     <Route path="/login" component={UserLoginContainer}/>
                     <Route path="/user/register" component={UserRegisterContainer}/>
                     {/*예금, 적금 */}
-                    <Route exact path="/property" component={PropertyListContainer}/>
+                    <Route exact path="/property" component={WithAuthCheck(PropertyListContainer)}/>
                     <Route path="/property/insert" component={PropertySave}/>
                     <Route path="/property/detail/:propertyIdx" component={PropertyDetailContainer}/>
                     {/*버킷리스트*/}

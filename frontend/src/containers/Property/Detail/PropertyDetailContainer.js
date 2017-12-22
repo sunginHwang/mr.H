@@ -24,7 +24,7 @@ class PropertyDetailContainer extends Component {
         alert('정상적인 접근이 아닙니다.');
         this.props.history.push('/property');
     }
-  }
+  };
 
   loadPropertyDetailInfo = async () => {
     const { propertyDetailActions } = this.props;
@@ -32,7 +32,7 @@ class PropertyDetailContainer extends Component {
 
     await propertyDetailActions.loadPropertyDetailInfo(propertyIdx);
     await this.setMonthlyMoney();
-  }
+  };
 
   setMonthlyMoney = () => {
       const { propertyDetailInfo, propertyDetailActions } = this.props;
@@ -42,7 +42,7 @@ class PropertyDetailContainer extends Component {
           const monthlyMoney = calcMonthlyDepositMoney(propertyDetailInfo.get('targetAmount'), propertyDetailInfo.get('completeDate'));
           propertyDetailActions.changeMonthlyDepositMoney(monthlyMoney);
       }
-  }
+  };
 
   togglePropertyModal = async (modalType) => {
       const { propertyDetailActions } = this.props;
@@ -57,18 +57,18 @@ class PropertyDetailContainer extends Component {
       const { propertyDetailInfo, monthlyDepositMoney } = this.props;
       const totalSaveDepositMoney = this.handleGetCurrentAmount(propertyDetailInfo.get('depositLists').toJS());
       return propertyDetailInfo.get('targetAmount') < totalSaveDepositMoney + monthlyDepositMoney;
-  }
+  };
 
   isSavingDepositType = () => {
       const { propertyDetailInfo } = this.props;
       return propertyDetailInfo.get('typeIdx') === SAVING_DEPOSIT;
-  }
+  };
 
 
   setPropertyErrorMsg = (errorType, value) => {
       const { propertyDetailActions } = this.props;
       propertyDetailActions.changeErrorMessage({type : errorType , value : value});
-  }
+  };
 
   handleSaveDepositMoney = async() => {
       const { isOverDepositMoney,isSavingDepositType, setPropertyErrorMsg, togglePropertyModal, loadPropertyDetailInfo } = this;
@@ -90,7 +90,7 @@ class PropertyDetailContainer extends Component {
       }
 
       await togglePropertyModal('deposit');
-  }
+  };
 
   handlePropertyDelete = async( propertyIdx ) => {
 
@@ -107,17 +107,17 @@ class PropertyDetailContainer extends Component {
 
       await togglePropertyModal('delete');
 
-  }
+  };
 
   handleGetCurrentAmount = (amountList) => {
     return amountList.reduce((prev, save) => prev + save.depositAmount, 0);
-  }
+  };
 
 
   handleChangeMonthlyDepositMoney = (e) => {
     const { propertyDetailActions } = this.props;
     propertyDetailActions.changeMonthlyDepositMoney(parseInt(e.target.value,10));
-  }
+  };
 
   render() {
     const {

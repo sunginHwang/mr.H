@@ -19,18 +19,18 @@ class BckDetailContainer extends Component {
           alert('정상적인 접근이 아닙니다.');
           this.props.history.push('/bck');
       }
-   }
+   };
     
    loadBckDetailInfo = () => {
        const { bckIdx } = this.props.match.params;
        const { bckDetailActions } = this.props;
        bckDetailActions.loadBckDetailInfo(bckIdx);
-   }
+   };
 
    handleModify = () => {
        const { bckIdx } = this.props.match.params;
        this.props.history.push('/bck/modify/'+bckIdx);
-   }
+   };
 
   render() {
    /* 서버 사이드 전환시 해당 url 매치 idx 사용할것

@@ -6,7 +6,7 @@ const HASH_ALGORITHM = 'HS256';
 
 
 exports.tokenGenerator = (userInfo) => {
-    return  jwt.sign({userId : userInfo.userId,userIdx: userInfo.userIdx}, SECRET_TOKEN_KEY, {
+    return  jwt.sign({userId : userInfo.userId,userIdx: userInfo.userIdx, userName: userInfo.userName}, SECRET_TOKEN_KEY, {
         algorithm: HASH_ALGORITHM,
         expiresIn: EXPIRE_DATE
     });

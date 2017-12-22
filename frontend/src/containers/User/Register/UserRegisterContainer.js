@@ -26,7 +26,7 @@ class UserRegisterContainer extends Component {
         const { value } = e.target;
         const inputParam = {inputType : type, value : value};
         userActions.changeUserInputValue(inputParam);
-    }
+    };
 
     handleUserRegister = async () =>{
         const { registerValidate } = this;
@@ -43,7 +43,7 @@ class UserRegisterContainer extends Component {
           }
       }
 
-    }
+    };
 
 
     registerValidate = () => {
@@ -81,7 +81,7 @@ class UserRegisterContainer extends Component {
 
 
         return true;
-    }
+    };
 
 
   render() {

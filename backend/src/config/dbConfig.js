@@ -1,7 +1,7 @@
 export default {
     "development": {
         "id": "root",
-        "password": "as455748",
+        "password": "rhkfh1",
         "database": "mrH",
         "host": "localhost",
         "dialect": "mysql",

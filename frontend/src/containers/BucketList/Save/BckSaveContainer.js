@@ -28,23 +28,23 @@ class BckSaveContainer extends Component {
        const bckMode = bckIdx ? 'modify' : 'insert';
        this.setState({mode: bckMode});
        bckMode ==='modify' && this.getModifyData(bckIdx);
-   }
+   };
 
    getModifyData = (bckIdx) => {
        this.props.bckSaveActions.getBckModifyInfo(bckIdx);
-   }
+   };
 
    handleChangeInputValue = (type, e) =>{
        const {bckSaveActions} = this.props;
        const { value } = e.target;
        const inputParam = {inputType : type, value : value};
        bckSaveActions.changeInputValue(inputParam);
-   }
+   };
 
    handleChangeDepositMoney = (e) => {
        const {bckSaveActions} = this.props;
        bckSaveActions.changeFirstDeposit(e.target.value);
-   }
+   };
 
    handleSaveBucketList = async () => {
        const { handleValidateBckForm } = this;
@@ -61,7 +61,7 @@ class BckSaveContainer extends Component {
                await withSetErrorMessage(this.props.notifyMessage);
            }
        }
-   }
+   };
 
    handleValidateBckForm = () =>{
        const { bckInfo, currentAmount, withSetErrorMessage} = this.props;
@@ -100,7 +100,7 @@ class BckSaveContainer extends Component {
 
        return true;
 
-   }
+   };
 
 
   render() {

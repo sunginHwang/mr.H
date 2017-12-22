@@ -11,33 +11,40 @@ class UserLoginContainer extends Component {
 
     componentDidMount() {
         const { userIdx, history, authActions } = this.props;
-        if(userIdx !== -1){
+
+        if(userIdx !== -1 || localStorage.getItem('_MRH_USER_')){
             alert('로그인 상태에서 접근할 수 없습니다.');
             history.push('/');
         }else{
+            localStorage.removeItem('_MRH_USER_');
             authActions.initialAuthUser();
         }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
     }
 
    handleChangeLoginInputValue = (type, e) =>{
         const {authActions} = this.props;
         const { value } = e.target;
         const inputParam = {inputType : type, value : value};
-       authActions.changeLoginInputValue(inputParam);
-   }
+        authActions.changeLoginInputValue(inputParam);
+   };
 
    handleLogin = async () => {
        const { loginValidate } = this;
-       const { authActions, withSetErrorMessage } = this.props;
+       const { authActions, withSetErrorMessage,userId , userPassword } = this.props;
        if(loginValidate()){
           try{
-              await authActions.userLogin(LoginUserSampleData);
+              await authActions.userLogin(userId, userPassword);
+              await alert('로그인 성공');
+              await localStorage.setItem("_MRH_USER_", this.props.accessToken);
               await this.props.history.push('/');
           }catch(e){
-              await withSetErrorMessage('로그인 실패');
+              await withSetErrorMessage(this.props.notifyMessage);
           }
       }
-   }
+   };
 
    loginValidate = () => {
        const { userId, userPassword, withSetErrorMessage } = this.props;
@@ -52,7 +59,7 @@ class UserLoginContainer extends Component {
        }
 
        return true;
-   }
+   };
 
   render() {
      const { handleChangeLoginInputValue, handleLogin } = this;
@@ -80,8 +87,8 @@ export default WithError(connect(
         userIdx: state.auth.getIn(['user','userIdx']),
         userId: state.auth.getIn(['user','userId']),
         userPassword: state.auth.getIn(['user','userPassword']),
-        validateErrMessage: state.auth.getIn(['error','validateErrMessage']),
-        saveErrMessage: state.auth.getIn(['error','saveErrMessage'])
+        accessToken: state.auth.get('accessToken'),
+        notifyMessage: state.auth.get('notifyMessage')
     }),
     (dispatch) => ({
         authActions: bindActionCreators(authActions, dispatch),

@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React from 'react';
 import ErrorBlock from 'components/common/Block/ErrorBlock';
 
 export default function WithError(WrappedComponent) {

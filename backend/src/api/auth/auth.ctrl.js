@@ -4,6 +4,7 @@ import tokenHelper from '../../common/token';
 import passportSetting from '../passport/passport';
 import authService from './auth.service';
 import userModel from '../../db/model/user/user.model';
+import jwt from "jsonwebtoken";
 
 
 exports.login = wrapAsync( async (req, res, next) => {
@@ -16,8 +17,14 @@ exports.login = wrapAsync( async (req, res, next) => {
         if (!user) return res.json(404, {errMsg: '잘못된 요청입니다.'});
         //토큰 저장
         const token = tokenHelper.tokenGenerator(user);
+
         res.json({
-            access_token: token,
+            accessToken: token,
+            userInfo: {
+                userIdx : user.userIdx,
+                userId : user.userId,
+                userName : user.userName
+            },
             msg : '로그인 성공'
         });
     })(req, res, next);
@@ -50,3 +57,35 @@ exports.register = wrapAsync( async (req, res) =>{
 
 });
 
+exports.loadUserInfo = wrapAsync( async (req, res) =>{
+    const { accessToken }  = req.query;
+    const SECRET_TOKEN_KEY = 'sunginHwang';
+
+    const validateToken = await jwt.verify(accessToken, SECRET_TOKEN_KEY,(err, userInfo) => {
+
+        if(err)
+            return null;
+        else
+            return userInfo;
+    });
+
+    if(!validateToken){
+        return res.status(403).json({
+            success: false,
+            message: 'not validate token'
+        })
+    }else{
+        res.json({
+            successMsg : '토큰인증 성공.',
+            userInfo : {
+                userIdx : validateToken.userIdx,
+                userId : validateToken.userId,
+                userName : validateToken.userName
+            },
+            accessToken : accessToken
+        });
+    }
+
+
+
+});

@@ -37,7 +37,7 @@ class PropertySaveContainer extends Component {
         propertySaveActions.changeInputValue(inputParam);
     }
 
-  }
+  };
 
   validatePropertyInputChange = (type, value) => {
       const { withSetErrorMessage } = this.props;
@@ -78,10 +78,8 @@ class PropertySaveContainer extends Component {
           return false;
       }
 
-
-
       return true;
-  }
+  };
 
   handlePropertySave = async (propertySaveInfo) => {
       const { validatePropertySaveForm } = this;
@@ -96,7 +94,7 @@ class PropertySaveContainer extends Component {
               await withSetErrorMessage(this.props.notifyMessage);
           }
       }
-  }
+  };
 
 
 

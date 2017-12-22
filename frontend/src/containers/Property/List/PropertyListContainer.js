@@ -25,18 +25,18 @@ class PropertyListContainer extends Component {
     handleTogglePropertyMode = (modalType) => {
         const { propertyListActions } = this.props;
         propertyListActions.changePropertyToggleMode(modalType);
-    }
+    };
 
    handleShowPropertyDetail = (propertyIdx) => {
        this.props.history.push('/property/detail/' + propertyIdx);
-   }
+   };
 
    getPropertyList = () => {
        const { propertyList, propertyToggleMode } = this.props;
        return propertyToggleMode === 'complete' ?
                    propertyList.filter(x => isBiggerThenToday(x.completeDate)) :
                    propertyList.filter(x => !isBiggerThenToday(x.completeDate))
-   }
+   };
 
   render() {
     const { propertyToggleMode } = this.props;

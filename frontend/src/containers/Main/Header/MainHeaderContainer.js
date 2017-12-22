@@ -11,14 +11,15 @@ class MainHeaderContainer extends Component {
    handleLogout = async () => {
         const { authActions, history } = this.props;
         await authActions.initialAuthUser();
+        await localStorage.removeItem('_MRH_USER_');
         await alert('로그아웃 성공');
         await history.push('/login');
-   }
+   };
 
    handleSideMenuClick = () => {
        const { mainHeaderActions } = this.props;
        mainHeaderActions.toggleSideMenu();
-   }
+   };
 
   render() {
     const { sideMenuVisible, userName, userIdx } = this.props;
