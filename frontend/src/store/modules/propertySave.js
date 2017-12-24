@@ -4,7 +4,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
 import { getNextMonthDate } from 'lib/util';
-import axios from 'axios';
+import axiosAuth from 'lib/axiosAuth';
 import { Map } from 'immutable';
 
 //액션타입
@@ -14,7 +14,7 @@ const INSERT_PROPERTY = 'propertySave/INSERT_PROPERTY';
 
 //비동기 통신
 
-const apiInsertProperty = (propertyType, propertyInfo) => axios.post(`/api/property/${propertyType}`, propertyInfo);
+const apiInsertProperty = (propertyType, propertyInfo) => axiosAuth.post(`/api/property/${propertyType}`, propertyInfo);
 
 //액션 생성자
 export const insertProperty = createAction(INSERT_PROPERTY,apiInsertProperty);

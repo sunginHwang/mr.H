@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { Map, List, fromJS } from 'immutable';
 import { pender } from 'redux-pender';
-import axios from 'axios';
+import axiosAuth from 'lib/axiosAuth';
 
 //액션타입
 const LOAD_PROPERTY_DETAIL_INFO = 'propertyDetail/LOAD_PROPERTY_DETAIL_INFO';
@@ -13,9 +13,9 @@ const DELETE_PROPERTY = 'propertyDetail/DELETE_PROPERTY';
 
 
 //비동기 호출
-export const apiGetPropertyInfo = (propertyIdx) => axios.get(`/api/property/${propertyIdx}`);
-export const apiDeleteProperty = (propertyIdx) => axios.delete(`/api/property/${propertyIdx}`);
-export const apiSaveDepositMoney = (targetIdx, typeIdx ,depositAmount) => axios.post(`/api/deposit/save/${targetIdx}/type/${typeIdx}`,{depositAmount : depositAmount});
+export const apiGetPropertyInfo = (propertyIdx) => axiosAuth.get(`/api/property/${propertyIdx}`);
+export const apiDeleteProperty = (propertyIdx) => axiosAuth.delete(`/api/property/${propertyIdx}`);
+export const apiSaveDepositMoney = (targetIdx, typeIdx ,depositAmount) => axiosAuth.post(`/api/deposit/save/${targetIdx}/type/${typeIdx}`,{depositAmount : depositAmount});
 
 //액션 생성자
 export const loadPropertyDetailInfo = createAction(LOAD_PROPERTY_DETAIL_INFO,apiGetPropertyInfo);

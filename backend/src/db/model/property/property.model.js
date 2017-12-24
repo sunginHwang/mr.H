@@ -81,11 +81,19 @@ exports.createPropertyM = (propertyInfo, propertyType, userIdx) => {
 };
 
 
-exports.deletePropertyM = (propertyIdx) => {
+exports.deletePropertyM = (propertyIdx, userIdx) => {
     return mapper.property
         .update(
-            {delFlag : 'Y'},
-            {where: {propertyIdx: propertyIdx}}
+            {
+                delFlag : 'Y'
+            },
+            {
+                where: {
+                   propertyIdx: propertyIdx,
+                   userIdx: userIdx
+                }
+            }
+
         )
         .then(function(results) {
             return results;

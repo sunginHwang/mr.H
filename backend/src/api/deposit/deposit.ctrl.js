@@ -6,6 +6,7 @@ import { MONEY_COMPLETE } from '../../common/constants';
 
 exports.create = wrapAsync( async (req, res) => {
     const { targetIdx, typeIdx } = req.params;
+    const userIdx = req.userInfo.userIdx;
     const { depositAmount } = req.body;
 
     /*입금 타입 검사*/
@@ -18,7 +19,7 @@ exports.create = wrapAsync( async (req, res) => {
         res.status(403).send({errorMsg : '입금할 수 없는 종류 입니다.'});return;
     }
 
-    const depositIdx = await depositService.saveDeposit(targetIdx, typeIdx, depositAmount);
+    const depositIdx = await depositService.saveDeposit(targetIdx, typeIdx, userIdx, depositAmount);
 
     if(depositIdx <= 0){
         res.status(403).send({errorMsg : '입금 실패.'});return;

@@ -4,26 +4,24 @@ import { FIXED_DEPOSIT, SAVING_DEPOSIT } from '../../common/constants';
 
 exports.getPropertyList =  async (userIdx) => {
     const propertyList = await propertyModel.getPropertyListM(userIdx);
+
     return propertyList;
 };
 
-exports.getPropertyDetailInfo =  async (propertyIdx) => {
-    const userIdx = 1;
-
+exports.getPropertyDetailInfo =  async (propertyIdx, userIdx) => {
     const propertyInfo = await propertyModel.findPropertyInfoM(propertyIdx, userIdx);
+
     return propertyInfo;
 };
 
-exports.saveProperty = async (propertyInfo, propertyType) => {
-    const userIdx = 1;
-
+exports.saveProperty = async (propertyInfo, propertyType, userIdx) => {
     const createdPropertyIdx = await propertyModel.createPropertyM(propertyInfo, propertyType, userIdx);
 
     return createdPropertyIdx;
 };
 
-exports.deleteProperty = async (propertyIdx) => {
-    const deleteFlag = await propertyModel.deletePropertyM(propertyIdx);
+exports.deleteProperty = async (propertyIdx, userIdx) => {
+    const deleteFlag = await propertyModel.deletePropertyM(propertyIdx, userIdx);
     return deleteFlag;
 };
 

@@ -14,13 +14,13 @@ exports.tokenGenerator = (userInfo) => {
 
 exports.isAuthenticated = async(req, res, next) => {
     
-    const token = req.headers['x-user-token'] || req.query.token;
+    const token = req.headers['mrh-user-token'] || req.query.token;
 
     // token does not exist
     if(!token) {
         return res.status(403).json({
             success: false,
-            message: 'not logged in'
+            errorMsg: '로그인정보가 사라졌습니다. 다시 로그인해주세요.'
         })
     }
 
@@ -35,7 +35,7 @@ exports.isAuthenticated = async(req, res, next) => {
     if(!validateToken){
         return res.status(403).json({
             success: false,
-            message: 'not validate token'
+            errorMsg: '로그인 정보가 올바르지 않습니다. 다시 로그인해주세요.'
         })
     }else{
         req.userInfo = validateToken;

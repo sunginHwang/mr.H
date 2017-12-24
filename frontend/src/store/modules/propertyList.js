@@ -1,14 +1,14 @@
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
 import { Map, fromJS, List } from 'immutable';
-import axios from 'axios';
+import axiosAuth from 'lib/axiosAuth';
 
 //액션타입
 const LOAD_PROPERTY_LIST_INFO = 'propertyList/LOAD_BCK_DETAIL_INFO';
 const CHANGE_PROPERTY_TOGGLE_MODE = 'propertyList/CHANGE_PROPERTY_TOGGLE_MODE';
 
 //비동기 호출
-export const apiGetPropertyList = () => axios.get('/api/property/list');
+export const apiGetPropertyList = () => axiosAuth.get('/api/property/list');
 
 //액션 생성자
 export const loadPropertyList = createAction(LOAD_PROPERTY_LIST_INFO,apiGetPropertyList);

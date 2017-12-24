@@ -79,13 +79,14 @@ exports.createBucketListM = (bucketListInfo, bckType, userIdx) => {
 };
 
 
-exports.updateBucketListM = (bckIdx, bucketListInfo) => {
+exports.updateBucketListM = (bckIdx, userIdx, bucketListInfo) => {
     return mapper.bucketList
         .update(
             bucketListInfo,
             {
                 where: {
                    bckIdx: bckIdx,
+                   userIdx: userIdx,
                    delFlag: 'N'
                 }
             }
@@ -98,11 +99,18 @@ exports.updateBucketListM = (bckIdx, bucketListInfo) => {
         });
 };
 
-exports.deleteBucketListM = (bckIdx) => {
+exports.deleteBucketListM = (bckIdx, userIdx) => {
     return mapper.bucketList
         .update(
-            {delFlag : 'Y'},
-            {where: {bckIdx: bckIdx}}
+            {
+                delFlag : 'Y'
+            },
+            {
+                where: {
+                        bckIdx: bckIdx,
+                        userIdx: userIdx
+                }
+            }
         )
         .then(function(results) {
             return results;

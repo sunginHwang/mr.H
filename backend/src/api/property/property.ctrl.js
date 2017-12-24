@@ -6,7 +6,7 @@ import { FIXED_DEPOSIT } from '../../common/constants';
 
 
 exports.getList = wrapAsync( async (req, res) => {
-    const userIdx = 1;
+    const userIdx = req.userInfo.userIdx;
     const propertyList = await propertyService.getPropertyList(userIdx);
 
     if(util.isEmptyJson(propertyList)){
@@ -18,8 +18,9 @@ exports.getList = wrapAsync( async (req, res) => {
 
 exports.getDetailInfo = wrapAsync( async (req, res) => {
     const { propertyIdx } = req.params;
+    const userIdx = req.userInfo.userIdx;
 
-    const propertyInfo = await propertyService.getPropertyDetailInfo(propertyIdx);
+    const propertyInfo = await propertyService.getPropertyDetailInfo(propertyIdx, userIdx);
 
     if(util.isEmptyJson(propertyInfo)){
         res.status(403).send({errorMsg : '등록 정보가 없습니다.'});return;
@@ -31,14 +32,14 @@ exports.getDetailInfo = wrapAsync( async (req, res) => {
 exports.create = wrapAsync( async (req, res) => {
     const { propertyType } = req.params;
     const propertyInfo = req.body;
-
+    const userIdx = req.userInfo.userIdx;
     const { targetAmount, monthlyDepositAmount, completeDate, propertyTitle } = propertyInfo;
 
     if(! await propertyService.validatePropertyType(propertyType)){
         res.status(403).send({errorMsg : '등록할 수 없는 타입 입니다.'});return;
     }
 
-    const propertyIdx = await propertyService.saveProperty(propertyInfo, propertyType);
+    const propertyIdx = await propertyService.saveProperty(propertyInfo, propertyType, userIdx);
 
     //예금, 적금 명칭 구하기
     const typeName = await propertyService.findPropertyTypeName(propertyType);
@@ -51,7 +52,7 @@ exports.create = wrapAsync( async (req, res) => {
     const depositAmount = propertyType == FIXED_DEPOSIT ? targetAmount
                                                         : monthlyDepositAmount;
 
-    const depositIdx = await depositService.saveDeposit(propertyIdx, propertyType, depositAmount, completeDate);
+    const depositIdx = await depositService.saveDeposit(propertyIdx, propertyType, userIdx, depositAmount);
 
     if(!depositIdx){
         res.status(403).send({errorMsg : propertyTitle+'('+typeName+') 초기금액 등록 실패.'});return;
@@ -64,8 +65,10 @@ exports.create = wrapAsync( async (req, res) => {
 
 exports.delete = wrapAsync( async (req, res) => {
     const { propertyIdx } = req.params;
+    const userIdx = req.userInfo.userIdx;
 
-    const propertyInfo = await propertyService.getPropertyDetailInfo(propertyIdx);
+    const propertyInfo = await propertyService.getPropertyDetailInfo(propertyIdx, userIdx);
+
     if(util.isEmptyJson(propertyInfo)){
         res.status(403).send({errorMsg : '존재하지 않는 내역 입니다.'});return;
     }
@@ -73,7 +76,7 @@ exports.delete = wrapAsync( async (req, res) => {
     //예금, 적금 명칭 구하기
     const typeName = await propertyService.findPropertyTypeName(propertyInfo.typeIdx);
 
-    const deleteSuccess = await propertyService.deleteProperty(propertyIdx);
+    const deleteSuccess = await propertyService.deleteProperty(propertyIdx, userIdx);
     const notifyMsg = propertyInfo.propertyTitle + ' '+typeName+' ';
     if(!deleteSuccess){
         res.status(403).send({errorMsg : notifyMsg+' 삭제 실패.'});return;

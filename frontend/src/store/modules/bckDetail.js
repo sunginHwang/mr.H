@@ -1,13 +1,13 @@
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
 import { Map, List, fromJS } from 'immutable';
-import axios from 'axios';
+import axiosAuth from 'lib/axiosAuth';
 
 //액션타입
 const LOAD_BCK_DETAIL_INFO = 'bckDetail/LOAD_BCK_DETAIL_INFO';
 
 //비동기 호출
-export const apiGetBckInfo = (bckIdx) => axios.get(`/api/bucketList/${bckIdx}`);
+export const apiGetBckInfo = (bckIdx) => axiosAuth.get(`/api/bucketList/${bckIdx}`);
 
 //액션 생성자
 export const loadBckDetailInfo = createAction(LOAD_BCK_DETAIL_INFO,apiGetBckInfo);

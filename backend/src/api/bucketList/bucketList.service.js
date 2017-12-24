@@ -7,16 +7,12 @@ exports.getBckList =  async (userIdx) => {
     return bckList;
 };
 
-exports.getBckDetailInfo =  async (bckIdx) => {
-    const userIdx = 1;
-
+exports.getBckDetailInfo =  async (bckIdx, userIdx) => {
     const bckInfo = await bucketListModel.findBckInfoM(bckIdx, userIdx);
     return bckInfo;
 };
 
-exports.saveBucketList = async (bucketListInfo, bckType) => {
-    const userIdx = 1;
-
+exports.saveBucketList = async (bucketListInfo, bckType, userIdx) => {
     const createdBckIdx = await bucketListModel.createBucketListM(bucketListInfo, bckType, userIdx);
 
     return createdBckIdx;
@@ -27,15 +23,15 @@ exports.bckTypeValidate = async  (bckType) => {
     return isBckType;
 };
 
-exports.modifyBucketList = async (bckIdx, bucketListInfo) => {
+exports.modifyBucketList = async (bckIdx, userIdx, bucketListInfo) => {
 
-    const createdBckIdx = await bucketListModel.updateBucketListM(bckIdx, bucketListInfo);
+    const createdBckIdx = await bucketListModel.updateBucketListM(bckIdx, userIdx, bucketListInfo);
 
     return createdBckIdx;
 };
 
-exports.deleteBucketList = async (bckIdx) => {
-    const deleteFlag = await bucketListModel.deleteBucketListM(bckIdx);
+exports.deleteBucketList = async (bckIdx, userIdx) => {
+    const deleteFlag = await bucketListModel.deleteBucketListM(bckIdx, userIdx);
     return deleteFlag;
 }
 

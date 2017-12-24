@@ -8,12 +8,9 @@ import auth from './auth';
 
 const router = express.Router();
 
-/*router.use('/bucketList',authMiddleWare.isAuthenticated, bucketList);
+router.use('/bucketList',authMiddleWare.isAuthenticated, bucketList);
 router.use('/property',authMiddleWare.isAuthenticated, property);
-router.use('/deposit',authMiddleWare.isAuthenticated, deposit);*/
-router.use('/bucketList', bucketList);
-router.use('/property', property);
-router.use('/deposit', deposit);
+router.use('/deposit',authMiddleWare.isAuthenticated, deposit);
 router.use('/auth',auth);
 
 export default router;
