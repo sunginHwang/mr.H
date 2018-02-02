@@ -19,7 +19,8 @@ const TotalMoneyArea = ({
 const MainListForm = ({
     propertyMoneyList,
     propertyList,
-    bucketList,
+    bckList,
+    currentLowAmount,
     filterBckListForCompleteType,
     getRemainDatePercentage
 }) => {
@@ -28,7 +29,7 @@ const MainListForm = ({
         (
             <ItemListForm
                 key={data.propertyIdx}
-                title={data.depositType === SAVING_DEPOSIT ? data.propertyTitle+' (적금)'
+                title={data.typeIdx === SAVING_DEPOSIT ? data.propertyTitle+' (적금)'
                                                            : data.propertyTitle+' (예금)'}
                 percent={getRemainDatePercentage(data.startDate,data.completeDate)}
                 progressColor={progressColor[Math.floor(progressColor.length % data.propertyIdx)]} // randomColorProcess
@@ -36,13 +37,13 @@ const MainListForm = ({
         )
     );
 
-    const bucketListForm = bucketList.map((data) =>
+    const bucketListForm = bckList.map((data) =>
         (
             <ItemListForm
                 key={data.bckIdx}
                 title={data.bckTitle}
-                percent={data.completeType === DATE_COMPLETE ? getRemainDatePercentage(data.startDate,data.completeDate):
-                                                               parseInt(((data.currentAmount/data.targetAmount)*100),10)
+                percent={data.typeIdx === DATE_COMPLETE ? getRemainDatePercentage(data.startDate,data.completeDate):
+                                                               parseInt(((data.targetAmount/data.targetAmount)*100),10)
                 }
                 progressColor={progressColor[Math.floor(progressColor.length % data.bckIdx)]} // randomColorProcess
             />
@@ -54,11 +55,11 @@ const MainListForm = ({
           <CardBlock
               headerTitle='현재 모은 금액'
               headerSubArea={<TotalMoneyArea totalMoney={400000} />}>
-              <CardItem title='현재 자본금'
+              <CardItem title='예금'
                         extInfo={200000+' 원'}
                         extColor='ocean'
                         subTitle=''/>
-              <CardItem title='예금, 적금 합계'
+              <CardItem title='적금'
                         extInfo={200000+' 원'}
                         extColor='teal'
                         subTitle=''/>
@@ -69,7 +70,7 @@ const MainListForm = ({
               <PropertyLineChart
                   chartData={propertyMoneyList}
                   yAxisKey='date'
-                  xAxisKey='totalMoney'
+                  xAxisKey='totalAmount'
                   chartLineColor='#8884d8'
               />
           </CardBlock>
@@ -83,7 +84,6 @@ const MainListForm = ({
               headerSubArea=''>
               {bucketListForm}
           </CardBlock>
-
       </div>
   );
 };

@@ -1,5 +1,4 @@
 import React from 'react';
-import BoardContainer from 'containers/BoardContainer';
 import BckListContainer from 'containers/BucketList/List/BckListContainer';
 import BckSaveContainer from 'containers/BucketList/Save/BckSaveContainer';
 import BckDetailContainer from 'containers/BucketList/Detail/BckDetailContainer';
@@ -23,19 +22,18 @@ const Root = ({store}) => {
                     <UserInfoLoadContainer/>
                     <Route path="/" component={MainHeaderContainer}/>
                     <Route exact path="/" component={MainListContainer}/>
-                    <Route path="/board" component={BoardContainer}/>
                     {/*유저 정보*/}
                     <Route path="/login" component={UserLoginContainer}/>
                     <Route path="/user/register" component={UserRegisterContainer}/>
                     {/*예금, 적금 */}
                     <Route exact path="/property" component={WithAuthCheck(PropertyListContainer)}/>
-                    <Route path="/property/insert" component={PropertySave}/>
-                    <Route path="/property/detail/:propertyIdx" component={PropertyDetailContainer}/>
+                    <Route path="/property/insert" component={WithAuthCheck(PropertySave)}/>
+                    <Route path="/property/detail/:propertyIdx" component={WithAuthCheck(PropertyDetailContainer)}/>
                     {/*버킷리스트*/}
-                    <Route exact path="/bck" component={BckListContainer}/>
-                    <Route path="/bck/insert" component={BckSaveContainer}/>
-                    <Route path="/bck/modify/:bckIdx" component={BckSaveContainer}/>
-                    <Route path="/bck/detail/:bckIdx" component={BckDetailContainer}/>
+                    <Route exact path="/bck" component={WithAuthCheck(BckListContainer)}/>
+                    <Route path="/bck/insert" component={WithAuthCheck(BckSaveContainer)}/>
+                    <Route path="/bck/modify/:bckIdx" component={WithAuthCheck(BckSaveContainer)}/>
+                    <Route path="/bck/detail/:bckIdx" component={WithAuthCheck(BckDetailContainer)}/>
                 </div>
             </Router>
         </Provider>

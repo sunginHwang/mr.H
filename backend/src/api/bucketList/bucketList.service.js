@@ -2,8 +2,8 @@ import bucketListModel from '../../db/model/bucketList/bucketList.model';
 import { MONEY_COMPLETE, DATE_COMPLETE } from '../../common/constants';
 
 
-exports.getBckList =  async (userIdx) => {
-    const bckList = await bucketListModel.getBckListM(userIdx);
+exports.getBckList =  async (userIdx, limit) => {
+    const bckList = await bucketListModel.getBckListM(userIdx, limit);
     return bckList;
 };
 

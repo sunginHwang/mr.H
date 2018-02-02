@@ -1,7 +1,7 @@
 import mapper from '../../mapper';
 
 
-exports.getBckListM = (userIdx) => {
+exports.getBckListM = (userIdx, limit) => {
     return mapper.bucketList
         .findAll({
             attributes: ['bckIdx','bckTitle',`targetAmount`,'typeIdx',
@@ -18,7 +18,8 @@ exports.getBckListM = (userIdx) => {
             where: {
                 userIdx: { $and :[userIdx] },
                 delFlag: { $and :['N'] }
-            }
+            },
+            limit: limit
         })
         .then(function(results) {
             return results;
@@ -32,7 +33,7 @@ exports.findBckInfoM = (bckIdx, userIdx) => {
     return mapper.bucketList
         .findOne({
             attributes: ['bckIdx','bckTitle','bckDetail',`targetAmount`,'typeIdx',
-                [mapper.sequelize.fn('date_format', mapper.sequelize.col('startDate'), '%Y-%m-%d'), 'startDate'],
+                [mapper.sequelize.fn('date_format', mapper.sequelize.col("startDate"), '%Y-%m-%d'), 'startDate'],
                 [mapper.sequelize.fn('date_format', mapper.sequelize.col('completeDate'), '%Y-%m-%d'), 'completeDate']
             ],
             include: [{

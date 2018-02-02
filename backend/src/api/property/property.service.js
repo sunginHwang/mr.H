@@ -2,8 +2,8 @@ import propertyModel from '../../db/model/property/property.model';
 import { FIXED_DEPOSIT, SAVING_DEPOSIT } from '../../common/constants';
 
 
-exports.getPropertyList =  async (userIdx) => {
-    const propertyList = await propertyModel.getPropertyListM(userIdx);
+exports.getPropertyList =  async (userIdx, limit) => {
+    const propertyList = await propertyModel.getPropertyListM(userIdx, limit);
 
     return propertyList;
 };

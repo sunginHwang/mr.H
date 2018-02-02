@@ -30,7 +30,12 @@ class PropertyDetailContainer extends Component {
     const { propertyDetailActions } = this.props;
     const { propertyIdx } = this.props.match.params;
 
-    await propertyDetailActions.loadPropertyDetailInfo(propertyIdx);
+    try{
+        await propertyDetailActions.loadPropertyDetailInfo(propertyIdx);
+    }catch(e){
+        await alert(this.props.notifyMessage);
+    }
+
     await this.setMonthlyMoney();
   };
 

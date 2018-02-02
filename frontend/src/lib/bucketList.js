@@ -17,4 +17,4 @@ export const filterBckListForCompleteType = (bckList, completeType) => {
     }
 
     return resultList;
-}
+};

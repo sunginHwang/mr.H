@@ -6,10 +6,18 @@ const HASH_ALGORITHM = 'HS256';
 
 
 exports.tokenGenerator = (userInfo) => {
-    return  jwt.sign({userId : userInfo.userId,userIdx: userInfo.userIdx, userName: userInfo.userName}, SECRET_TOKEN_KEY, {
-        algorithm: HASH_ALGORITHM,
-        expiresIn: EXPIRE_DATE
-    });
+    return  jwt.sign(
+        {
+            userId : userInfo.userId,
+            userIdx: userInfo.userIdx,
+            userName: userInfo.userName
+        },
+        SECRET_TOKEN_KEY,
+        {
+            algorithm: HASH_ALGORITHM,
+            expiresIn: EXPIRE_DATE
+        }
+    );
 };
 
 exports.isAuthenticated = async(req, res, next) => {
@@ -18,7 +26,7 @@ exports.isAuthenticated = async(req, res, next) => {
 
     // token does not exist
     if(!token) {
-        return res.status(403).json({
+        return res.status(401).json({
             success: false,
             errorMsg: '로그인정보가 사라졌습니다. 다시 로그인해주세요.'
         })

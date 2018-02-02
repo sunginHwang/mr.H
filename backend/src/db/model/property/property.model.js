@@ -1,7 +1,7 @@
 import mapper from '../../mapper';
 
 
-exports.getPropertyListM = (userIdx) => {
+exports.getPropertyListM = (userIdx, limit) => {
     return mapper.property
         .findAll({
             attributes: ['propertyIdx','propertyTitle',`targetAmount`,'typeIdx',
@@ -18,7 +18,8 @@ exports.getPropertyListM = (userIdx) => {
             where: {
                 userIdx: { $and :[userIdx] },
                 delFlag: { $and :['N'] }
-            }
+            },
+            limit: limit
         })
         .then(function(results) {
             return results;
@@ -60,6 +61,29 @@ exports.findPropertyInfoM = (propertyIdx, userIdx) => {
             console.log(err);
             return null;
         });
+};
+
+exports.getCurrentTotalPropertyMoneyM = (userIdx) =>{
+    return mapper.property.sequelize.query('SELECT SUM(d.depositAmount) as totalMoney, p.typeIdx ' +
+                        'FROM property as p ' +
+                        'LEFT JOIN depositList as d ON p.propertyIdx = d.targetIdx and p.typeIdx = d.targetType ' +
+                        'WHERE p.propertyIdx > 0 AND p.delFlag = "N" AND p.userIdx = :userIdx and NOW() BETWEEN p.startDate and p.completeDate ' +
+                        'GROUP BY p.typeIdx',
+                        { replacements: { userIdx: userIdx }, type: mapper.property.sequelize.QueryTypes.SELECT })
+                .then((results)=>{return results;})
+                .catch((error)=>{console.log(error);return null;});
+};
+
+exports.getPropertyStatusM = (userIdx, month) =>{
+    return mapper.property.sequelize
+        .query('SELECT CAST(SUM(d.depositAmount) as int) as totalAmount , DATE_FORMAT(depositDate,"%Y-%m") as date ' +
+               'FROM property as p ' +
+               'LEFT JOIN depositList as d ON p.propertyIdx = d.targetIdx and p.typeIdx = d.targetType ' +
+               'WHERE p.propertyIdx > 0 AND p.delFlag = "N" AND p.userIdx = :userIdx ' +
+               'AND CONCAT(YEAR(d.depositDate), LPAD(MONTH(d.depositDate),2,"0")) >= PERIOD_ADD(CONCAT(YEAR(NOW()),LPAD(MONTH(NOW()),2,"0")),- :month ) ' +
+               'GROUP BY date',{replacements:{userIdx: userIdx, month: month},type: mapper.property.sequelize.QueryTypes.SELECT})
+        .then((results)=>{return results;})
+        .catch((error)=>{console.log(error);return null;})
 };
 
 exports.createPropertyM = (propertyInfo, propertyType, userIdx) => {

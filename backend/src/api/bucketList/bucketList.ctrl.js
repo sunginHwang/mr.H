@@ -7,8 +7,8 @@ import { MONEY_COMPLETE } from '../../common/constants';
 
 exports.getList = wrapAsync( async (req, res) => {
     const userIdx = req.userInfo.userIdx;
-
-    const bckList = await bckService.getBckList(userIdx);
+    const limit = 10000;
+    const bckList = await bckService.getBckList(userIdx, limit);
     if(util.isEmptyJson(bckList)){
         res.status(403).send({errorMsg : '버킷리스트 내역이 없습니다.'});return;
     }

@@ -7,7 +7,8 @@ import { FIXED_DEPOSIT } from '../../common/constants';
 
 exports.getList = wrapAsync( async (req, res) => {
     const userIdx = req.userInfo.userIdx;
-    const propertyList = await propertyService.getPropertyList(userIdx);
+    const limit = 10000;
+    const propertyList = await propertyService.getPropertyList(userIdx, limit);
 
     if(util.isEmptyJson(propertyList)){
         res.status(403).send({errorMsg : '등록 정보가 없습니다.'});return;

@@ -53,6 +53,10 @@ export default handleActions({
         type: LOAD_PROPERTY_DETAIL_INFO,
         onSuccess: (state, action) => {
             return state.set('propertyDetailInfo',fromJS(action.payload.data));
+        },
+        onFailure: (state, action) => {
+            const { response } = action.payload;
+            return state.set('notifyMessage',response.data.errorMsg);
         }
     }),
     ...pender({

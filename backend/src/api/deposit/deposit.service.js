@@ -30,7 +30,7 @@ exports.depositTypeValidate = async (targetIdx, typeIdx) => {
 
     if(isBucketList)
         validateResult = await bckModel.findBckInfoM(targetIdx, userIdx);
-    else
+    if(isProperty)
         validateResult = await propertyModel.findPropertyInfoM(targetIdx, userIdx);
 
     return validateResult;

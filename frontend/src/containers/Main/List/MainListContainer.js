@@ -10,16 +10,20 @@ import { getRemainDatePercentage } from 'lib/util';
 
 class MainListContainer extends Component {
 
+    componentDidMount(){
+        this.props.mainListActions.loadMainListInfo();
+    }
 
     render() {
-        const { propertyMoneyList, propertyList, bucketList } = this.props;
+        const { propertyMoneyList, propertyList, bckList, currentLowAmount } = this.props;
 
         return (
             <div>
                 <MainListForm
-                    propertyMoneyList={propertyMoneyList.toJS()}
-                    propertyList={propertyList.toJS()}
-                    bucketList={bucketList.toJS()}
+                    propertyMoneyList={propertyMoneyList}
+                    propertyList={propertyList}
+                    bckList={bckList}
+                    currentLowAmount={currentLowAmount}
                     filterBckListForCompleteType={filterBckListForCompleteType}
                     getRemainDatePercentage={getRemainDatePercentage}
                 />
@@ -30,9 +34,10 @@ class MainListContainer extends Component {
 
 export default connect(
     (state) => ({
-        propertyMoneyList: state.mainList.get('propertyMoneyList'),
-        propertyList: state.mainList.get('propertyList'),
-        bucketList: state.mainList.get('bucketList')
+        propertyMoneyList: state.mainList.get('propertyMoneyList').toJS(),
+        propertyList: state.mainList.get('propertyList').toJS(),
+        bckList: state.mainList.get('bckList').toJS(),
+        currentLowAmount: state.mainList.get('currentLowAmount').toJS()
     }),
     (dispatch) => ({
         mainListActions: bindActionCreators(mainListActions, dispatch),
