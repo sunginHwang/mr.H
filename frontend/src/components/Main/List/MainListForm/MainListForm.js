@@ -4,7 +4,7 @@ import CardItem from 'components/common/Item/CardItem';
 import PropertyLineChart from 'components/Main/List/PropertyLineChart';
 import ItemListForm from 'components/Main/List/ItemListForm';
 import { progressColor } from 'lib/variables';
-import { SAVING_DEPOSIT, DATE_COMPLETE } from 'lib/constants';
+import { SAVING_DEPOSIT, DATE_COMPLETE , FIXED_DEPOSIT} from 'lib/constants';
 
 import './MainListForm.css';
 
@@ -22,7 +22,10 @@ const MainListForm = ({
     bckList,
     currentLowAmount,
     filterBckListForCompleteType,
-    getRemainDatePercentage
+    getCurrentLowAmount,
+    getDepositTotalMoney,
+    getRemainDatePercentage,
+    comma
 }) => {
 
     const depositListForm = propertyList.map((data) =>
@@ -37,15 +40,15 @@ const MainListForm = ({
         )
     );
 
-    const bucketListForm = bckList.map((data) =>
+    const bucketListForm = bckList.map((bckInfo) =>
         (
             <ItemListForm
-                key={data.bckIdx}
-                title={data.bckTitle}
-                percent={data.typeIdx === DATE_COMPLETE ? getRemainDatePercentage(data.startDate,data.completeDate):
-                                                               parseInt(((data.targetAmount/data.targetAmount)*100),10)
+                key={bckInfo.bckIdx}
+                title={bckInfo.bckTitle}
+                percent={bckInfo.typeIdx === DATE_COMPLETE ? getRemainDatePercentage(bckInfo.startDate,bckInfo.completeDate):
+                                                               parseInt(getDepositTotalMoney(bckInfo.depositLists)/bckInfo.targetAmount*100,10)
                 }
-                progressColor={progressColor[Math.floor(progressColor.length % data.bckIdx)]} // randomColorProcess
+                progressColor={progressColor[Math.floor(progressColor.length % bckInfo.bckIdx)]} // randomColorProcess
             />
         )
     );
@@ -54,13 +57,13 @@ const MainListForm = ({
       <div className="property-list-form">
           <CardBlock
               headerTitle='현재 모은 금액'
-              headerSubArea={<TotalMoneyArea totalMoney={400000} />}>
+              headerSubArea={<TotalMoneyArea totalMoney={comma(currentLowAmount.reduce((prev, save) => prev + save.totalMoney, 0))} />}>
               <CardItem title='예금'
-                        extInfo={200000+' 원'}
+                        extInfo={getCurrentLowAmount(currentLowAmount,FIXED_DEPOSIT)+' 원'}
                         extColor='ocean'
                         subTitle=''/>
               <CardItem title='적금'
-                        extInfo={200000+' 원'}
+                        extInfo={getCurrentLowAmount(currentLowAmount,SAVING_DEPOSIT)+' 원'}
                         extColor='teal'
                         subTitle=''/>
           </CardBlock>

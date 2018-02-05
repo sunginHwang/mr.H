@@ -4,7 +4,8 @@ import {bindActionCreators} from 'redux';
 import * as mainListActions from 'store/modules/mainList';
 import MainListForm from 'components/Main/List/MainListForm';
 import { filterBckListForCompleteType } from 'lib/bucketList';
-import { getRemainDatePercentage } from 'lib/util';
+import { comma, getRemainDatePercentage } from 'lib/util';
+import { getDepositTotalMoney } from 'lib/deposit';
 
 
 
@@ -14,8 +15,15 @@ class MainListContainer extends Component {
         this.props.mainListActions.loadMainListInfo();
     }
 
+    getCurrentLowAmount(CurrentLowAmountList,type){
+        const LowAmount = CurrentLowAmountList.find( (LowAmount) => LowAmount.typeIdx == type);
+        return LowAmount == undefined ? 0
+                                      : comma(LowAmount.totalMoney);
+    }
+
     render() {
         const { propertyMoneyList, propertyList, bckList, currentLowAmount } = this.props;
+        const { getCurrentLowAmount } = this;
 
         return (
             <div>
@@ -26,6 +34,9 @@ class MainListContainer extends Component {
                     currentLowAmount={currentLowAmount}
                     filterBckListForCompleteType={filterBckListForCompleteType}
                     getRemainDatePercentage={getRemainDatePercentage}
+                    getDepositTotalMoney={getDepositTotalMoney}
+                    getCurrentLowAmount={getCurrentLowAmount}
+                    comma={comma}
                 />
             </div>
         );

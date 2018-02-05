@@ -64,7 +64,7 @@ exports.findPropertyInfoM = (propertyIdx, userIdx) => {
 };
 
 exports.getCurrentTotalPropertyMoneyM = (userIdx) =>{
-    return mapper.property.sequelize.query('SELECT SUM(d.depositAmount) as totalMoney, p.typeIdx ' +
+    return mapper.property.sequelize.query('SELECT CAST(SUM(d.depositAmount) as int) as totalMoney, p.typeIdx ' +
                         'FROM property as p ' +
                         'LEFT JOIN depositList as d ON p.propertyIdx = d.targetIdx and p.typeIdx = d.targetType ' +
                         'WHERE p.propertyIdx > 0 AND p.delFlag = "N" AND p.userIdx = :userIdx and NOW() BETWEEN p.startDate and p.completeDate ' +

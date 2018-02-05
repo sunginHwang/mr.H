@@ -57,4 +57,4 @@ export const comma = (number) => {
 export const calcMonthlyDepositMoney = (targetMoney, dueDate) => {
     const today = new Date();
     return parseInt(targetMoney / getRemainMonth(today,dueDate));
-}
+};
