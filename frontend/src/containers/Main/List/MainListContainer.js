@@ -12,6 +12,10 @@ import { getDepositTotalMoney } from 'lib/deposit';
 class MainListContainer extends Component {
 
     componentDidMount(){
+        this.loadMainInfo();
+    };
+
+    loadMainInfo(){
         this.props.mainListActions.loadMainListInfo();
     }
 
@@ -19,7 +23,7 @@ class MainListContainer extends Component {
         const LowAmount = CurrentLowAmountList.find( (LowAmount) => LowAmount.typeIdx == type);
         return LowAmount == undefined ? 0
                                       : comma(LowAmount.totalMoney);
-    }
+    };
 
     render() {
         const { propertyMoneyList, propertyList, bckList, currentLowAmount } = this.props;
@@ -45,6 +49,7 @@ class MainListContainer extends Component {
 
 export default connect(
     (state) => ({
+        userIdx: state.auth.getIn(['user','userIdx']),
         propertyMoneyList: state.mainList.get('propertyMoneyList').toJS(),
         propertyList: state.mainList.get('propertyList').toJS(),
         bckList: state.mainList.get('bckList').toJS(),

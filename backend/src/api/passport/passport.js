@@ -2,6 +2,8 @@ import passport from 'passport';
 import passportLocal from 'passport-local';
 import userModel from '../../db/model/user/user.model';
 import util from '../../common/util';
+import authService from '../auth/auth.service';
+
 
 const LocalStrategy = passportLocal.Strategy;
 
@@ -21,8 +23,9 @@ exports.setup = () => {
                 return done(null, false, { errorMsg: '존재하지 않는 아이디 입니다.' });
             }
 
+            const passwordValid = await authService.validPassword(userInfo.userPassword, password);
             // 비밀번호 체크
-            if(userInfo.userPassword != password){
+            if(!passwordValid){
                 return done(null, false, { errorMsg: '비밀번호가 다릅니다.' });
             }
 
