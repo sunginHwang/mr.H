@@ -13,3 +13,7 @@ export const PROCEEDING = 'proceeding';
 /*완료 상태*/
 export const COMPLETE = 'complete';
 
+/*비로그인 상태*/
+export const NON_LOGIN = -1;
+
+

@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as mainListActions from 'store/modules/mainList';
 import MainListForm from 'components/Main/List/MainListForm';
+import NonUserView from 'components/Main/NonUserView';
 import { filterBckListForCompleteType } from 'lib/bucketList';
-import { comma, getRemainDatePercentage } from 'lib/util';
+import { comma, getRemainDatePercentage, isLogin } from 'lib/util';
 import { getDepositTotalMoney } from 'lib/deposit';
 
 
@@ -26,8 +27,11 @@ class MainListContainer extends Component {
     };
 
     render() {
-        const { propertyMoneyList, propertyList, bckList, currentLowAmount } = this.props;
+        const { propertyMoneyList, propertyList, bckList, currentLowAmount, userIdx } = this.props;
         const { getCurrentLowAmount } = this;
+
+
+        if(!isLogin(userIdx)) return <NonUserView/>;
 
         return (
             <div>

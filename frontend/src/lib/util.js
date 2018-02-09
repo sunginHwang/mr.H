@@ -1,3 +1,4 @@
+import { NON_LOGIN } from './constants';
 /*남은 일수 구하기*/
 export const getRemainDate = (startDate, endDate) => {
     const convertStartDate = new Date(startDate);
@@ -57,4 +58,9 @@ export const comma = (number) => {
 export const calcMonthlyDepositMoney = (targetMoney, dueDate) => {
     const today = new Date();
     return parseInt(targetMoney / getRemainMonth(today,dueDate));
+};
+
+/*로그인 여부 검사*/
+export const isLogin = (userIdx) => {
+    return userIdx != NON_LOGIN;
 };
