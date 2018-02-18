@@ -1,6 +1,8 @@
 import wrapAsync from 'express-wrap-async';
 import passport from 'passport';
 import tokenHelper from '../../common/token';
+import { ACCESS_MODE , REFRESH_MODE } from '../../common/constants';
+import { SECRET_TOKEN_KEY } from '../../common/tokenKeyInfo';
 import passportSetting from '../passport/passport';
 import authService from './auth.service';
 import userModel from '../../db/model/user/user.model';
@@ -16,10 +18,12 @@ exports.login = wrapAsync( async (req, res, next) => {
         if (error) return res.json(401, {errorMsg : '로그인 요청이 올바르지 않습니다.'});
         if (!user) return res.json(404, {errorMsg: '잘못된 요청입니다.'});
         //토큰 저장
-        const token = tokenHelper.tokenGenerator(user);
+        const token = tokenHelper.tokenGenerator(ACCESS_MODE, user);
+        const refreshToken = tokenHelper.tokenGenerator(REFRESH_MODE, user);
 
         res.json({
             accessToken: token,
+            refreshToken: refreshToken,
             userInfo: {
                 userIdx : user.userIdx,
                 userId : user.userId,
@@ -58,31 +62,41 @@ exports.register = wrapAsync( async (req, res) =>{
 });
 
 exports.loadUserInfo = wrapAsync( async (req, res) =>{
-    const { accessToken }  = req.query;
-    const SECRET_TOKEN_KEY = 'sunginHwang';
+    const { accessToken, refreshToken }  = req.query;
 
     const validateToken = await jwt.verify(accessToken, SECRET_TOKEN_KEY,(err, userInfo) => {
 
-        if(err)
-            return null;
-        else
-            return userInfo;
+        if(err){
+            if(err.name = 'TokenExpiredError'){
+                return tokenHelper.refreshTokenGenerator(refreshToken);
+            }else{
+                return null;
+            }
+        } else{
+            return {
+                userInfo : userInfo,
+                accessToken : accessToken,
+                refreshToken : refreshToken
+            };
+        }
+
     });
 
     if(!validateToken){
         return res.status(403).json({
             success: false,
-            message: 'not validate token'
+            errorMsg: '로그인정보가 사라졌습니다. 다시 로그인해주세요.'
         })
     }else{
         res.json({
             successMsg : '토큰인증 성공.',
             userInfo : {
-                userIdx : validateToken.userIdx,
-                userId : validateToken.userId,
-                userName : validateToken.userName
+                userIdx : validateToken.userInfo.userIdx,
+                userId : validateToken.userInfo.userId,
+                userName : validateToken.userInfo.userName
             },
-            accessToken : accessToken
+            accessToken : validateToken.accessToken,
+            refreshToken : validateToken.refreshToken
         });
     }
 

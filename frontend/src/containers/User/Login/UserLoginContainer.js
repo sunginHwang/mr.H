@@ -6,23 +6,22 @@ import * as authActions from 'store/modules/auth';
 import TitleHeader from 'components/common/Header/TitleHeader';
 import LoginForm from 'components/User/Login/LoginForm';
 import { LoginUserSampleData } from 'lib/variables';
+import { ACCESS_TOKEN } from 'lib/constants';
+import { saveTokenInfo, deleteTokenInfo } from 'lib/util';
 
 class UserLoginContainer extends Component {
 
     componentDidMount() {
         const { userIdx, history, authActions } = this.props;
 
-        if(userIdx !== -1 || localStorage.getItem('_MRH_USER_')){
+        if(userIdx !== -1 || localStorage.getItem(ACCESS_TOKEN)){
             alert('로그인 상태에서 접근할 수 없습니다.');
             history.push('/');
         }else{
-            localStorage.removeItem('_MRH_USER_');
+            deleteTokenInfo();
             authActions.initialAuthUser();
         }
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-    }
+    };
 
    handleChangeLoginInputValue = (type, e) =>{
         const {authActions} = this.props;
@@ -38,7 +37,7 @@ class UserLoginContainer extends Component {
           try{
               await authActions.userLogin(userId, userPassword);
               await alert('로그인 성공');
-              await localStorage.setItem("_MRH_USER_", this.props.accessToken);
+              await saveTokenInfo(this.props.accessToken, this.props.refreshToken);
               await this.props.history.push('/');
           }catch(e){
               await withSetErrorMessage(this.props.notifyMessage);
@@ -88,6 +87,7 @@ export default WithError(connect(
         userId: state.auth.getIn(['user','userId']),
         userPassword: state.auth.getIn(['user','userPassword']),
         accessToken: state.auth.get('accessToken'),
+        refreshToken: state.auth.get('refreshToken'),
         notifyMessage: state.auth.get('notifyMessage')
     }),
     (dispatch) => ({

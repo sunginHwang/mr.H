@@ -1,4 +1,4 @@
-import { NON_LOGIN } from './constants';
+import { NON_LOGIN, ACCESS_TOKEN, REFRESH_TOKEN } from './constants';
 /*남은 일수 구하기*/
 export const getRemainDate = (startDate, endDate) => {
     const convertStartDate = new Date(startDate);
@@ -63,4 +63,15 @@ export const calcMonthlyDepositMoney = (targetMoney, dueDate) => {
 /*로그인 여부 검사*/
 export const isLogin = (userIdx) => {
     return userIdx != NON_LOGIN;
+};
+
+/*토큰정보 저장*/
+export const saveTokenInfo = (token, refreshToken) => {
+     localStorage.setItem(ACCESS_TOKEN, token);
+     localStorage.setItem(REFRESH_TOKEN, refreshToken);
+};
+
+export const deleteTokenInfo = () => {
+    localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(REFRESH_TOKEN);
 };

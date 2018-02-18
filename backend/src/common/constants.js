@@ -11,3 +11,10 @@ export const MONEY_COMPLETE = 4;
 export const HASH_TYPE = 'sha512';
 export const HASH_DIGEST = 'hex';
 export const HASH_SALT_KEY = 'haejin';
+
+/*리프레쉬 토큰*/
+export const REFRESH_MODE = 'refresh';
+export const ACCESS_MODE = 'access';
+
+/*헤더 네임*/
+export const ACCESS_HEADER_TOKEN = 'mrh-user-token';

@@ -16,4 +16,7 @@ export const COMPLETE = 'complete';
 /*비로그인 상태*/
 export const NON_LOGIN = -1;
 
-
+/*토큰 상수*/
+export const ACCESS_TOKEN = '_MRH_USER_';
+export const REFRESH_TOKEN = '_MRH_USER_REFRESH_';
+export const ACCESS_HEADER_TOKEN = 'mrh-user-token';

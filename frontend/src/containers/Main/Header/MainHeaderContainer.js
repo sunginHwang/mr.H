@@ -5,13 +5,14 @@ import * as mainHeaderActions from 'store/modules/mainHeader';
 import * as authActions from 'store/modules/auth';
 import MainHeader from 'components/common/Header/MainHeader';
 import SideMenu from 'components/Main/SideMenu';
+import { deleteTokenInfo } from 'lib/util';
 
 class MainHeaderContainer extends Component {
 
    handleLogout = async () => {
         const { authActions, history } = this.props;
         await authActions.initialAuthUser();
-        await localStorage.removeItem('_MRH_USER_');
+        await deleteTokenInfo();
         await alert('로그아웃 성공');
         await history.push('/login');
    };

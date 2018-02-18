@@ -1,11 +1,13 @@
 import jwt from 'jsonwebtoken';
+import { ACCESS_MODE , REFRESH_MODE, ACCESS_HEADER_TOKEN } from './constants';
+import { SECRET_TOKEN_KEY, HASH_ALGORITHM, EXPIRE_DATE } from './tokenKeyInfo';
+import { tokenGenerator } from './token';
 
-const SECRET_TOKEN_KEY = 'sunginHwang';
-const EXPIRE_DATE = 60 * 24 * 30 * 6; // 반년
-const HASH_ALGORITHM = 'HS256';
 
 
-exports.tokenGenerator = (userInfo) => {
+exports.tokenGenerator = (tokenType = ACCESS_MODE, userInfo) => {
+    const expireTime =  tokenType == REFRESH_MODE ? EXPIRE_DATE * 2 : EXPIRE_DATE;
+
     return  jwt.sign(
         {
             userId : userInfo.userId,
@@ -15,15 +17,33 @@ exports.tokenGenerator = (userInfo) => {
         SECRET_TOKEN_KEY,
         {
             algorithm: HASH_ALGORITHM,
-            expiresIn: EXPIRE_DATE
+            expiresIn: expireTime
         }
     );
 };
 
+exports.refreshTokenGenerator = ( refreshToken ) => {
+    const refreshTokenInfo =  jwt.verify(refreshToken, SECRET_TOKEN_KEY,(err, userInfo) => {
+        if(err){
+            return null;
+        }else{
+            const newAccessToken = tokenGenerator(ACCESS_MODE, userInfo);
+            const newRefreshToken = tokenGenerator(REFRESH_MODE, userInfo);
+            return{
+                userInfo : userInfo,
+                accessToken : newAccessToken,
+                refreshToken : newRefreshToken
+            }
+        }
+    });
+
+    return refreshTokenInfo;
+};
+
+
 exports.isAuthenticated = async(req, res, next) => {
     
-    const token = req.headers['mrh-user-token'] || req.query.token;
-
+    const token = req.headers[ACCESS_HEADER_TOKEN] || req.query.token;
     // token does not exist
     if(!token) {
         return res.status(401).json({
@@ -33,7 +53,6 @@ exports.isAuthenticated = async(req, res, next) => {
     }
 
     const validateToken = await jwt.verify(token, SECRET_TOKEN_KEY,(err, userInfo) => {
-
         if(err)
             return null;
         else
