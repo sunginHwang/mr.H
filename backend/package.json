@@ -27,7 +27,8 @@
   "scripts": {
     "build": "babel src -d build --presets=es2015",
     "start": "cross-env NODE_ENV=production node ./build/main.js",
-    "development": "cross-env NODE_ENV=development nodemon --exec babel-node --presets=es2015 ./src/main.js --watch server",
+    "dev" : "babel src -d build --presets=es2015 && cross-env NODE_ENV=development node ./build/main.js",
+    "live": "cross-env NODE_ENV=production nodemon --exec babel-node --presets=es2015 ./src/main.js --watch server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "sunginhwang",

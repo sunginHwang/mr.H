@@ -11,7 +11,7 @@ export default {
         "id": "root",
         "password": "rhkfh1",
         "database": "ohjic",
-        "host": "storage.qfun.kr",
+        "host": "localhost",
         "dialect": "mysql"
     }
 }
