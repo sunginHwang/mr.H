@@ -19,8 +19,8 @@ exports.getMainInfo = wrapAsync( async (req, res) => {
     const result = {
         bckList:bckList,
         propertyList: propertyList,
-        currentLowAmount: currentLowAmount,
-        propertyStatus: propertyStatus
+        currentLowAmount: currentLowAmount == null ? [] : currentLowAmount,
+        propertyStatus: propertyStatus == null ? [] : propertyStatus
     };
 
     res.json(result);
