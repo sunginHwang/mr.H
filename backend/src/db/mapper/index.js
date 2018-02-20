@@ -5,7 +5,18 @@ import dbConfig from '../../config/dbConfig';
 
 const env       = process.env.NODE_ENV !== 'production' && 'development' ;
 const sequelize = new Sequelize(dbConfig.development.database, dbConfig.development.id, dbConfig.development.password,
-                                {host: dbConfig.development.host, port : dbConfig.development.port, dialect: dbConfig.development.dialect});
+                                {
+                                    host: dbConfig.development.host,
+                                    port : dbConfig.development.port,
+                                    dialect: dbConfig.development.dialect,
+                                    define: {
+                                        charset: 'utf8',
+                                        dialectOptions: {
+                                            collate: 'utf8_general_ci'
+                                        },
+                                        timestamps: true
+                                    }
+                                });
 
 let db   = {};
 
