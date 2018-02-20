@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import { setResponseHeader } from './common/util';
 
 const session = require('express-session'), RedisStore = require('connect-redis')(session);
 
@@ -28,7 +29,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 app.use('/', express.static(__dirname + '/../../build'));
 
 import api from './api'
-app.use('/api',api);
+app.use('/api',setResponseHeader, api);
 // LOAD API FROM ROUTES
 // TO BE IMPLEMENTED
 
