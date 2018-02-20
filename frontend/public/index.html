@@ -15,25 +15,6 @@
     -->
     <title>React App</title>
   </head>
-  <script type="text/javascript">
-
-      // <![CDATA[
-
-      // toolbar hide
-
-      try {
-
-          window.addEventListener('load', function(){
-
-              setTimeout(scrollTo, 0, 0, 1);
-
-          }, false);
-
-      } catch(e) {}
-
-      // ]]>
-
-  </script>
   <body>
     <div id="root"></div>
     <!--
@@ -47,4 +28,13 @@
       To create a production bundle, use `npm run build`.
     -->
   </body>
+  <script>
+
+      // 안드로이드 버그 주소창 없애기
+      window.addEventListener('load', function(){
+          document.body.style.height = (document.documentElement.clientHeight + 5) + 'px';
+          window.scrollTo(0, 1);
+      }, false);
+
+  </script>
 </html>
