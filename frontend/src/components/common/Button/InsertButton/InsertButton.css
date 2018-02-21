@@ -13,3 +13,8 @@
     z-index: 400;
     cursor: pointer;
 }
+
+.InsertButton > a {
+    width: 60px;
+    margin: 0 auto;
+}

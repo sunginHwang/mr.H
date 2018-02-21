@@ -11,7 +11,7 @@
     width: 100%;
     padding: 1rem 1rem 1rem 2.2rem;
     height: 3.1rem;
-    border-bottom: .1rem solid #bdbdbd;
+    border-bottom: 0.1rem solid #ebedf2;
 }
 .CardBlock-header > .CardBlock-header-title{
     font-size: 1.1rem;
