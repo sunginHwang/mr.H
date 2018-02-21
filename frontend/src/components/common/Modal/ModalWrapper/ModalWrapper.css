@@ -11,9 +11,8 @@
 }
 
 .ModalWrapper-modal{
-    position: fixed;
-    top: 35%;
-    left: 12.5%;
+    margin-top: 60%;
+    margin-left: 12.5%;
     width: 75%;
     border-radius: 12px;
     padding: 1em;
