@@ -20,7 +20,7 @@ export default function WithAuthCheck(WrappedComponent) {
 
         render() {
             return <div className='withAuthCheck'>
-                     <WrappedComponent {...this.props} />;
+                     <WrappedComponent {...this.props} />
                   </div>
         }
     };

@@ -4,7 +4,7 @@
     width: 100%;
     padding-top: 0.85rem;
     padding-bottom: 0.95rem;
-    border-bottom: .07rem dashed #ebedf2;
+    border-bottom: .1rem dashed #bdbdbd;
 }
 
 .CardItem > .CardItem-info{

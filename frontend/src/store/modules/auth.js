@@ -6,7 +6,7 @@ import { pender } from 'redux-pender';
 import { Map } from 'immutable';
 import axiosAuth from 'lib/axiosAuth';
 import { ACCESS_HEADER_TOKEN } from 'lib/constants';
-
+import { getErrorMsg } from 'lib/util';
 
 //액션타입
 const CHANGE_LOGIN_INPUT_VALUE = 'auth/CHANGE_LOGIN_INPUT_VALUE';
@@ -52,7 +52,7 @@ export default handleActions({
         },
         onFailure: (state, action) => {
             const { response } = action.payload;
-            return state.set('notifyMessage',response.data.errorMsg);
+            return state.set('notifyMessage',getErrorMsg(response.data.errorMsg));
         }
     }),
     ...pender({

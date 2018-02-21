@@ -22,7 +22,7 @@ const PropertyProgressInfo = ({
                   active
                   percent={passedDate}
                   progress='percent'
-                  size='small'
+                  size='medium'
                   color='grey'/>
         <div className='progress-bottom'>
             <span className='progress-bottom-txt'>{'시작일 : '+startDate}</span>

@@ -70,8 +70,16 @@ export const saveTokenInfo = (token, refreshToken) => {
      localStorage.setItem(ACCESS_TOKEN, token);
      localStorage.setItem(REFRESH_TOKEN, refreshToken);
 };
-
+/*토큰정보 삭제*/
 export const deleteTokenInfo = () => {
     localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem(REFRESH_TOKEN);
+};
+
+/*에러 메세지 공통 처리*/
+export const getErrorMsg = (errorMsg) => {
+    if(errorMsg == undefined || errorMsg == null || errorMsg == '')
+        return '잠시후 다시 시도해 주세요.';
+    else
+        return errorMsg;
 };

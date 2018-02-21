@@ -5,6 +5,7 @@ import { createAction, handleActions } from 'redux-actions';
 import axios from 'axios';
 import { pender } from 'redux-pender';
 import { Map } from 'immutable';
+import { getErrorMsg } from 'lib/util';
 
 //액션타입
 const REGISTER_USER = 'user/REGISTER_USER';
@@ -43,7 +44,7 @@ export default handleActions({
         },
         onFailure: (state, action) => {
             const { response } = action.payload;
-            return state.set('notifyMessage',response.data.errorMsg);
+            return state.set('notifyMessage',getErrorMsg(response.data.errorMsg));
         }
     }),
     [changeUserInputValue]: (state, action) => {

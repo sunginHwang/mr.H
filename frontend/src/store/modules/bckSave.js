@@ -6,6 +6,8 @@ import { pender } from 'redux-pender';
 import { getNextMonthDate } from 'lib/util';
 import { Map, fromJS } from 'immutable';
 import axiosAuth from 'lib/axiosAuth';
+import { getErrorMsg } from 'lib/util';
+
 
 //액션타입
 const CHANGE_INPUT_VALUE = 'bckSave/CHANGE_INPUT_VALUE';
@@ -64,7 +66,7 @@ export default handleActions({
         },
         onFailure: (state, action) => {
             const { response } = action.payload;
-            return state.set('notifyMessage',response.data.errorMsg);
+            return state.set('notifyMessage',getErrorMsg(response.data.errorMsg));
         }
     }),
     ...pender({
@@ -74,7 +76,7 @@ export default handleActions({
         },
         onFailure: (state, action) => {
             const { response } = action.payload;
-            return state.set('notifyMessage',response.data.errorMsg);
+            return state.set('notifyMessage',getErrorMsg(response.data.errorMsg));
         }
     }),
     [CHANGE_INPUT_VALUE]: (state, action) => {

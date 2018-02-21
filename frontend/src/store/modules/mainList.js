@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { Map, List, fromJS } from 'immutable';
 import axiosAuth from 'lib/axiosAuth';
 import {pender} from "redux-pender";
+import { getErrorMsg } from 'lib/util';
 
 //비동기 호출
 export const apiGetBckModifyInfo = () => axiosAuth.get('/api/main/mainInfo');
@@ -31,7 +32,7 @@ export default handleActions({
         },
         onFailure: (state, action) => {
             const { response } = action.payload;
-            return state.set('notifyMessage',response.data.errorMsg);
+            return state.set('notifyMessage',getErrorMsg(response.data.errorMsg));
         }
     }),
 }, initialState);

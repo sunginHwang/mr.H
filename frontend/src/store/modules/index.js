@@ -3,7 +3,6 @@ import { penderReducer } from 'redux-pender';
 
 import mainList from './mainList';
 import mainHeader from './mainHeader';
-import board from './board';
 import user from  './user';
 import auth from  './auth';
 import bckList from './bckList';
@@ -14,7 +13,6 @@ import propertySave from './propertySave';
 import propertyDetail from './propertyDetail';
 
 export default combineReducers({
-    board,
     mainList,
     mainHeader,
     user,

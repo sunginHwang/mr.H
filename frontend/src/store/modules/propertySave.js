@@ -3,7 +3,7 @@
  */
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
-import { getNextMonthDate } from 'lib/util';
+import { getNextMonthDate, getErrorMsg } from 'lib/util';
 import axiosAuth from 'lib/axiosAuth';
 import { Map } from 'immutable';
 
@@ -44,7 +44,7 @@ export default handleActions({
         },
         onFailure: (state, action) => {
             const { response } = action.payload;
-            return state.set('notifyMessage',response.data.errorMsg);
+            return state.set('notifyMessage',getErrorMsg(response.data.errorMsg));
         }
     }),
     [changeInputValue]: (state, action) => {

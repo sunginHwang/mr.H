@@ -2,6 +2,8 @@ import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
 import { Map, List, fromJS } from 'immutable';
 import axiosAuth from 'lib/axiosAuth';
+import { getErrorMsg } from 'lib/util';
+
 
 //액션타입
 const CHANGE_BCK_DEPOSIT_MONEY = 'bckList/CHANGE_BCK_DEPOSIT_MONEY';
@@ -53,7 +55,7 @@ export default handleActions({
         },
         onFailure: (state, action) => {
             const { response } = action.payload;
-            return state.set('notifyMessage',response.data.errorMsg);
+            return state.set('notifyMessage',getErrorMsg(response.data.errorMsg));
         }
     }),
     ...pender({
@@ -63,7 +65,7 @@ export default handleActions({
         },
         onFailure: (state, action) => {
             const { response } = action.payload;
-            return state.set('notifyMessage',response.data.errorMsg);
+            return state.set('notifyMessage',getErrorMsg(response.data.errorMsg));
         }
     }),
     [TOGGLE_BCK_MODAL]: (state, action) => {

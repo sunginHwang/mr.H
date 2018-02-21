@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { Map, List, fromJS } from 'immutable';
 import { pender } from 'redux-pender';
 import axiosAuth from 'lib/axiosAuth';
+import { getErrorMsg } from 'lib/util';
 
 //액션타입
 const LOAD_PROPERTY_DETAIL_INFO = 'propertyDetail/LOAD_PROPERTY_DETAIL_INFO';
@@ -56,7 +57,7 @@ export default handleActions({
         },
         onFailure: (state, action) => {
             const { response } = action.payload;
-            return state.set('notifyMessage',response.data.errorMsg);
+            return state.set('notifyMessage',getErrorMsg(response.data.errorMsg));
         }
     }),
     ...pender({
@@ -66,7 +67,7 @@ export default handleActions({
         },
         onFailure: (state, action) => {
             const { response } = action.payload;
-            return state.set('notifyMessage',response.data.errorMsg);
+            return state.set('notifyMessage',getErrorMsg(response.data.errorMsg));
         }
     }),
     ...pender({
@@ -76,7 +77,7 @@ export default handleActions({
         },
         onFailure: (state, action) => {
             const { response } = action.payload;
-            return state.set('notifyMessage',response.data.errorMsg);
+            return state.set('notifyMessage',getErrorMsg(response.data.errorMsg));
         }
     }),
     [TOGGLE_PROPERTY_MODAL]: (state, action) => {
