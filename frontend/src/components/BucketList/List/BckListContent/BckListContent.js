@@ -1,5 +1,6 @@
 import React from 'react';
 import { Progress } from 'semantic-ui-react';
+import './BckListContent.css';
 import ContentList from 'components/common/ContentList';
 import BckListEventButton from 'components/BucketList/List/BckListEventButton';
 import 'semantic-ui-css/semantic.min.css';
@@ -11,7 +12,7 @@ const BckListTitle = ({
     completeDate,
     onTitleClick
 }) => {
-    return(<p onClick={onTitleClick}>{title} ({completeDate})</p>);
+    return(<p className='bck-list-title' onClick={onTitleClick}>{title} ({completeDate})</p>);
 };
 
 const BckListContent = ({

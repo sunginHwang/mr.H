@@ -1,8 +1,25 @@
+.toggleHeader{
+    position: relative;
+    height: 40px;
+}
+
 .ToggleTap{
     height: 40px;
     line-height: 40px;
     background-color: #fff;
     width: 100%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    top: 50px;
+    right: 0;
+    left: 0;
+    z-index: 100;
+    align-items: center;
+    border-bottom: 1px solid #d3d6d8;
+    background-color: #fff;
+    height: 40px;
+    box-shadow: none;
 }
 .ToggleTap-tap{
     text-align: center;

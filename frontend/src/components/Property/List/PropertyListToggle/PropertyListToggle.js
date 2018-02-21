@@ -1,5 +1,5 @@
 import React from 'react';
-import ToggleTap from 'components/common/Tap/ToggleTap';
+import ToggleTap from 'components/common/Header/ToggleTap';
 
 
 const PropertyListToggle = ({
@@ -7,7 +7,6 @@ const PropertyListToggle = ({
     toggleMode
 }) => {
     return (
-        <div className="bck-toggle-tap">
             <ToggleTap
                 leftToggleValue='적급진행내역'
                 rightToggleValue='적급완료내역'
@@ -16,7 +15,6 @@ const PropertyListToggle = ({
                 toggleActive={toggleMode === 'complete' ? 'right' : 'left'}
                 activeColor='ocean'
             />
-        </div>
     );
 };
 
