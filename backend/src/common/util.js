@@ -24,6 +24,10 @@ exports.passwordHash = async (password) => {
 exports.setResponseHeader = async(req, res, next) => {
     res.set({
         'Content-Type': 'text/html;charset=UTF-8',
+        'Access-Control-Allow-Credentials' : true,
+        'Access-Control-Allow-Header' : 'Origin, X-Requested-With, Content-Type, Accept, x-timebase, Link',
+        'Access-Control-Allow-Methods' : 'GET, POST, DELETE, PUT, PATCH, OPTIONS',
+        'Access-Control-Expost-Header' : 'Link'
     });
     next();
 };
