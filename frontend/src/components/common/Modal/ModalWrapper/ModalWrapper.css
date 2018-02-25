@@ -1,5 +1,5 @@
 .ModalWrapper{
-    position: absolute;
+    position: fixed;
     top: 0!important;
     left: 0!important;
     width: 100%;
@@ -11,8 +11,9 @@
 }
 
 .ModalWrapper-modal{
-    margin-top: 50%;
-    margin-left: 12.5%;
+    position: fixed;
+    top: 35%;
+    left: 12.5%;
     width: 75%;
     border-radius: 12px;
     padding: 1em;
