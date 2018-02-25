@@ -12,7 +12,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 if(isProd){
     axiosAuth.defaults.withCredentials = true;
-    axiosAuth.defaults.baseURL = 'http://mrh.kr:2000';
+    axiosAuth.defaults.baseURL = 'http://mrh.kr:8080';
 }
 
 const store = configureStore();
