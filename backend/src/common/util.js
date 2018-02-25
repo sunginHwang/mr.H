@@ -29,6 +29,11 @@ exports.setResponseHeader = async(req, res, next) => {
         'Access-Control-Allow-Methods' : 'GET, POST, DELETE, PUT, PATCH, OPTIONS',
         'Access-Control-Expost-Header' : 'Link'
     });
-    next();
+
+    if ('OPTIONS' == req.method) {
+        res.send(200);
+    } else {
+        next();
+    }
 };
 
