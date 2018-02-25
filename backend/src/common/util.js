@@ -27,7 +27,8 @@ exports.setResponseHeader = async(req, res, next) => {
         'Access-Control-Allow-Credentials' : true,
         'Access-Control-Allow-Header' : 'Origin, X-Requested-With, Content-Type, Accept, x-timebase, Link',
         'Access-Control-Allow-Methods' : 'GET, POST, DELETE, PUT, PATCH, OPTIONS',
-        'Access-Control-Expost-Header' : 'Link'
+        'Access-Control-Export-Header' : 'Link',
+        'Access-Control-Allow-Origin' : '*'
     });
 
     if ('OPTIONS' == req.method) {
