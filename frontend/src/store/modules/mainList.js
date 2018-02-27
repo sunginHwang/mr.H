@@ -5,7 +5,7 @@ import {pender} from "redux-pender";
 import { getErrorMsg } from 'lib/util';
 
 //비동기 호출
-export const apiGetBckModifyInfo = () => axiosAuth.get('/api/main/mainInfo');
+export const apiGetBckModifyInfo = () => axiosAuth.get('/proxy/api/main/mainInfo');
 
 //액션타입
 const LOAD_MAIN_LIST_INFO = 'mainList/LOAD_MAIN_LIST_INFO';
