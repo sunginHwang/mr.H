@@ -100,5 +100,6 @@
   ],
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "proxy": "http://api.mrh.kr"
 }
