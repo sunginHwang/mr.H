@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 // SERVE STATIC FILES - REACT PROJECT
 app.use('/', express.static(__dirname + '/../../build'));
 
-app.use('/proxy', proxy({target: 'http://mrh.kr'}));
+app.use('/proxy', proxy({target: 'http://mrh.kr', changeOrigin: true}));
 
 
 import api from './api'
