@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { setResponseHeader } from './common/util';
+import proxy from 'http-proxy-middleware';
 
 const session = require('express-session'), RedisStore = require('connect-redis')(session);
 
@@ -27,6 +28,9 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 // SERVE STATIC FILES - REACT PROJECT
 app.use('/', express.static(__dirname + '/../../build'));
+
+app.use('/proxy', proxy({target: 'http://mrh.kr'}));
+
 
 import api from './api'
 app.use('/api',setResponseHeader, api);
