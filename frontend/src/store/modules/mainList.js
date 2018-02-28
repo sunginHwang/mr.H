@@ -25,12 +25,18 @@ export default handleActions({
     ...pender({
         type: LOAD_MAIN_LIST_INFO,
         onSuccess: (state, action) => {
+            console.log('--success start--');
+            console.log(action);
+            console.log('--end--');
             return state.set('propertyList',fromJS(action.payload.data.propertyList))
                         .set('bckList',fromJS(action.payload.data.bckList))
                         .set('propertyMoneyList',fromJS(action.payload.data.propertyStatus))
                         .set('currentLowAmount',fromJS(action.payload.data.currentLowAmount));
         },
         onFailure: (state, action) => {
+            console.log('--fail start--');
+            console.log(action);
+            console.log('--end--');
             const { response } = action.payload;
             return state.set('notifyMessage',getErrorMsg(response.data.errorMsg));
         }
