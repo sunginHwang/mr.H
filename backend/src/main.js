@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import { setResponseHeader } from './common/util';
 
 const session = require('express-session'), RedisStore = require('connect-redis')(session);
@@ -7,6 +8,7 @@ const session = require('express-session'), RedisStore = require('connect-redis'
 const app = express();
 
 let port = 8080;
+app.use(cors());
 
 /*REDIS-SESSION SETTING*/
 app.use( session({
@@ -30,7 +32,7 @@ app.use('/', express.static(__dirname + '/../../build'));
 
 
 import api from './api'
-app.use('/api',setResponseHeader, api);
+app.use('/api', api);
 // LOAD API FROM ROUTES
 // TO BE IMPLEMENTED
 
