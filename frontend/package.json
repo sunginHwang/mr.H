@@ -11,6 +11,7 @@
     "react-immutable-proptypes": "^2.1.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.1.2",
+    "react-spinners": "^0.2.6",
     "react-transition-group": "^2.2.0",
     "recharts": "^1.0.0-alpha.6",
     "redux": "^3.7.2",
@@ -63,7 +64,7 @@
   "scripts": {
     "start": "cross-env NODE_PATH=src node scripts/start.js",
     "build": "cross-env NODE_PATH=src node scripts/build.js",
-    "live" : "serve build",
+    "live": "serve build",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {

@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as mainListActions from 'store/modules/mainList';
 import MainListForm from 'components/Main/List/MainListForm';
 import NonUserView from 'components/Main/NonUserView';
+import BeatLoading from 'components/common/Loading/BeatLoading';
 import { filterBckListForCompleteType } from 'lib/bucketList';
 import { comma, getRemainDatePercentage, isLogin } from 'lib/util';
 import { getDepositTotalMoney } from 'lib/deposit';
@@ -27,10 +28,9 @@ class MainListContainer extends Component {
     };
 
     render() {
-        const { propertyMoneyList, propertyList, bckList, currentLowAmount, userIdx } = this.props;
+        const { propertyMoneyList, propertyList, bckList, currentLowAmount, userIdx, mainListLoading} = this.props;
         const { getCurrentLowAmount } = this;
-
-
+        if(mainListLoading) return <BeatLoading loading={mainListLoading}/>;
         if(!isLogin(userIdx)) return <NonUserView/>;
 
         return (
@@ -53,6 +53,7 @@ class MainListContainer extends Component {
 
 export default connect(
     (state) => ({
+        mainListLoading: state.pender.pending['mainList/LOAD_MAIN_LIST_INFO'],
         userIdx: state.auth.getIn(['user','userIdx']),
         propertyMoneyList: state.mainList.get('propertyMoneyList').toJS(),
         propertyList: state.mainList.get('propertyList').toJS(),

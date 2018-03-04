@@ -6,6 +6,7 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "connect-redis": "^3.3.2",
+    "cors": "^2.8.4",
     "express": "^4.15.4",
     "express-session": "^1.15.6",
     "express-wrap-async": "^1.0.3",
@@ -28,7 +29,7 @@
   "scripts": {
     "build": "babel src -d build --presets=es2015",
     "start": "cross-env NODE_ENV=production node ./build/main.js",
-    "dev" : "babel src -d build --presets=es2015 && cross-env NODE_ENV=development node ./build/main.js",
+    "dev": "babel src -d build --presets=es2015 && cross-env NODE_ENV=development node ./build/main.js",
     "live": "cross-env NODE_ENV=production nodemon --exec babel-node --presets=es2015 ./src/main.js --watch server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

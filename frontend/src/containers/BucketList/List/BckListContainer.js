@@ -10,6 +10,7 @@ import BckListToggle from 'components/BucketList/List/BckListToggle';
 import BckDepositModal from 'components/BucketList/Modal/BckDepositModal';
 import BckDeleteModal from 'components/BucketList/Modal/BckDeleteModal';
 import InsertButton from 'components/common/Button/InsertButton';
+import BeatLoading from 'components/common/Loading/BeatLoading';
 
 import { getDepositTotalMoney } from 'lib/deposit';
 import { isBiggerThenToday } from 'lib/util';
@@ -141,8 +142,10 @@ class BckListContainer extends Component {
             handleChangeToggle,
             getBckList
         } = this;
-        const { bckDepositMoney, bckToggleMode, modal} = this.props;
+        const { bckDepositMoney, bckToggleMode, modal, bckListLoading} = this.props;
         const bckList = getBckList();
+
+        if(bckListLoading) return <BeatLoading loading={bckListLoading}/>;
 
         return (
            <div>
@@ -184,6 +187,7 @@ class BckListContainer extends Component {
 export default connect(
     (state) => ({
         modal: state.bckList.get('modal'),
+        bckListLoading: state.pender.pending['bckList/LOAD_BCK_LIST'],
         bckDepositMoney: state.bckList.get('bckDepositMoney'),
         bckDepositIdx: state.bckList.get('bckDepositIdx'),
         notifyMessage: state.bckList.get('notifyMessage'),

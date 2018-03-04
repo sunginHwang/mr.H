@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as bckDetailActions from 'store/modules/bckDetail';
 import BckDetailForm from 'components/BucketList/Detail/BckDetailForm';
 import TitleHeader from 'components/common/Header/TitleHeader';
+import BeatLoading from 'components/common/Loading/BeatLoading';
 import { getRemainDate, comma } from 'lib/util';
 
 class BckDetailContainer extends Component {
@@ -33,14 +34,14 @@ class BckDetailContainer extends Component {
    };
 
   render() {
-   /* 서버 사이드 전환시 해당 url 매치 idx 사용할것
-   const { bckIdx } = this.props.match.params;
-   */
-   const { bckDetailInfo } = this.props;
+   const { bckDetailInfo, bckDetailLoading } = this.props;
    const { handleModify } = this;
    const remainDate = getRemainDate(bckDetailInfo.startDate, bckDetailInfo.completeDate);
 
-    return (
+  if(bckDetailLoading) return <BeatLoading loading={bckDetailLoading}/>;
+
+
+      return (
         <div>
             <TitleHeader
                 iconColor='black'
@@ -60,6 +61,7 @@ class BckDetailContainer extends Component {
 
 export default connect(
     (state) => ({
+        bckDetailLoading: state.pender.pending['bckDetail/LOAD_BCK_DETAIL_INFO'],
         bckDetailInfo: state.bckDetail.get('bckDetailInfo').toJS()
     }),
     (dispatch) => ({

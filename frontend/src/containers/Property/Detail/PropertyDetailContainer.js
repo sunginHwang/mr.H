@@ -6,6 +6,7 @@ import PropertyDetailForm from 'components/Property/Detail/PropertyDetailForm';
 import PropertyDepositSaveModal from 'components/Property/Modal/PropertyDepositSaveModal';
 import PropertyDeleteModal from 'components/Property/Modal/PropertyDeleteModal';
 import TitleHeader from 'components/common/Header/TitleHeader';
+import BeatLoading from 'components/common/Loading/BeatLoading';
 import { getRemainDate, calcMonthlyDepositMoney, comma, getRemainDatePercentage } from 'lib/util';
 import { SAVING_DEPOSIT } from 'lib/constants';
 
@@ -132,8 +133,10 @@ class PropertyDetailContainer extends Component {
         handlePropertyDelete,
         togglePropertyModal
     } = this;
-    const { propertyDetailInfo, modal, monthlyDepositMoney, error } = this.props;
+    const { propertyDetailInfo, modal, monthlyDepositMoney, error, propertyDetailLoading } = this.props;
     const propertyInfo = propertyDetailInfo.toJS();
+
+    if(propertyDetailLoading) return <BeatLoading loading={propertyDetailLoading}/>;
 
     return (
         <div>
@@ -179,6 +182,7 @@ export default connect(
         propertyDetailInfo: state.propertyDetail.get('propertyDetailInfo'),
         monthlyDepositMoney : state.propertyDetail.get('monthlyDepositMoney'),
         modal : state.propertyDetail.get('modal'),
+        propertyDetailLoading: state.pender.pending['propertyDetail/LOAD_PROPERTY_DETAIL_INFO'],
         error : state.propertyDetail.get('error'),
         notifyMessage : state.propertyDetail.get('notifyMessage')
     }),

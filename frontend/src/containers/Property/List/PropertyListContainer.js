@@ -7,6 +7,7 @@ import * as propertyListActions from 'store/modules/propertyList';
 import PropertyListToggle from 'components/Property/List/PropertyListToggle';
 import PropertyList from 'components/Property/List/PropertyList';
 import InsertButton from 'components/common/Button/InsertButton';
+import BeatLoading from 'components/common/Loading/BeatLoading';
 import { SAVING_DEPOSIT, FIXED_DEPOSIT } from 'lib/constants';
 import { comma, isBiggerThenToday } from 'lib/util';
 
@@ -39,13 +40,15 @@ class PropertyListContainer extends Component {
    };
 
   render() {
-    const { propertyToggleMode } = this.props;
+    const { propertyToggleMode, propertyListLoading } = this.props;
     const { handleShowPropertyDetail, handleTogglePropertyMode, getPropertyList } = this;
 
     const PropertyLists = getPropertyList();
 
     const fixedDeposit = PropertyLists.filter(x => x.typeIdx === FIXED_DEPOSIT);
     const SavingDeposit = PropertyLists.filter(x => x.typeIdx === SAVING_DEPOSIT);
+
+    if(propertyListLoading) return <BeatLoading loading={propertyListLoading}/>;
 
       return (
       <div>
@@ -72,6 +75,7 @@ class PropertyListContainer extends Component {
 
 export default connect(
     (state) => ({
+        propertyListLoading: state.pender.pending['propertyList/LOAD_BCK_DETAIL_INFO'],
         propertyList: state.propertyList.get('propertyList').toJS(),
         propertyToggleMode : state.propertyList.get('propertyToggleMode')
     }),
