@@ -46,6 +46,9 @@ export default handleActions({
         type: LOAD_BCK_LIST,
         onSuccess: (state, action) => {
             return state.set('bckList',fromJS(action.payload.data));
+        },
+        onFailure: (state, action) => {
+            return state.set('bckList',List([]));
         }
     }),
     ...pender({

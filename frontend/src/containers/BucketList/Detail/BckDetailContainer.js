@@ -22,10 +22,15 @@ class BckDetailContainer extends Component {
       }
    };
     
-   loadBckDetailInfo = () => {
+   loadBckDetailInfo = async () => {
        const { bckIdx } = this.props.match.params;
        const { bckDetailActions } = this.props;
-       bckDetailActions.loadBckDetailInfo(bckIdx);
+       try{
+           await bckDetailActions.loadBckDetailInfo(bckIdx);
+       }catch(e){
+           await alert(this.props.notifyMessage);
+           await  this.props.history.push('/bck');
+       }
    };
 
    handleModify = () => {
@@ -62,7 +67,8 @@ class BckDetailContainer extends Component {
 export default connect(
     (state) => ({
         bckDetailLoading: state.pender.pending['bckDetail/LOAD_BCK_DETAIL_INFO'],
-        bckDetailInfo: state.bckDetail.get('bckDetailInfo').toJS()
+        bckDetailInfo: state.bckDetail.get('bckDetailInfo').toJS(),
+        notifyMessage : state.bckDetail.get('notifyMessage')
     }),
     (dispatch) => ({
         bckDetailActions: bindActionCreators(bckDetailActions, dispatch),

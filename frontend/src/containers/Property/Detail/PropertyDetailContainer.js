@@ -35,6 +35,7 @@ class PropertyDetailContainer extends Component {
         await propertyDetailActions.loadPropertyDetailInfo(propertyIdx);
     }catch(e){
         await alert(this.props.notifyMessage);
+        await this.props.history.push('/property');
     }
 
     await this.setMonthlyMoney();

@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
 import { Map, List, fromJS } from 'immutable';
 import axiosAuth from 'lib/axiosAuth';
+import { getErrorMsg } from 'lib/util';
 
 //액션타입
 const LOAD_BCK_DETAIL_INFO = 'bckDetail/LOAD_BCK_DETAIL_INFO';
@@ -20,6 +21,7 @@ const initialState = Map({
         completeDate : '1999-01-01',
         startDate : '1991-02-13',
         typeIdx : 0,
+        notifyMessage: '',
         bckTitle : '',
         bckDetail : '',
         depositLists : List([])
@@ -32,6 +34,10 @@ export default handleActions({
         type: LOAD_BCK_DETAIL_INFO,
         onSuccess: (state, action) => {
             return state.set('bckDetailInfo',fromJS(action.payload.data));
+        },
+        onFailure: (state, action) => {
+            const { response } = action.payload;
+            return state.set('notifyMessage',getErrorMsg(response.data.errorMsg));
         }
     })
 }, initialState);

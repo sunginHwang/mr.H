@@ -28,6 +28,9 @@ export default handleActions({
         type: LOAD_PROPERTY_LIST_INFO,
         onSuccess: (state, action) => {
             return state.set('propertyList',fromJS(action.payload.data));
+        },
+        onFailure: (state, action) => {
+            return state.set('propertyList',List([]));
         }
     }),
     [CHANGE_PROPERTY_TOGGLE_MODE] : (state, action) => {
