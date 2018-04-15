@@ -35,7 +35,7 @@ const BckDetailForm = ({
           <CardBlock
               headerTitle={bckInfo.bckTitle + ' 상세 내용'}
               headerSubArea=''>
-            <span>{bckInfo.bckDetail}</span>
+              <span dangerouslySetInnerHTML={ {__html:bckInfo.bckDetail.replace(/\n/g,'<br/>') }}/>
           </CardBlock>
           {
             bckInfo.typeIdx === MONEY_COMPLETE &&
