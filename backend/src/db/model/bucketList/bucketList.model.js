@@ -1,7 +1,7 @@
 import mapper from '../../mapper';
 
 
-exports.getBckListM = (userIdx, limit) => {
+exports.getBckListM = (userIdx, limit, completeDate = '2038-12-31') => {
     return mapper.bucketList
         .findAll({
             attributes: ['bckIdx','bckTitle',`targetAmount`,'typeIdx',
@@ -17,7 +17,8 @@ exports.getBckListM = (userIdx, limit) => {
             }],
             where: {
                 userIdx: { $and :[userIdx] },
-                delFlag: { $and :['N'] }
+                delFlag: { $and :['N'] },
+                completeDate: { $gt : completeDate }
             },
             limit: limit
         })

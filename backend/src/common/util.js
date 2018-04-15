@@ -14,6 +14,21 @@ exports.isEmptyJson = (Json) => {
     return result;
 };
 
+exports.getTodayForYYYYMMDD = () => {
+    const today = new Date();
+    let day = today.getDate();
+    let month = today.getMonth()+1; //January is 0!
+    var year = today.getFullYear();
+
+    if(day<10)
+        day='0'+day;
+
+    if(month<10)
+        month='0'+month;
+
+    return year+"-"+month+"-"+day;
+};
+
 exports.passwordHash = async (password) => {
     return await crypto.createHmac(HASH_TYPE, HASH_SALT_KEY).update(password).digest(HASH_DIGEST);
 };

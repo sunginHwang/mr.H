@@ -1,7 +1,7 @@
 import mapper from '../../mapper';
 
 
-exports.getPropertyListM = (userIdx, limit) => {
+exports.getPropertyListM = (userIdx, limit, completeDate = '2039-12-31') => {
     return mapper.property
         .findAll({
             attributes: ['propertyIdx','propertyTitle',`targetAmount`,'typeIdx',
@@ -17,7 +17,8 @@ exports.getPropertyListM = (userIdx, limit) => {
             }],
             where: {
                 userIdx: { $and :[userIdx] },
-                delFlag: { $and :['N'] }
+                delFlag: { $and :['N'] },
+                completeDate: { $gt : completeDate }
             },
             limit: limit
         })

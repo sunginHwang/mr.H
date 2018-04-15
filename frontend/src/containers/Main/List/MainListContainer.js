@@ -30,7 +30,10 @@ class MainListContainer extends Component {
     render() {
         const { propertyMoneyList, propertyList, bckList, currentLowAmount, userIdx, mainListLoading} = this.props;
         const { getCurrentLowAmount } = this;
+
+        /*first loading view*/
         if(mainListLoading) return <BeatLoading loading={mainListLoading}/>;
+        /*not login Main view*/
         if(!isLogin(userIdx)) return <NonUserView/>;
 
         return (
