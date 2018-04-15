@@ -10,9 +10,10 @@ exports.saveDeposit = async (targetIdx, targetType, userIdx, money) =>{
         targetIdx: targetIdx,
         targetType: targetType,
         depositAmount: money,
+        userIdx: userIdx
     };
 
-    const depositIdx = await depositListModel.createDepositM(depositInfo, userIdx);
+    const depositIdx = await depositListModel.createDepositM(depositInfo);
 
     return depositIdx;
 };
