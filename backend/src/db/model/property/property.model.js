@@ -1,7 +1,7 @@
 import mapper from '../../mapper';
 
 
-exports.getPropertyListM = (userIdx, limit, completeDate = '2039-12-31') => {
+exports.getPropertyListM = (userIdx, limit, completeDate = '1999-12-31') => {
     return mapper.property
         .findAll({
             attributes: ['propertyIdx','propertyTitle',`targetAmount`,'typeIdx',

@@ -1,7 +1,7 @@
 import mapper from '../../mapper';
 
 
-exports.getBckListM = (userIdx, limit, completeDate = '2038-12-31') => {
+exports.getBckListM = (userIdx, limit, completeDate = '1999-12-31') => {
     return mapper.bucketList
         .findAll({
             attributes: ['bckIdx','bckTitle',`targetAmount`,'typeIdx',

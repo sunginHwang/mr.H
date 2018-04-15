@@ -5,7 +5,7 @@ import * as bckDetailActions from 'store/modules/bckDetail';
 import BckDetailForm from 'components/BucketList/Detail/BckDetailForm';
 import TitleHeader from 'components/common/Header/TitleHeader';
 import BeatLoading from 'components/common/Loading/BeatLoading';
-import { getRemainDate, comma } from 'lib/util';
+import { getRemainDate, comma, getTodayForYYYYMMDD } from 'lib/util';
 
 class BckDetailContainer extends Component {
 
@@ -36,7 +36,7 @@ class BckDetailContainer extends Component {
   render() {
    const { bckDetailInfo, bckDetailLoading } = this.props;
    const { handleModify } = this;
-   const remainDate = getRemainDate(bckDetailInfo.startDate, bckDetailInfo.completeDate);
+   const remainDate = getRemainDate(getTodayForYYYYMMDD(), bckDetailInfo.completeDate);
 
   if(bckDetailLoading) return <BeatLoading loading={bckDetailLoading}/>;
 
@@ -50,7 +50,7 @@ class BckDetailContainer extends Component {
             />
             <BckDetailForm
                 bckInfo={bckDetailInfo}
-                remainDate={remainDate}
+                remainDate={remainDate > 0 ? remainDate : 0}
                 onModifyClick={handleModify}
                 comma={comma}
             />

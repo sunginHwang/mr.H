@@ -26,7 +26,23 @@ export const isBiggerThenToday = (date) => {
     const today = new Date();
     const convertDate = new Date(date);
     return convertDate.getTime() <= today.getTime();
-}
+};
+
+/*오늘날짜 yyyy-mm-dd 구하기*/
+export const getTodayForYYYYMMDD = () => {
+    const today = new Date();
+    let day = today.getDate();
+    let month = today.getMonth()+1; //January is 0!
+    var year = today.getFullYear();
+
+    if(day<10)
+        day='0'+day;
+
+    if(month<10)
+        month='0'+month;
+
+    return year+"-"+month+"-"+day;
+};
 
 /*이메일 형식 검사*/
 export const checkEmailReg = (emailValue) => {
