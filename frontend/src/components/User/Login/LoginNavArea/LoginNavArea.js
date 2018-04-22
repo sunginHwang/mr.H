@@ -11,6 +11,7 @@ const LoginNavArea = () => {
           <Icon name='add user'/>회원가입 하기
         </Link>
       </span>
+      <span className='split-tag'>|</span>
       <span className='find-pwd'>
         <Link to='user/findPassword'>
           <Icon name='find'/>비밀번호 찾기

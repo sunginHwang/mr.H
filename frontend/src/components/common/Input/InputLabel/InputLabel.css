@@ -4,8 +4,8 @@
     width: 100%;
     padding: .65rem 1.25rem;
     font-size: 1rem;
-    line-height: 1.25;
-    border-color: #ebedf2;
+    line-height: 2.0;
+     border: solid 1px #eaeaea !important;
     color: #575962;
     background-color: #fff;
     background-image: none;
@@ -13,7 +13,7 @@
     border: 1px solid rgba(0,0,0,.15);
     border-radius: .25rem;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-     font-family: sans-serif,Arial;
+    font-family: Arial, FontAwesome
 }
 .InputLabel::placeholder {
     color: #d1d5d7;
