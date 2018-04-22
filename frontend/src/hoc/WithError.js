@@ -24,7 +24,7 @@ export default function WithError(WrappedComponent) {
                         <ErrorBlock
                             errorMessage={errorMessage}
                             positon='top'/>
-                        <WrappedComponent {...this.props} withSetErrorMessage={this.withSetErrorMessage} />;
+                        <WrappedComponent {...this.props} withSetErrorMessage={this.withSetErrorMessage} />
                    </div>
         }
     };

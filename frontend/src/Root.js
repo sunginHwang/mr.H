@@ -37,7 +37,7 @@ const Root = ({store}) => {
                 </div>
             </Router>
         </Provider>
-    );
-}
+    )
+};
 
 export default Root;

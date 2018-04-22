@@ -13,7 +13,7 @@ export default function WithAuthCheck(WrappedComponent) {
         withAccessTokenCheck = async () => {
             const accessToken = localStorage.getItem('_MRH_USER_');
             if(!accessToken){
-                await alert('다시 로그인해주세요.');
+                await alert('해당 서비스는 로그인이 필요합니다.');
                 await this.props.history.push('/login');
             }
         };
