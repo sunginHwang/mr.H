@@ -1,17 +1,17 @@
 export default {
     "development": {
         "id": "root",
-        "password": "rhkfh1",
+        "password": "as455748",
         "database": "mrH",
-        "host": "localhost",
+        "host": "woolta.com",
         "dialect": "mysql",
         "port":3306
     },
     "production": {
         "id": "root",
-        "password": "rhkfh1",
-        "database": "ohjic",
-        "host": "localhost",
+        "password": "as455748",
+        "database": "mrH",
+        "host": "woolta.com",
         "dialect": "mysql"
     }
 }

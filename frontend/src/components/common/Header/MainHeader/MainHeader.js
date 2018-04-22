@@ -11,7 +11,7 @@ const MainHeader = ({
         <nav>
             <div className='MainHeader-left'>
                 <Link className='MainHeader-left-title' to='/'>
-                <h3><Icon name='currency'/> mr. H</h3>
+                <h3>  mr. H</h3>
                 </Link>
             </div>
             <span className='flex-auto'></span>
