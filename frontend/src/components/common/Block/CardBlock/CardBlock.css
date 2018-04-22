@@ -3,7 +3,11 @@
     -moz-box-shadow: 0 1px 15px 1px rgba(113,106,202,.08);
      box-shadow: 0 1px 15px 1px rgba(113,106,202,.08);
     background-color: #fff;
-    margin-bottom: 2.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.Radius-Block{
+    border-radius: 8px;
 }
 .CardBlock > .CardBlock-header{
     display: table;

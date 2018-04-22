@@ -4,10 +4,12 @@ import './CardBlock.css';
 const CardBlock = ({
     headerTitle,
     headerSubArea,
+    radius,
     children
 }) => {
   return (
-    <div className='CardBlock'>
+    <div className={radius == true ? 'CardBlock '+'Radius-Block'
+                                   : 'CardBlock'}>
         <div className='CardBlock-header'>
             <span className='CardBlock-header-title'>
                 {headerTitle}

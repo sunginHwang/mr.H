@@ -56,6 +56,7 @@ const MainListForm = ({
   return (
       <div className="property-list-form">
           <CardBlock
+              radius={true}
               headerTitle='현재 모은 금액'
               headerSubArea={<TotalMoneyArea totalMoney={comma(currentLowAmount.reduce((prev, save) => prev + save.totalMoney, 0))} />}>
               <CardItem title='예금'
@@ -68,6 +69,7 @@ const MainListForm = ({
                         subTitle=''/>
           </CardBlock>
           <CardBlock
+              radius={true}
               headerTitle='최근 자산 증감표'
               headerSubArea=''>
               <PropertyLineChart
@@ -78,11 +80,13 @@ const MainListForm = ({
               />
           </CardBlock>
           <CardBlock
+              radius={true}
               headerTitle='예금, 적금 리스트'
               headerSubArea=''>
               {depositListForm}
           </CardBlock>
           <CardBlock
+              radius={true}
               headerTitle='버킷리스트'
               headerSubArea=''>
               {bucketListForm}
