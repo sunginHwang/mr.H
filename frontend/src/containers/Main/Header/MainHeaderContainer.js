@@ -13,7 +13,6 @@ class MainHeaderContainer extends Component {
         const { authActions, history } = this.props;
         await authActions.initialAuthUser();
         await deleteTokenInfo();
-        await alert('로그아웃 성공');
         await history.push('/login');
    };
 

@@ -36,7 +36,6 @@ class UserLoginContainer extends Component {
        if(loginValidate()){
           try{
               await authActions.userLogin(userId, userPassword);
-              await alert('로그인 성공');
               await saveTokenInfo(this.props.accessToken, this.props.refreshToken);
               await this.props.history.push('/');
           }catch(e){
