@@ -2,7 +2,7 @@ import React from 'react';
 import CardBlock from 'components/common/Block/CardBlock';
 import CardItem from 'components/common/Item/CardItem';
 import { Icon } from 'semantic-ui-react';
-import { getRemainDate } from 'lib/util';
+import { getRemainDate, getTodayForYYYYMMDD } from 'lib/util';
 import './PropertyList.css';
  
 const PropertyList = ({
@@ -16,26 +16,38 @@ const PropertyList = ({
 
     const fixedDepositRowList = fixedDeposit.length === 0 ?
         <CardItem title='예금내역이 없습니다.'/>:
-        fixedDeposit.map((depositInfo) => (
-        <div key={depositInfo.propertyIdx}
-            onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}>
-            <CardItem key={depositInfo.propertyIdx}
-                      title={depositInfo.propertyTitle+' (목표까지 '+getRemainDate(depositInfo.startDate, depositInfo.completeDate)+'일 남음)'}
-                      subTitle={'예금액 :'+comma(depositInfo.targetAmount)}
-                      extColor='brand'
-                      extInfo={IconTag}/>
-        </div>
-    ));
+        fixedDeposit.map((depositInfo) => {
+            const depositCompleteRemainDate = getRemainDate(getTodayForYYYYMMDD(), depositInfo.completeDate);
+            let depositTitle = depositInfo.propertyTitle;
+
+            depositCompleteRemainDate > 0 ? depositTitle += ' (만기까지 '+depositCompleteRemainDate+'일 남음)'
+                                          : depositTitle += ' (만기완료)';
+
+            return <div key={depositInfo.propertyIdx}
+                            onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}>
+                            <CardItem key={depositInfo.propertyIdx}
+                                      title={depositTitle}
+                                      subTitle={'예금액 :'+comma(depositInfo.targetAmount)}
+                                      extColor='brand'
+                                      extInfo={IconTag}/>
+                    </div>
+    });
 
     const SavingDepositRowList = SavingDeposit.length === 0 ?
         <CardItem title='적금내역이 없습니다.'/>:
         SavingDeposit.map((depositInfo) => {
             const SaveMoneyList = depositInfo.depositLists;
             const totalSaveMoney = SaveMoneyList.reduce((prev, save) => prev + save.depositAmount, 0);
+            const remainMoney = depositInfo.targetAmount-totalSaveMoney;
+            let saveDepositTitle = depositInfo.propertyTitle;
+
+            remainMoney > 0 ? saveDepositTitle+=' (목표까지 '+comma(remainMoney)+'원 남음)'
+                            : saveDepositTitle+=' (만기완료)';
+
             return  <div key={depositInfo.propertyIdx}
                          onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}>
                             <CardItem key={depositInfo.propertyIdx}
-                                      title={depositInfo.propertyTitle+' (목표까지 '+(comma(depositInfo.targetAmount-totalSaveMoney))+'원 남음)'}
+                                      title={saveDepositTitle}
                                       onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}
                                       subTitle={'적금만기금액 :'+comma(depositInfo.targetAmount)}
                                       extColor='brand'
