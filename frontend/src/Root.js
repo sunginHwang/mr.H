@@ -12,6 +12,7 @@ import UserInfoLoadContainer from 'containers/User/Login/UserInfoLoadContainer';
 import UserRegisterContainer from 'containers/User/Register/UserRegisterContainer';
 import WithAuthCheck from 'hoc/WithAuthCheck';
 import { Provider } from 'react-redux';
+import MainFooter from 'components/common/Footer/MainFooter';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const Root = ({store}) => {
@@ -34,6 +35,8 @@ const Root = ({store}) => {
                     <Route path="/bck/insert" component={WithAuthCheck(BckSaveContainer)}/>
                     <Route path="/bck/modify/:bckIdx" component={WithAuthCheck(BckSaveContainer)}/>
                     <Route path="/bck/detail/:bckIdx" component={WithAuthCheck(BckDetailContainer)}/>
+                    {/*공통 footer 영역*/}
+                    <MainFooter/>
                 </div>
             </Router>
         </Provider>

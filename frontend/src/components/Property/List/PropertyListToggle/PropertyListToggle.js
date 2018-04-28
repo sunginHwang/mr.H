@@ -8,8 +8,8 @@ const PropertyListToggle = ({
 }) => {
     return (
             <ToggleTap
-                leftToggleValue='적급진행내역'
-                rightToggleValue='적급완료내역'
+                leftToggleValue='진행중'
+                rightToggleValue='완료'
                 onLeftClick={(e)=>{onToggleClick('proceeding')}}
                 onRightClick={(e)=>{onToggleClick('complete')}}
                 toggleActive={toggleMode === 'complete' ? 'right' : 'left'}

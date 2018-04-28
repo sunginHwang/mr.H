@@ -26,9 +26,7 @@ const BckSaveForm = ({
 
   return (
       <div className='bck-save-form'>
-          <CardBlock
-              headerTitle='나만의 버킷리스트를 작성해보세요.'
-              headerSubArea=''>
+          <CardBlock>
               <InputLabel
                   labelName='버킷리스트명'
                   placeHolderName='8글자 이하로 입력하세요.'

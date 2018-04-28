@@ -1,0 +1,28 @@
+.footer-wrapper{
+    margin: 1em;
+    display: block;
+    padding: 15px 0;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+}
+
+.footer-title{
+    font-family: AppleSDGothicNeo, HelveticaNeue, sans-serif;
+    display: block;
+    font-size: 14px;
+    color: #888;
+}
+.footer-span{
+    display: block;
+    font-size: 11px;
+    color: #aaa;
+}
+
+.footer-bottom-line{
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: 15px 0;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+}

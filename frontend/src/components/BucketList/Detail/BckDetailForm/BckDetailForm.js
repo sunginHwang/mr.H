@@ -34,6 +34,7 @@ const BckDetailForm = ({
           />
           <CardBlock
               headerTitle={bckInfo.bckTitle + ' 상세 내용'}
+              radius={true}
               headerSubArea=''>
               <span dangerouslySetInnerHTML={ {__html:bckInfo.bckDetail.replace(/\n/g,'<br/>') }}/>
           </CardBlock>

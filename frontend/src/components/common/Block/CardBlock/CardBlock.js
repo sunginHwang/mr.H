@@ -7,17 +7,22 @@ const CardBlock = ({
     radius,
     children
 }) => {
-  return (
-    <div className={radius == true ? 'CardBlock '+'Radius-Block'
-                                   : 'CardBlock'}>
-        <div className='CardBlock-header'>
-            <span className='CardBlock-header-title'>
-                {headerTitle}
-            </span>
+    let cardBlockHeader = '';
+    if( headerTitle != null && headerTitle != ''){
+        cardBlockHeader = <div className='CardBlock-header'>
+                                    <span className='CardBlock-header-title'>
+                                        {headerTitle}
+                                    </span>
             <div className='CardBlock-header-sub-area'>
                 {headerSubArea}
             </div>
-        </div>
+        </div>;
+    }
+
+    return (
+    <div className={radius == true ? 'CardBlock '+'Radius-Block'
+                                   : 'CardBlock'}>
+        {cardBlockHeader}
         <div className='CardBlock-body'>
             {children}
         </div>
