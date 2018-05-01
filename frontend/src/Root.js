@@ -32,7 +32,7 @@ const Root = ({store}) => {
                     <Route path="/property/detail/:propertyIdx" component={WithAuthCheck(PropertyDetailContainer)}/>
                     {/*버킷리스트*/}
                     <Route exact path="/bck" component={WithAuthCheck(BckListContainer)}/>
-                    <Route path="/bck/insert" component={WithAuthCheck(BckSaveContainer)}/>
+                    <Route path="/bck/insert/:bckType" component={WithAuthCheck(BckSaveContainer)}/>
                     <Route path="/bck/modify/:bckIdx" component={WithAuthCheck(BckSaveContainer)}/>
                     <Route path="/bck/detail/:bckIdx" component={WithAuthCheck(BckDetailContainer)}/>
                     {/*공통 footer 영역*/}

@@ -11,12 +11,22 @@ import BckDepositModal from 'components/BucketList/Modal/BckDepositModal';
 import BckDeleteModal from 'components/BucketList/Modal/BckDeleteModal';
 import InsertButton from 'components/common/Button/InsertButton';
 import BeatLoading from 'components/common/Loading/BeatLoading';
+import BottomSlideModal from 'components/common/Modal/BottomSlideModal';
+import SlideModalLabel from 'components/common/Label/SlideModalLabel';
 
 import { getDepositTotalMoney } from 'lib/deposit';
 import { isBiggerThenToday } from 'lib/util';
-import { MONEY_COMPLETE } from 'lib/constants';
+import { MONEY_COMPLETE, DATE_COMPLETE } from 'lib/constants';
 
 class BckListContainer extends Component {
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            insertModalVisible: false
+        };
+    };
 
     componentDidMount() {
         this.loadBckList();
@@ -26,6 +36,11 @@ class BckListContainer extends Component {
     loadBckList = () => {
         const { bckListActions } = this.props;
         bckListActions.loadBckList();
+    };
+
+    /*작성 모달 토글 메뉴*/
+    toggleBckInsertModal = () => {
+        this.setState({insertModalVisible: !this.state.insertModalVisible})
     };
 
     /*완료된 or 진행중인 버킷리스트 가져오기*/
@@ -140,9 +155,10 @@ class BckListContainer extends Component {
             handleBckSaveDeposit,
             handleBckDelete,
             handleChangeToggle,
-            getBckList
+            getBckList,
+            toggleBckInsertModal
         } = this;
-        const { bckDepositMoney, bckToggleMode, modal, bckListLoading} = this.props;
+        const { bckDepositMoney, bckToggleMode, modal, bckListLoading } = this.props;
         const bckList = getBckList();
 
         if(bckListLoading) return <BeatLoading loading={bckListLoading}/>;
@@ -161,12 +177,23 @@ class BckListContainer extends Component {
                        toggleMode={bckToggleMode}
                />
                <InsertButton>
-                   <Link to='/bck/insert'>
+                   <div onClick={(e)=>{toggleBckInsertModal();}}>
                        <Icon name='write'
                              style={{color:'#fff'}}
                              size='big'/>
-                   </Link>
+                   </div>
                </InsertButton>
+               <BottomSlideModal
+                   visible={this.state.insertModalVisible}
+                   title='버킷리스트 달성 방법을 선택하세요.'
+                   cancelClick={(e)=>{toggleBckInsertModal();}}>
+                   <Link to='/bck/insert/3'>
+                       <SlideModalLabel title='목표기간 안에 달성하기'/>
+                   </Link>
+                   <Link to='/bck/insert/4'>
+                       <SlideModalLabel title='목표금액 달성하기'/>
+                   </Link>
+               </BottomSlideModal>
                 <BckDepositModal
                     modalVisible={modal.get('deposit')}
                     bckDepositMoney={bckDepositMoney}

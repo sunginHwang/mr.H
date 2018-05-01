@@ -20,9 +20,6 @@ const BckSaveForm = ({
     onChangeFirstDeposit,
     onSaveClick,
 }) => {
-    const optionList = bckSelectOptionInfo.map((dataInfo) => (
-        <option key={dataInfo.value} value={dataInfo.value}>{dataInfo.text}</option>
-    ));
 
   return (
       <div className='bck-save-form'>
@@ -41,13 +38,6 @@ const BckSaveForm = ({
                   inputType='date'
                   onInputChange={(e)=>{onChangeInput('completeDate',e)}}
               />
-              {
-                  saveMode === 'insert' &&
-                  <SelectLabel
-                      labelName='목표달성 방법을 선택해주세요.'
-                      onSelectChange={(e)=>{onChangeInput('typeIdx',e)}}
-                      optionList={optionList}/>
-              }
 
               {
                   saveMode === 'insert' && completeType === MONEY_COMPLETE &&

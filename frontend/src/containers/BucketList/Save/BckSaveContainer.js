@@ -23,11 +23,34 @@ class BckSaveContainer extends Component {
         this.props.bckSaveActions.initiateBckInfo();
     }
 
-   checkSaveMode = () => {
+    /*버킷리스트 입력 페이지 초기 유효성 검사*/
+    validateInsertContainer(){
+        const { bckType } = this.props.match.params;
+
+        if(!Number.isInteger(Number.parseInt(bckType,10))){
+            alert('정상적인 접근이 아닙니다.');
+            this.props.history.push('/bck');
+        }
+
+        if(bckType != MONEY_COMPLETE && bckType != DATE_COMPLETE){
+            alert('목표 달성이 선택되지 않았습니다.');
+            this.props.history.push('/bck');
+        }
+        this.settingSaveBckType();
+    };
+
+    settingSaveBckType(){
+        const { bckType } = this.props.match.params;
+        this.props.bckSaveActions.changeInputValue( {inputType : 'typeIdx', value : bckType});
+    };
+
+
+    checkSaveMode = () => {
        const { bckIdx } = this.props.match.params;
        const bckMode = bckIdx ? 'modify' : 'insert';
        this.setState({mode: bckMode});
-       bckMode ==='modify' && this.getModifyData(bckIdx);
+       bckMode ==='modify' ? this.getModifyData(bckIdx)
+                           : this.validateInsertContainer();
    };
 
    getModifyData = (bckIdx) => {
