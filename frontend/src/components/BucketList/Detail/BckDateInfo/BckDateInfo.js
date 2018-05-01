@@ -12,6 +12,7 @@ const BckDateInfo = ({
   return (
       <CardBlock
           radius={true}
+          shadow={true}
           headerTitle={bckTitle + ' 일자 정보'}
           headerSubArea=''>
         <CardItem title='시작일' extInfo={startDate} extColor='brand' subTitle=''/>

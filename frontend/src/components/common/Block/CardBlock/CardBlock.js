@@ -5,6 +5,7 @@ const CardBlock = ({
     headerTitle,
     headerSubArea,
     radius,
+    shadow,
     children
 }) => {
     let cardBlockHeader = '';
@@ -20,8 +21,7 @@ const CardBlock = ({
     }
 
     return (
-    <div className={radius == true ? 'CardBlock '+'Radius-Block'
-                                   : 'CardBlock'}>
+    <div className={ 'CardBlock '+ ( radius? ' Radius-Block' : '') + ( shadow? ' CardBlock-shadow' : '')}>
         {cardBlockHeader}
         <div className='CardBlock-body'>
             {children}

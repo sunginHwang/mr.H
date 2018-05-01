@@ -15,6 +15,7 @@ const BckMoneyInfo = ({
   return (
       <CardBlock
           radius={true}
+          shadow={true}
           headerTitle={bckTitle + ' 금액정보'}
           headerSubArea=''>
           <OneLevelPieChart

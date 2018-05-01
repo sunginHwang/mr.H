@@ -1,11 +1,13 @@
 .CardBlock{
-    -webkit-box-shadow: 0 1px 15px 1px rgba(113,106,202,.08);
-    -moz-box-shadow: 0 1px 15px 1px rgba(113,106,202,.08);
-     box-shadow: 0 1px 15px 1px rgba(113,106,202,.08);
     background-color: #fff;
     margin-bottom: 1.5rem;
 }
 
+.CardBlock-shadow{
+    -webkit-box-shadow: 3px 5px rgba(0, 0, 0, .1);
+    -moz-box-shadow: 3px 5px rgba(0, 0, 0, .1);
+    box-shadow: 3px 5px rgba(0, 0, 0, .1);
+}
 .Radius-Block{
     border-radius: 8px;
 }

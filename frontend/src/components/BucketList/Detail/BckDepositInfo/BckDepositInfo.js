@@ -21,6 +21,8 @@ const BckDepositInfo = ({
   return (
       <CardBlock
           headerTitle='입금내역'
+          shadow={true}
+          radius={true}
           headerSubArea=''>
           {depositRowList}
       </CardBlock>
