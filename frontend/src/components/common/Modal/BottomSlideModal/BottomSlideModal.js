@@ -7,7 +7,7 @@ const BottomSlideModal = ({visible,
                           children}) => {
     return (
         <div className={visible ? 'BottomSlideModal-wrapper' : ''}>
-            <div className={ visible ? ' ModalWrapper-slide-on ModalWrapper-slide' : 'ModalWrapper-slide'}>
+            <div className={'ModalWrapper-slide' + ( visible ? ' ModalWrapper-slide-on ' : '')}>
                 <div className='BottomSlideModal-top-area'>
                     <div className='top-left-area'>
                         <span>{title}</span>

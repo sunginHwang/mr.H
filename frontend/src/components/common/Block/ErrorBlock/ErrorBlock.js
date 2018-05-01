@@ -2,11 +2,10 @@ import React from 'react';
 import './ErrorBlock.css';
 const ErrorBlock = ({
     errorMessage,
-    positon
+    position
 }) => {
   return (
-    <div className={errorMessage ? 'on-error '+ 'ErrorBlock ' + positon
-                                 : 'ErrorBlock ' + positon }>
+    <div className={ 'ErrorBlock ' + position + ( errorMessage ? ' on-error ' : '')}>
         {errorMessage}
     </div>
   );
