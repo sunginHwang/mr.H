@@ -8,11 +8,21 @@ import PropertyListToggle from 'components/Property/List/PropertyListToggle';
 import PropertyList from 'components/Property/List/PropertyList';
 import InsertButton from 'components/common/Button/InsertButton';
 import BeatLoading from 'components/common/Loading/BeatLoading';
+import BottomSlideModal from 'components/common/Modal/BottomSlideModal';
+import SlideModalLabel from 'components/common/Label/SlideModalLabel';
 import { SAVING_DEPOSIT, FIXED_DEPOSIT } from 'lib/constants';
 import { comma, isBiggerThenToday } from 'lib/util';
 
 
 class PropertyListContainer extends Component {
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            insertModalVisible: false
+        };
+    };
 
     componentDidMount() {
         this.loadPropertyList();
@@ -39,9 +49,13 @@ class PropertyListContainer extends Component {
                    propertyList.filter(x => !isBiggerThenToday(x.completeDate))
    };
 
+   togglePropertyInsertModal = () => {
+       this.setState({insertModalVisible: !this.state.insertModalVisible})
+   };
+
   render() {
     const { propertyToggleMode, propertyListLoading } = this.props;
-    const { handleShowPropertyDetail, handleTogglePropertyMode, getPropertyList } = this;
+    const { handleShowPropertyDetail, handleTogglePropertyMode, getPropertyList, togglePropertyInsertModal } = this;
 
     const PropertyLists = getPropertyList();
 
@@ -62,12 +76,24 @@ class PropertyListContainer extends Component {
               comma={comma}
           />
           <InsertButton>
-              <Link to='/property/insert'>
+              <div onClick={(e)=>{togglePropertyInsertModal();}}>
                   <Icon name='won'
                         style={{color:'#fff'}}
                         size='big'/>
-              </Link>
+              </div>
           </InsertButton>
+          <BottomSlideModal
+              visible={this.state.insertModalVisible}
+              title='예금, 적금 종류를 선택해 주세요.'
+              cancelClick={(e)=>{togglePropertyInsertModal();}}>
+              <Link to='/property/insert/1'>
+                 <SlideModalLabel title='예금 만들기'/>
+              </Link>
+              <Link to='/property/insert/2'>
+                  <SlideModalLabel title='적금 만들기'/>
+              </Link>
+          </BottomSlideModal>
+
       </div>
     );
   }

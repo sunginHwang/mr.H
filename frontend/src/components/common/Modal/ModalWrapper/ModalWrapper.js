@@ -8,9 +8,7 @@ const ModalWrapper = ({
   return (
       visible &&
             <div className='ModalWrapper'>
-                <div className='ModalWrapper-modal'>
                     {children}
-                 </div>
             </div>
 
   );

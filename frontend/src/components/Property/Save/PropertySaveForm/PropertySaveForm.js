@@ -25,10 +25,7 @@ const PropertySaveForm = ({
   return (
     <div>
         <CardBlock>
-            <SelectLabel
-                labelName='예금, 적금 종류를 선택해주세요.'
-                onSelectChange={(e)=>{onChangeValue('depositType',e)}}
-                optionList={optionList}/>
+
             {
                 depositType !== 0 &&
                 <div className='input-area'>

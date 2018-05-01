@@ -16,20 +16,22 @@ const TwoButtonModal = ({
 }) => {
   return (
       <ModalWrapper visible={visible}>
-          <div className='TwoButtonModal'>
-              {children}
-              <section className='TwoButtonModal-area'>
-                  <Button className='TwoButtonModal-btn left'
-                          basic
-                          color={leftButtonColor}
-                          onClick={onLeftButtonClick}>{leftButtonValue}
-                  </Button>
-                  <Button className='TwoButtonModal-btn right'
-                          basic
-                          color={rightButtonColor}
-                          onClick={onRightButtonClick}>{rightButtonValue}
-                  </Button>
-              </section>
+          <div className='ModalWrapper-modal'>
+              <div className='TwoButtonModal'>
+                  {children}
+                  <section className='TwoButtonModal-area'>
+                      <Button className='TwoButtonModal-btn left'
+                              basic
+                              color={leftButtonColor}
+                              onClick={onLeftButtonClick}>{leftButtonValue}
+                      </Button>
+                      <Button className='TwoButtonModal-btn right'
+                              basic
+                              color={rightButtonColor}
+                              onClick={onRightButtonClick}>{rightButtonValue}
+                      </Button>
+                  </section>
+              </div>
           </div>
       </ModalWrapper>
   );

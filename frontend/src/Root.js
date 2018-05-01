@@ -28,7 +28,7 @@ const Root = ({store}) => {
                     <Route path="/user/register" component={UserRegisterContainer}/>
                     {/*예금, 적금 */}
                     <Route exact path="/property" component={WithAuthCheck(PropertyListContainer)}/>
-                    <Route path="/property/insert" component={WithAuthCheck(PropertySave)}/>
+                    <Route path="/property/insert/:propertyType" component={WithAuthCheck(PropertySave)}/>
                     <Route path="/property/detail/:propertyIdx" component={WithAuthCheck(PropertyDetailContainer)}/>
                     {/*버킷리스트*/}
                     <Route exact path="/bck" component={WithAuthCheck(BckListContainer)}/>

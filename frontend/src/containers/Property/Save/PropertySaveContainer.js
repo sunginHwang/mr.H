@@ -7,10 +7,16 @@ import PropertySaveForm from 'components/Property/Save/PropertySaveForm';
 import TitleHeader from 'components/common/Header/TitleHeader';
 import { depositSelectInfo } from 'lib/variables';
 import { isBiggerThenToday, getRemainMonth, calcMonthlyDepositMoney } from 'lib/util';
-import { SAVING_DEPOSIT } from 'lib/constants';
+import { SAVING_DEPOSIT, FIXED_DEPOSIT } from 'lib/constants';
 
 
 class PropertySaveContainer extends Component {
+
+  componentDidMount() {
+      this.validateSaveContainer();
+      this.settingSavePropertyType();
+  }
+
 
 
   componentDidUpdate(prevProps, prevState) {
@@ -27,6 +33,26 @@ class PropertySaveContainer extends Component {
     componentWillUnmount() {
         this.props.propertySaveActions.initiatePropertyInfo();
     }
+
+    /*초기 진입 유효성 체크*/
+    validateSaveContainer(){
+        const { propertyType } = this.props.match.params;
+
+        if(!Number.isInteger(Number.parseInt(propertyType,10))){
+            alert('정상적인 접근이 아닙니다.');
+            this.props.history.push('/property');
+        }
+
+        if(propertyType != SAVING_DEPOSIT && propertyType != FIXED_DEPOSIT){
+            alert('적금, 예금 중 하나를 선택해주세요.');
+            this.props.history.push('/property');
+        }
+    };
+
+    settingSavePropertyType(){
+        const { propertyType } = this.props.match.params;
+        this.props.propertySaveActions.changeInputValue( {inputType : 'depositType', value : propertyType});
+    };
 
   handlePropertySaveChangeInputValue = (type, e) =>{
     const {propertySaveActions} = this.props;
@@ -46,7 +72,7 @@ class PropertySaveContainer extends Component {
           return false;
       }
       return true;
-  }
+  };
 
   validatePropertySaveForm = () => {
       const { propertyInfo, withSetErrorMessage } = this.props;
@@ -107,7 +133,7 @@ class PropertySaveContainer extends Component {
             <TitleHeader
                 iconColor='black'
                 iconSize='large'
-                titleName='예금, 적금 입력'
+                titleName={propertyInfo.depositType == FIXED_DEPOSIT ? '예금 작성' : '적금 작성'}
             />
             <PropertySaveForm
                 propertyTitle={propertyInfo.propertyTitle}
