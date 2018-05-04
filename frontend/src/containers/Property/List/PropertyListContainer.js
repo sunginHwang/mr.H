@@ -77,9 +77,7 @@ class PropertyListContainer extends Component {
           />
           <InsertButton>
               <div onClick={(e)=>{togglePropertyInsertModal();}}>
-                  <Icon name='won'
-                        style={{color:'#fff'}}
-                        size='big'/>
+                  <span>예금,적금 등록하기</span>
               </div>
           </InsertButton>
           <BottomSlideModal

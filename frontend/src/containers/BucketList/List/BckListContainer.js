@@ -178,9 +178,7 @@ class BckListContainer extends Component {
                />
                <InsertButton>
                    <div onClick={(e)=>{toggleBckInsertModal();}}>
-                       <Icon name='write'
-                             style={{color:'#fff'}}
-                             size='big'/>
+                       <span>버킷리스트 등록하기</span>
                    </div>
                </InsertButton>
                <BottomSlideModal
