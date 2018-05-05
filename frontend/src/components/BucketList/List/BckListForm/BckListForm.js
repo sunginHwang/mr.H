@@ -28,11 +28,8 @@ const BckListForm = ({
                 completeType={data.typeIdx}
                 currentAmount={getCurrentMoney(data.depositLists)}
                 targetAmount={data.targetAmount}
-                toggleMode={toggleMode}
                 onShowBckDetailInfo={onShowBckDetailInfo}
                 progressColor={progressColor[Math.floor(progressColor.length % data.bckIdx)]} // randomColorProcess
-                onDepositClick={()=>{onBckOpenModal('deposit',data.bckIdx)}}
-                onDeleteClick={()=>{onBckOpenModal('delete',data.bckIdx)}}
             />
         )
     );

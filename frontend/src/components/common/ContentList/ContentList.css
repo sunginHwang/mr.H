@@ -1,5 +1,13 @@
 
 .ContentList{
+
+}
+.ContentList_list{
+    padding: 1em;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 2px 3px rgba(0, 0, 0, .1);
+    margin-bottom: 0.7em;
 }
 .ContentList-left-title{
     float: left;
@@ -9,4 +17,7 @@
 }
 .ContentList_content{
     clear: both;
+}
+.ContentList_content > .ui.progress:last-child {
+    margin: 0!important;
 }

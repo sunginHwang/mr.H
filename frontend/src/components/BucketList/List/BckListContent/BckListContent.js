@@ -2,18 +2,29 @@ import React from 'react';
 import { Progress } from 'semantic-ui-react';
 import './BckListContent.css';
 import ContentList from 'components/common/ContentList';
+import InfoLabel from 'components/common/Label/InfoLabel';
 import BckListEventButton from 'components/BucketList/List/BckListEventButton';
+
 import 'semantic-ui-css/semantic.min.css';
-import { getRemainDatePercentage } from 'lib/util';
+import { Icon } from 'semantic-ui-react'
+
+import { getRemainDatePercentage, getRemainDate, getTodayForYYYYMMDD } from 'lib/util';
 import { MONEY_COMPLETE } from 'lib/constants';
 
 const BckListTitle = ({
     title,
-    completeDate,
     onTitleClick
 }) => {
-    return(<p className='bck-list-title' onClick={onTitleClick}>{title} ({completeDate})</p>);
+    return(
+        <div>
+            <span className='bck-list-title' onClick={onTitleClick}>
+               {title}
+            </span>
+        </div>
+
+    )
 };
+
 
 const BckListContent = ({
     bckTitle,
@@ -22,12 +33,9 @@ const BckListContent = ({
     completeType,
     currentAmount,
     targetAmount,
-    toggleMode,
     bckIdx,
     onShowBckDetailInfo,
     progressColor,
-    onDepositClick,
-    onDeleteClick
 }) => {
 
     const progressPercent = completeType === MONEY_COMPLETE ? (currentAmount/targetAmount)*100
@@ -36,24 +44,19 @@ const BckListContent = ({
 
     return(
         <ContentList
-            style={{borderBottom: '.1rem dashed #bdbdbd', marginTop: '0.65em'}}
             left_title={
                 <BckListTitle title={bckTitle}
                               onTitleClick={(event)=>{onShowBckDetailInfo(bckIdx)}}
-                              completeDate={completeDate}
                 />
             }
             right_title={
-                <BckListEventButton
-                    bckIdx={bckIdx}
-                    completeType={completeType}
-                    toggleMode={toggleMode}
-                    onDepositClick={onDepositClick}
-                    onDeleteClick={onDeleteClick}
+                <InfoLabel value={'D-'+getRemainDate(getTodayForYYYYMMDD(), completeDate)}
+                           color='deep-blue'
                 />
             }
         >
             <Progress percent={progressPercent.toFixed(2)}
+                      size='small'
                       onClick={(e)=>{onShowBckDetailInfo(bckIdx)}}
                       progress='percent'
                       color={progressColor}/>

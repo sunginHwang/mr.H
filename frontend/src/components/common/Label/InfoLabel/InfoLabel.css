@@ -1,0 +1,15 @@
+.Info-label{
+    padding: .4em .833em;
+    min-width: 3em;
+    display: inline;
+    text-align: center;
+    background-color: #000;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.deep-blue{
+    background-color: #65a6ff !important;
+}

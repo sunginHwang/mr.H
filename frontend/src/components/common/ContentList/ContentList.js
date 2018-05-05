@@ -10,7 +10,7 @@ const ContentList = ({
     return (
 
     <div className='ContentList_list' style={style}>
-        <div>
+        <div style={{height: '30px'}}>
             <div className='ContentList-left-title'>
                 {left_title}
             </div>
