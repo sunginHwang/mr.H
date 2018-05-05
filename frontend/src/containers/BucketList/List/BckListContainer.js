@@ -26,9 +26,19 @@ class BckListContainer extends Component {
     };
 
     componentDidMount() {
-        this.loadBckList();
+        this.initiateBckList();
     }
 
+    initiateBckList = () =>{
+        this.loadBckList();
+        this.initiateToggle();
+    };
+
+    /*토글 초기화 (진행중)*/
+    initiateToggle = () => {
+        if(this.props.bckToggleMode != 'proceeding')
+            this.handleChangeToggle('proceeding');
+    };
     /*버킷리스트 데이터 가져오기*/
     loadBckList = () => {
         const { bckListActions } = this.props;

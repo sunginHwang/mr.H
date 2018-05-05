@@ -13,6 +13,7 @@ import { Icon } from 'semantic-ui-react';
 import { getRemainDate, comma, getTodayForYYYYMMDD, isBiggerThenToday } from 'lib/util';
 import { getDepositTotalMoney } from 'lib/deposit';
 import { MONEY_COMPLETE, DATE_COMPLETE } from 'lib/constants';
+
 class BckDetailContainer extends Component {
 
     constructor(props){
@@ -149,11 +150,10 @@ class BckDetailContainer extends Component {
                 remainDate={remainDate > 0 ? remainDate : 0}
                 comma={comma}
             />
-
             <BottomTwoButton
                 onLeftBtnClick={isMoneyCompleteType ? (e)=>{handleBckOpenModal('deposit')} : (e)=>{}}
                 leftBtnName={isMoneyCompleteType ? '입금하기' : ''}
-                leftColor={isMoneyCompleteType ? 'whiteBlue' : ''}
+                leftColor={isMoneyCompleteType ? 'deepBlue' : ''}
                 onRightBtnClick={(e)=>{toggleSlideModal()}}
                 rightBtnName={<Icon name='content' size='large'/>}
                 rightColor='apricot'
@@ -166,6 +166,7 @@ class BckDetailContainer extends Component {
                 toggleModal={(e)=>{toggleBckModal('deposit')}}
                 onDepositSave={handleBckSaveDeposit}
             />
+            {/*슬라이드 모달*/}
             <BottomSlideModal
                 visible={this.state.slideModal}
                 title='버킷리스트 달성 방법을 선택하세요.'

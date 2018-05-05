@@ -19,6 +19,9 @@ const PropertyDetailForm = ({
     onDepositSaveClick,
     onPropertyDeleteClick
 }) => {
+    /*적금타입*/
+  const isSaveDeposit = depositType === SAVING_DEPOSIT;
+
   return (
     <div>
         <PropertyProgressInfo
@@ -40,22 +43,14 @@ const PropertyDetailForm = ({
             depositList={depositList}
             comma={comma}
         />
-        {
-            depositType === SAVING_DEPOSIT ?
-                <BottomTwoButton
-                    onLeftBtnClick={onDepositSaveClick}
-                    leftBtnName='입금'
-                    leftColor='whiteBlue'
-                    onRightBtnClick={onPropertyDeleteClick}
-                    rightBtnName='삭제'
-                    rightColor='apricot'
-                /> :
-                <BottomButton
-                    bottomButtonName='삭제'
-                    onButtonClick={onPropertyDeleteClick}
-                    color='whiteBlue'
-                />
-        }
+        <BottomTwoButton
+            onLeftBtnClick={isSaveDeposit ? onDepositSaveClick : ''}
+            leftBtnName={isSaveDeposit ? '입금하기' : ''}
+            leftColor={isSaveDeposit ? 'deepBlue' : ''}
+            onRightBtnClick={onPropertyDeleteClick}
+            rightBtnName='삭제'
+            rightColor='apricot'
+        />
     </div>
   );
 };
