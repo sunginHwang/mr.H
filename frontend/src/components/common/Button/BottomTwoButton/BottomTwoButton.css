@@ -11,10 +11,10 @@
 }
 .BottomTwoButton-two-button{
     border-radius: 8px;
-    float: left;
     box-shadow: 2px 2px 0 0 rgba(192, 192, 192, 0.9);
 }
 .BottomTwoButton-two-button:first-child{
+    float: left;
     height: 45px;
     width: 55%;
     margin-right: 5%;
@@ -23,6 +23,8 @@
 }
 
 .BottomTwoButton-two-button:last-child{
+    float: right;
+    margin-right: 10%;
     height: 45px;
     width: 30%;
     line-height: 45px;

@@ -11,12 +11,18 @@ const BottomTwoButton = ({
 }) => {
   return (
       <div className={'BottomTwoButton'}>
-        <div className={'BottomTwoButton-two-button ' + leftColor} onClick={onLeftBtnClick}>
-            {leftBtnName}
-        </div>
-          <div className={'BottomTwoButton-two-button ' + rightColor} onClick={onRightBtnClick}>
-              {rightBtnName}
-          </div>
+          {
+              leftBtnName != '' &&
+              <div className={'BottomTwoButton-two-button ' + leftColor} onClick={onLeftBtnClick}>
+                  {leftBtnName}
+              </div>
+          }
+          {
+              rightBtnName != '' &&
+              <div className={'BottomTwoButton-two-button ' + rightColor} onClick={onRightBtnClick}>
+                  {rightBtnName}
+              </div>
+          }
       </div>
   );
 };

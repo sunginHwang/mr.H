@@ -40,13 +40,20 @@ const BckListContent = ({
 
     const progressPercent = completeType === MONEY_COMPLETE ? (currentAmount/targetAmount)*100
                                                             : getRemainDatePercentage(startDate,completeDate);
-
+    const bckCardListStyle = {
+        padding : '1em',
+        borderRadius: '8px',
+        backgroundColor: '#fff',
+        boxShadow: '2px 3px rgba(0, 0, 0, .1)',
+        marginBottom: '0.7em'
+    };
 
     return(
         <ContentList
+            style={bckCardListStyle}
             left_title={
                 <BckListTitle title={bckTitle}
-                              onTitleClick={(event)=>{onShowBckDetailInfo(bckIdx)}}
+                              onTitleClick={(e)=>{onShowBckDetailInfo(bckIdx)}}
                 />
             }
             right_title={

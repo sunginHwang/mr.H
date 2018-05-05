@@ -4,3 +4,13 @@
     display: block;
 }
 
+.non-bck-list{
+    width: 100%;
+    text-align: center;
+    margin-top: 1em;
+    font-size: 17px;
+    font-family: AppleSDGothicNeo, HelveticaNeue, sans-serif;
+    display: block;
+    color: #888;
+    font-weight: bold;
+}
