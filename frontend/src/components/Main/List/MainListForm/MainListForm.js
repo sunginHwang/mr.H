@@ -2,19 +2,14 @@ import React from 'react';
 import CardBlock from 'components/common/Block/CardBlock';
 import CardItem from 'components/common/Item/CardItem';
 import PropertyLineChart from 'components/Main/List/PropertyLineChart';
+import PropertyAreaChart from 'components/Main/List/PropertyAreaChart';
+import TotalMoneyForm from 'components/Main/List/TotalMoneyForm';
 import ItemListForm from 'components/Main/List/ItemListForm';
 import { progressColor } from 'lib/variables';
 import { SAVING_DEPOSIT, DATE_COMPLETE , FIXED_DEPOSIT} from 'lib/constants';
 
 import './MainListForm.css';
 
-const TotalMoneyArea = ({
-    totalMoney
-}) => {
-    return (
-        <span style={{color:'#f4516c' ,fontWeight:600, fontSize:'1.2rem' }}>{totalMoney+' 원'}</span>
-    );
-};
 
 const MainListForm = ({
     propertyMoneyList,
@@ -55,21 +50,16 @@ const MainListForm = ({
 
   return (
       <div className="property-list-form">
-          <CardBlock
-              radius={true}
-              shadow={true}
-              headerTitle='현재 모은 금액'
-              headerSubArea={<TotalMoneyArea totalMoney={comma(currentLowAmount.reduce((prev, save) => prev + save.totalMoney, 0))} />}>
-              <CardItem title='예금'
-                        extInfo={getCurrentLowAmount(currentLowAmount,FIXED_DEPOSIT)+' 원'}
-                        extColor='ocean'
-                        subTitle=''/>
-              <CardItem title='적금'
-                        extInfo={getCurrentLowAmount(currentLowAmount,SAVING_DEPOSIT)+' 원'}
-                        extColor='teal'
-                        subTitle=''/>
-          </CardBlock>
-          <CardBlock
+          <TotalMoneyForm
+              money={comma(currentLowAmount.reduce((prev, save) => prev + save.totalMoney, 0))}
+          />
+          <div style={{marginTop:'2em', marginBottom:'2em'}}>
+              <PropertyAreaChart
+                  chartData={propertyMoneyList}
+                  xAxisKey='totalAmount'
+              />
+          </div>
+         {/* <CardBlock
               radius={true}
               shadow={true}
               headerTitle='최근 자산 증감표'
@@ -80,6 +70,19 @@ const MainListForm = ({
                   xAxisKey='totalAmount'
                   chartLineColor='#8884d8'
               />
+          </CardBlock>*/}
+          <CardBlock
+              radius={true}
+              shadow={true}
+              headerTitle='예금, 적금 현황'>
+              <CardItem title='예금'
+                        extInfo={getCurrentLowAmount(currentLowAmount,FIXED_DEPOSIT)+' 원'}
+                        extColor='ocean'
+                        subTitle=''/>
+              <CardItem title='적금'
+                        extInfo={getCurrentLowAmount(currentLowAmount,SAVING_DEPOSIT)+' 원'}
+                        extColor='teal'
+                        subTitle=''/>
           </CardBlock>
           <CardBlock
               radius={true}
