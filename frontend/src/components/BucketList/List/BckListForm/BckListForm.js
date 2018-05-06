@@ -27,7 +27,7 @@ const BckListForm = ({
                 currentAmount={getCurrentMoney(data.depositLists)}
                 targetAmount={data.targetAmount}
                 onShowBckDetailInfo={onShowBckDetailInfo}
-                progressColor={progressColor[Math.floor(progressColor.length % data.bckIdx)]} // randomColorProcess
+                progressColor='teal' // randomColorProcess
             />
         )
     );

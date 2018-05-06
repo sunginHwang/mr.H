@@ -1,6 +1,4 @@
 import React from 'react';
-import CardBlock from 'components/common/Block/CardBlock';
-import CardItem from 'components/common/Item/CardItem';
 import { Icon } from 'semantic-ui-react';
 import { getRemainDate, getTodayForYYYYMMDD } from 'lib/util';
 import PropertyCard from 'components/Property/List/PropertyCard';

@@ -35,8 +35,7 @@ class MainListContainer extends Component {
         if(mainListLoading) return <BeatLoading loading={mainListLoading}/>;
         /*not login Main view*/
         if(!isLogin(userIdx)){
-            this.props.history.push('/login');
-            return '';
+            return <NonUserView/>;
         }
 
         return (
