@@ -1,4 +1,4 @@
-export const progressColor = ['green','olive','olive','blue','grey','grey','brown'];
+export const progressColor = ['teal','teal','teal','purple','purple','violet','purple','purple','violet','violet'];
 export const pieChartColor = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 export const depositSelectInfo = [
     {

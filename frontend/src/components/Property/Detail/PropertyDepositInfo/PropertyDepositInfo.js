@@ -13,16 +13,20 @@ const PropertyDepositInfo = ({
         <CardItem key={depositInfo.depositIdx}
                   title={depositInfo.depositDate}
                   subTitle=''
-                  extColor='brand'
+                  extColor='darkGray'
                   extInfo={comma(depositInfo.depositAmount)+' 원'}/>
     ));
 
     return (
-        <CardBlock
-            headerTitle='입금내역'
-            headerSubArea=''>
-            {depositRowList}
-        </CardBlock>
+        <div style={{paddingLeft:'0.3em', paddingRight:'0.3em'}}>
+            <CardBlock
+                headerTitle='입금내역'
+                radius={true}
+                headerSubArea=''>
+                {depositRowList}
+            </CardBlock>
+        </div>
+
     );
 };
 

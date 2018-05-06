@@ -7,5 +7,11 @@
 .split-tag{
     margin-right: 0.5em;
     margin-left: 0.5em;
-    color:rgba(0,0,0,.15) ;
+    color:rgba(255,255,255,.6) !important;
+}
+.regist-user > a {
+    color:rgba(255,255,255,.6) !important;
+}
+.find-pwd > a{
+    color:rgba(255,255,255,.6) !important;
 }

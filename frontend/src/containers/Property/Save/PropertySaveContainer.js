@@ -131,7 +131,7 @@ class PropertySaveContainer extends Component {
     return (
         <div>
             <TitleHeader
-                iconColor='black'
+                iconColor='white'
                 iconSize='large'
                 titleName={propertyInfo.depositType == FIXED_DEPOSIT ? '예금 작성' : '적금 작성'}
             />

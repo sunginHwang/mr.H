@@ -3,6 +3,7 @@ import CardBlock from 'components/common/Block/CardBlock';
 import CardItem from 'components/common/Item/CardItem';
 import { Icon } from 'semantic-ui-react';
 import { getRemainDate, getTodayForYYYYMMDD } from 'lib/util';
+import PropertyCard from 'components/Property/List/PropertyCard';
 import './PropertyList.css';
  
 const PropertyList = ({
@@ -14,60 +15,61 @@ const PropertyList = ({
 
     const IconTag = <Icon name='ellipsis horizontal' size='large'/>;
 
-    const fixedDepositRowList = fixedDeposit.length === 0 ?
-        <CardItem title='예금내역이 없습니다.'/>:
+    const fixedDepositRowList = fixedDeposit.length !== 0 &&
         fixedDeposit.map((depositInfo) => {
             const depositCompleteRemainDate = getRemainDate(getTodayForYYYYMMDD(), depositInfo.completeDate);
             let depositTitle = depositInfo.propertyTitle;
+            let sideValue = '';
 
-            depositCompleteRemainDate > 0 ? depositTitle += ' (만기까지 '+depositCompleteRemainDate+'일 남음)'
-                                          : depositTitle += ' (만기완료)';
+            depositCompleteRemainDate > 0 ? sideValue += ' (만기까지 '+depositCompleteRemainDate+'일)'
+                                          : sideValue += ' (만기완료)';
 
             return <div key={depositInfo.propertyIdx}
                             onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}>
-                            <CardItem key={depositInfo.propertyIdx}
-                                      title={depositTitle}
-                                      subTitle={'예금액 :'+comma(depositInfo.targetAmount)}
-                                      extColor='brand'
-                                      extInfo={IconTag}/>
+                            <PropertyCard key={depositInfo.propertyIdx}
+                                          headerLeftValue={depositTitle}
+                                          headerRightValue={IconTag}
+                                          contentValue={comma(depositInfo.targetAmount)}
+                                          sideValue={sideValue}
+                            />
                     </div>
     });
 
-    const SavingDepositRowList = SavingDeposit.length === 0 ?
-        <CardItem title='적금내역이 없습니다.'/>:
+    const SavingDepositRowList = SavingDeposit.length !== 0 &&
         SavingDeposit.map((depositInfo) => {
             const SaveMoneyList = depositInfo.depositLists;
             const totalSaveMoney = SaveMoneyList.reduce((prev, save) => prev + save.depositAmount, 0);
             const remainMoney = depositInfo.targetAmount-totalSaveMoney;
             let saveDepositTitle = depositInfo.propertyTitle;
-
-            remainMoney > 0 ? saveDepositTitle+=' (목표까지 '+comma(remainMoney)+'원 남음)'
-                            : saveDepositTitle+=' (만기완료)';
+            let sideValue = '';
+            remainMoney > 0 ? sideValue+=' (목표까지 '+comma(remainMoney)+'원)'
+                            : sideValue+=' (만기완료)';
 
             return  <div key={depositInfo.propertyIdx}
                          onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}>
-                            <CardItem key={depositInfo.propertyIdx}
-                                      title={saveDepositTitle}
-                                      onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}
-                                      subTitle={'적금만기금액 :'+comma(depositInfo.targetAmount)}
-                                      extColor='brand'
-                                      extInfo={IconTag}/>
+                            <PropertyCard key={depositInfo.propertyIdx}
+                                          headerLeftValue={saveDepositTitle}
+                                          headerRightValue={IconTag}
+                                          contentValue={comma(depositInfo.targetAmount)}
+                                          sideValue={sideValue}
+                                     />
                     </div>
 
     });
 
+
+
     return (
         <div className='property-list'>
-            <CardBlock
-                headerTitle='적금 리스트'
-                headerSubArea=''>
+
+            <div style={{marginTop:'3em'}}>
+                <div className='property-list-title'>적금내역</div>
                 {SavingDepositRowList}
-            </CardBlock>
-            <CardBlock
-                headerTitle='예금 리스트'
-                headerSubArea=''>
+            </div>
+            <div style={{marginTop:'3em'}}>
+                <div className='property-list-title'>예금내역</div>
                 {fixedDepositRowList}
-            </CardBlock>
+            </div>
         </div>
     );
 };

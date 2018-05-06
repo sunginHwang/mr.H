@@ -3,10 +3,8 @@ import { Progress } from 'semantic-ui-react';
 import './BckListContent.css';
 import ContentList from 'components/common/ContentList';
 import InfoLabel from 'components/common/Label/InfoLabel';
-import BckListEventButton from 'components/BucketList/List/BckListEventButton';
 
 import 'semantic-ui-css/semantic.min.css';
-import { Icon } from 'semantic-ui-react'
 
 import { getRemainDatePercentage, getRemainDate, getTodayForYYYYMMDD } from 'lib/util';
 import { MONEY_COMPLETE } from 'lib/constants';
@@ -42,7 +40,7 @@ const BckListContent = ({
                                                             : getRemainDatePercentage(startDate,completeDate);
     const bckCardListStyle = {
         padding : '1em',
-        borderRadius: '8px',
+        borderRadius: '5px',
         backgroundColor: '#fff',
         boxShadow: '2px 3px rgba(0, 0, 0, .1)',
         marginBottom: '0.7em'
@@ -58,7 +56,7 @@ const BckListContent = ({
             }
             right_title={
                 <InfoLabel value={'D-'+getRemainDate(getTodayForYYYYMMDD(), completeDate)}
-                           color='deep-blue'
+                           color='deep-pink'
                 />
             }
         >

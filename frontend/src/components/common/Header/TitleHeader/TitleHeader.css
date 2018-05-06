@@ -15,12 +15,13 @@
     left: 0;
     z-index: 100;
     align-items: center;
-    border-bottom: 1px solid #d3d6d8;
-    background-color: #fff;
+    background-color: #C273CB;
     height: 40px;
     box-shadow: none;
     padding-left: 10px;
     padding-right: 10px;
 }
-
-.TitleHeader-center-name{flex: 1 auto;text-align: center;margin-right: 1em;font-weight: 700;}
+i.white.icon {
+    color: #fff!important;
+}
+.TitleHeader-center-name{flex: 1 auto;text-align: center;margin-right: 1em;color: #fff;}

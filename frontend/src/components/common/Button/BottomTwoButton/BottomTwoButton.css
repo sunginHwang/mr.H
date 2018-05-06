@@ -11,7 +11,6 @@
 }
 .BottomTwoButton-two-button{
     border-radius: 8px;
-    box-shadow: 2px 2px 0 0 rgba(192, 192, 192, 0.9);
 }
 .BottomTwoButton-two-button:first-child{
     float: left;
@@ -34,7 +33,7 @@
 
 
 .BottomTwoButton > .apricot{
-    background-color: #fb9678;
+    background-color: #B8588E;
     color: #fff;
 }
 .BottomTwoButton > .whiteBlue{
@@ -43,6 +42,6 @@
 }
 
 .BottomTwoButton > .deepBlue{
-    background-color: #697FFF;
+    background-color: #3C6496;
     color: #fff;
 }

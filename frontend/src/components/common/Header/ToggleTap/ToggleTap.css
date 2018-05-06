@@ -6,7 +6,6 @@
 .ToggleTap{
     height: 40px;
     line-height: 40px;
-    background-color: #fff;
     width: 100%;
     position: fixed;
     display: flex;
@@ -16,8 +15,7 @@
     left: 0;
     z-index: 100;
     align-items: center;
-    border-bottom: 1px solid #d3d6d8;
-    background-color: #fff;
+    background-color: #C273CB;
     height: 40px;
     box-shadow: none;
 }
@@ -25,17 +23,22 @@
     text-align: center;
     display: inline-block;
     width: 50%;
+    color: rgba(255, 255, 255, .6);
 }
 
 .ToggleTap-left{
     float: left;
+    margin-left: 2em;
+    margin-right: 2em;
 }
 .ToggleTap-right{
     float: right;
+    margin-left: 2em;
+    margin-right: 2em;
 }
 
 /*active toggle color*/
 .ToggleTap > .ocean{
-    color: #65a6ff;
-    border-bottom: 3px solid #65a6ff;
+    color: #fff;
+    border-bottom: 3px solid #fff;
 }

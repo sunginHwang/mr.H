@@ -1,21 +1,19 @@
 .footer-wrapper{
-    margin: 1em;
+    padding: 1em;
+    background-color: #C273CB;
     display: block;
-    padding: 15px 0;
     text-align: center;
-    border-top: 1px solid #e5e5e5;
+    color:rgba(255,255,255,.6) !important;
 }
 
 .footer-title{
     font-family: AppleSDGothicNeo, HelveticaNeue, sans-serif;
     display: block;
     font-size: 14px;
-    color: #888;
 }
 .footer-span{
     display: block;
     font-size: 11px;
-    color: #aaa;
 }
 
 .footer-bottom-line{
@@ -24,5 +22,5 @@
     margin-bottom: 1em;
     padding: 15px 0;
     text-align: center;
-    border-top: 1px solid #e5e5e5;
+    border-top: 1px solid rgba(255,255,255,.6) ;
 }

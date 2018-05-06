@@ -5,6 +5,7 @@
     padding-top: 0.85rem;
     padding-bottom: 0.95rem;
     border-bottom: .1rem dashed #bdbdbd;
+    font-family: AppleSDGothicNeo, HelveticaNeue, sans-serif !important;
 }
 
 .CardItem > .CardItem-info{
@@ -22,7 +23,7 @@
     text-align: right;
     vertical-align: middle;
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 800;
 }
 
 .CardItem > .CardItem-info-title{
@@ -50,5 +51,9 @@
 
 .CardItem-info-ext > .brand {
     color : #716aca!important;
+
+}
+.CardItem-info-ext > .darkGray{
+    color : #595959!important;
 
 }

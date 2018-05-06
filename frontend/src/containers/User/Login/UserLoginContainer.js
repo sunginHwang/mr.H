@@ -66,7 +66,7 @@ class UserLoginContainer extends Component {
     return (
       <div>
           <TitleHeader
-              iconColor='black'
+              iconColor='white'
               iconSize='large'
               titleName='로그인'
           />

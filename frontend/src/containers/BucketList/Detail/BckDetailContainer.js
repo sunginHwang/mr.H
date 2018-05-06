@@ -141,7 +141,7 @@ class BckDetailContainer extends Component {
       return (
         <div>
             <TitleHeader
-                iconColor='black'
+                iconColor='white'
                 iconSize='large'
                 titleName={bckDetailInfo.bckTitle}
             />

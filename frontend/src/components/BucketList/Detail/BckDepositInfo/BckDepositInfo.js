@@ -14,7 +14,7 @@ const BckDepositInfo = ({
             <CardItem key={depositInfo.depositIdx}
                       title={depositInfo.depositDate}
                       subTitle=''
-                      extColor='brand'
+                      extColor='darkGray'
                       extInfo={comma(depositInfo.depositAmount)+' 원'}/>
         ));
 

@@ -21,6 +21,11 @@ const PropertyDetailForm = ({
 }) => {
     /*적금타입*/
   const isSaveDeposit = depositType === SAVING_DEPOSIT;
+  const cardBlockStyle = {
+      paddingLeft: '2em',
+      paddingRight : '2em',
+      borderRadius: '5px',
+  };
 
   return (
     <div>
