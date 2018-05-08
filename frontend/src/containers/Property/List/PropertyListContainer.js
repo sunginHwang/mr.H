@@ -26,21 +26,22 @@ class PropertyListContainer extends Component {
     componentDidMount() {
         this.loadPropertyList();
     }
-
+    /*예,적금 리스트 정보 불러오기*/
     loadPropertyList = () => {
         const { propertyListActions } = this.props;
         propertyListActions.loadPropertyList();
     };
-
+    /*진행, 완료 토글 메뉴*/
     handleTogglePropertyMode = (modalType) => {
         const { propertyListActions } = this.props;
         propertyListActions.changePropertyToggleMode(modalType);
     };
-
-   handleShowPropertyDetail = (propertyIdx) => {
+    /*상세보기*/
+    handleShowPropertyDetail = (propertyIdx) => {
        this.props.history.push('/property/detail/' + propertyIdx);
-   };
+    };
 
+   /*예,적금 리스트 타입별 불러오기*/
    getPropertyList = () => {
        const { propertyList, propertyToggleMode } = this.props;
        return propertyToggleMode === 'complete' ?
@@ -48,6 +49,7 @@ class PropertyListContainer extends Component {
                    propertyList.filter(x => !isBiggerThenToday(x.completeDate))
    };
 
+   /*예,적금 생성 모달 */
    togglePropertyInsertModal = () => {
        this.setState({insertModalVisible: !this.state.insertModalVisible})
    };

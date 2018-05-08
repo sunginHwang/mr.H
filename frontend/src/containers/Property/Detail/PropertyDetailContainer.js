@@ -19,6 +19,7 @@ class PropertyDetailContainer extends Component {
     this.loadPropertyDetailInfo();
   }
 
+  /*최초접근 검사*/
   checkPropertyDetailAccess = () => {
     const { propertyIdx } = this.props.match.params;
     if(!Number.isInteger(Number.parseInt(propertyIdx,10))){
@@ -27,6 +28,7 @@ class PropertyDetailContainer extends Component {
     }
   };
 
+  /*예금, 적금 상세 정보 불러오기*/
   loadPropertyDetailInfo = async () => {
     const { propertyDetailActions } = this.props;
     const { propertyIdx } = this.props.match.params;
@@ -41,6 +43,7 @@ class PropertyDetailContainer extends Component {
     await this.setMonthlyMoney();
   };
 
+  /*한달 월 납부 금액 계산하기*/
   setMonthlyMoney = () => {
       const { propertyDetailInfo, propertyDetailActions } = this.props;
       const depositType = propertyDetailInfo.get('typeIdx');
@@ -51,6 +54,7 @@ class PropertyDetailContainer extends Component {
       }
   };
 
+  /*적금 모달 토글 이벤트*/
   togglePropertyModal = async (modalType) => {
       const { propertyDetailActions } = this.props;
       const { setPropertyErrorMsg } = this;
@@ -58,25 +62,28 @@ class PropertyDetailContainer extends Component {
       await modalType === 'deposit' && this.setMonthlyMoney(); // 월 입금액 자동계산 세팅
       await setPropertyErrorMsg('modalErrMsg',''); // 에러 메세지 초기화
       await propertyDetailActions.togglePropertyModal(modalType);
-  }
+  };
 
+  /*예금액 초과 검사*/
   isOverDepositMoney = () => {
       const { propertyDetailInfo, monthlyDepositMoney } = this.props;
       const totalSaveDepositMoney = this.handleGetCurrentAmount(propertyDetailInfo.get('depositLists').toJS());
       return propertyDetailInfo.get('targetAmount') < totalSaveDepositMoney + monthlyDepositMoney;
   };
 
+  /*적금 타입 검사*/
   isSavingDepositType = () => {
       const { propertyDetailInfo } = this.props;
       return propertyDetailInfo.get('typeIdx') === SAVING_DEPOSIT;
   };
 
-
+  /*에러메세지 세팅*/
   setPropertyErrorMsg = (errorType, value) => {
       const { propertyDetailActions } = this.props;
       propertyDetailActions.changeErrorMessage({type : errorType , value : value});
   };
 
+  /*입금하기*/
   handleSaveDepositMoney = async() => {
       const { isOverDepositMoney,isSavingDepositType, setPropertyErrorMsg, togglePropertyModal, loadPropertyDetailInfo } = this;
       const { propertyDetailInfo, monthlyDepositMoney, propertyDetailActions } = this.props;
@@ -99,6 +106,7 @@ class PropertyDetailContainer extends Component {
       await togglePropertyModal('deposit');
   };
 
+  /*예,적금 삭제*/
   handlePropertyDelete = async( propertyIdx ) => {
 
       const { togglePropertyModal } = this;
@@ -116,11 +124,12 @@ class PropertyDetailContainer extends Component {
 
   };
 
+  /*현재금액 구하기*/
   handleGetCurrentAmount = (amountList) => {
     return amountList.reduce((prev, save) => prev + save.depositAmount, 0);
   };
 
-
+  /*월 납부 금액 변경*/
   handleChangeMonthlyDepositMoney = (e) => {
     const { propertyDetailActions } = this.props;
     propertyDetailActions.changeMonthlyDepositMoney(parseInt(e.target.value,10));

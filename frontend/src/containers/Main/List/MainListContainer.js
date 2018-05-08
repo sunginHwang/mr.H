@@ -16,11 +16,12 @@ class MainListContainer extends Component {
     componentDidMount(){
         this.loadMainInfo();
     };
-
+    /*메인 정보 리스트 불러오기*/
     loadMainInfo(){
         this.props.mainListActions.loadMainListInfo();
     }
 
+    /*입금 종류에 따른 현재금액 구하기*/
     getCurrentLowAmount(CurrentLowAmountList,type){
         const LowAmount = CurrentLowAmountList.find( (LowAmount) => LowAmount.typeIdx == type);
         return LowAmount == undefined ? 0

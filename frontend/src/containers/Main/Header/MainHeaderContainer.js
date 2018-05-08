@@ -9,6 +9,7 @@ import { deleteTokenInfo } from 'lib/util';
 
 class MainHeaderContainer extends Component {
 
+    /*로그아웃*/
    handleLogout = async () => {
         const { authActions, history } = this.props;
         await authActions.initialAuthUser();
@@ -16,6 +17,7 @@ class MainHeaderContainer extends Component {
         await history.push('/login');
    };
 
+   /*메뉴버튼 클릭*/
    handleSideMenuClick = () => {
        const { mainHeaderActions } = this.props;
        mainHeaderActions.toggleSideMenu();

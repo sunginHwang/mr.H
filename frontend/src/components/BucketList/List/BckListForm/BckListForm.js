@@ -1,6 +1,5 @@
 import React from 'react';
 import BckListContent from 'components/BucketList/List/BckListContent';
-import CardBlock from 'components/common/Block/CardBlock';
 import { progressColor } from 'lib/variables';
 
 import 'semantic-ui-css/semantic.min.css';

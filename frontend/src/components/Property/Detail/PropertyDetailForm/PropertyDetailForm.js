@@ -3,7 +3,6 @@ import PropertyProgressInfo from 'components/Property/Detail/PropertyProgressInf
 import PropertySavingDepositInfo from 'components/Property/Detail/PropertySavingDepositInfo';
 import PropertyDepositInfo from 'components/Property/Detail/PropertyDepositInfo';
 import BottomTwoButton from 'components/common/Button/BottomTwoButton';
-import BottomButton from 'components/common/Button/BottomButton';
 import { SAVING_DEPOSIT, FIXED_DEPOSIT } from 'lib/constants';
 
 const PropertyDetailForm = ({
@@ -21,11 +20,6 @@ const PropertyDetailForm = ({
 }) => {
     /*적금타입*/
   const isSaveDeposit = depositType === SAVING_DEPOSIT;
-  const cardBlockStyle = {
-      paddingLeft: '2em',
-      paddingRight : '2em',
-      borderRadius: '5px',
-  };
 
   return (
     <div>

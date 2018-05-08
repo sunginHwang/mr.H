@@ -25,7 +25,7 @@ class PropertySaveContainer extends Component {
                                       prevProps.propertyInfo.targetAmount !== propertyInfo.targetAmount ||
                                       prevProps.propertyInfo.completeDate !== propertyInfo.completeDate
                                   );
-
+    /*월 예상 금액 변경*/
       isSavingDepositChange &&
             propertySaveActions.changeInputValue({inputType : 'monthlyDepositAmount', value : calcMonthlyDepositMoney(propertyInfo.targetAmount,propertyInfo.completeDate)});
   }
@@ -49,11 +49,13 @@ class PropertySaveContainer extends Component {
         }
     };
 
-    settingSavePropertyType(){
+  /*예,적금 타입 세팅*/
+  settingSavePropertyType(){
         const { propertyType } = this.props.match.params;
         this.props.propertySaveActions.changeInputValue( {inputType : 'depositType', value : propertyType});
-    };
+  };
 
+  /*예,적금 Input 변경 정보 저장*/
   handlePropertySaveChangeInputValue = (type, e) =>{
     const {propertySaveActions} = this.props;
     const { value } = e.target;
@@ -65,6 +67,7 @@ class PropertySaveContainer extends Component {
 
   };
 
+  /*예,적금 생성 작성시 유효성 검사*/
   validatePropertyInputChange = (type, value) => {
       const { withSetErrorMessage } = this.props;
       if(type === 'completeDate' && isBiggerThenToday(value)){
@@ -74,6 +77,7 @@ class PropertySaveContainer extends Component {
       return true;
   };
 
+  /*예,적금 생성 저장시 유효성 검사*/
   validatePropertySaveForm = () => {
       const { propertyInfo, withSetErrorMessage } = this.props;
       const { depositType, propertyTitle, targetAmount, completeDate } = propertyInfo;
@@ -107,6 +111,7 @@ class PropertySaveContainer extends Component {
       return true;
   };
 
+  /*예,적금 저장*/
   handlePropertySave = async (propertySaveInfo) => {
       const { validatePropertySaveForm } = this;
       const { withSetErrorMessage, propertySaveActions } = this.props;

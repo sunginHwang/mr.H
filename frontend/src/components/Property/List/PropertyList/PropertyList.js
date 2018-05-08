@@ -23,13 +23,12 @@ const PropertyList = ({
                                           : sideValue += ' (만기완료)';
 
             return <div key={depositInfo.propertyIdx}
-                            onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}>
-                            <PropertyCard key={depositInfo.propertyIdx}
+                        onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}>
+                          <PropertyCard key={depositInfo.propertyIdx}
                                           headerLeftValue={depositTitle}
                                           headerRightValue={IconTag}
                                           contentValue={comma(depositInfo.targetAmount)}
-                                          sideValue={sideValue}
-                            />
+                                          sideValue={sideValue}/>
                     </div>
     });
 
@@ -49,8 +48,7 @@ const PropertyList = ({
                                           headerLeftValue={saveDepositTitle}
                                           headerRightValue={IconTag}
                                           contentValue={comma(depositInfo.targetAmount)}
-                                          sideValue={sideValue}
-                                     />
+                                          sideValue={sideValue}/>
                     </div>
 
     });

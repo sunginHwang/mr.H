@@ -26,12 +26,7 @@ class BckDetailContainer extends Component {
        this.loadBckDetailInfo();
     }
 
-    /*슬라이드 모달 토글 메뉴*/
-    toggleSlideModal = () => {
-        this.setState({slideModal: !this.state.slideModal})
-    };
-
-
+    /*접근 유효성 체크*/
     checkBckDetailAccess = () => {
       const { bckIdx } = this.props.match.params;
       if(!Number.isInteger(Number.parseInt(bckIdx,10))){
@@ -51,6 +46,12 @@ class BckDetailContainer extends Component {
            await  this.props.history.push('/bck');
        }
    };
+
+    /*슬라이드 모달 토글 메뉴*/
+    toggleSlideModal = () => {
+        this.setState({slideModal: !this.state.slideModal})
+    };
+
     /*버킷리스트 삭제*/
     handleBckDelete = async() => {
         const { bckDetailActions, bckDetailInfo } = this.props;
@@ -85,6 +86,7 @@ class BckDetailContainer extends Component {
         }catch(e){
             await alert(this.props.notifyMessage);
         }
+
         await this.toggleBckModal('deposit');
     };
 

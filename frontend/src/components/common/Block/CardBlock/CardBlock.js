@@ -10,6 +10,7 @@ const CardBlock = ({
     children
 }) => {
     let cardBlockHeader = '';
+
     if( headerTitle != null && headerTitle != ''){
         cardBlockHeader = <div className='CardBlock-header'>
                                     <span className='CardBlock-header-title'>
