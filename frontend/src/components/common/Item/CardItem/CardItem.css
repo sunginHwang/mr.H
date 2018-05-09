@@ -4,6 +4,7 @@
     width: 100%;
     padding-top: 0.85rem;
     padding-bottom: 0.95rem;
+    margin-bottom: 0.95rem;
     border-bottom: .1rem dashed #bdbdbd;
     font-family: AppleSDGothicNeo, HelveticaNeue, sans-serif !important;
 }

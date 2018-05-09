@@ -13,17 +13,12 @@ const PropertySavingDepositInfo = ({
               headerTitle='적금내역'
               radius={true}
               headerSubArea=''>
-              <CardItem title='목표금액'
-                        extInfo={comma(targetAmount)+' 원'}
-                        extColor='danger'
-                        subTitle=''/>
               <CardItem title='현재 모은 총액'
                         extInfo={comma(currentAmount)+' 원'}
-                        extColor='ocean'
                         subTitle=''/>
               <CardItem title='남은 입금 액수'
                         extInfo={(comma(targetAmount-currentAmount))+' 원'}
-                        extColor='teal'
+                        extColor='danger'
                         subTitle=''/>
           </CardBlock>
       </div>

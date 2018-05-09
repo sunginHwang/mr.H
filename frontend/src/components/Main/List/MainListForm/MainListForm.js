@@ -77,11 +77,11 @@ const MainListForm = ({
               headerTitle='예금, 적금 현황'>
               <CardItem title='예금'
                         extInfo={getCurrentLowAmount(currentLowAmount,FIXED_DEPOSIT)+' 원'}
-                        extColor='ocean'
+                        extColor='teal'
                         subTitle=''/>
               <CardItem title='적금'
                         extInfo={getCurrentLowAmount(currentLowAmount,SAVING_DEPOSIT)+' 원'}
-                        extColor='teal'
+                        extColor='ocean'
                         subTitle=''/>
           </CardBlock>
           <CardBlock

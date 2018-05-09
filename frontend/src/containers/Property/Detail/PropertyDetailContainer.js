@@ -153,7 +153,6 @@ class PropertyDetailContainer extends Component {
             <TitleHeader
                 iconColor='white'
                 iconSize='large'
-                titleName={propertyInfo.propertyTitle}
             />
             <PropertyDetailForm
                 propertyTitle={propertyInfo.propertyTitle}

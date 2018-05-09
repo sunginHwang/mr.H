@@ -10,7 +10,7 @@ const BckMoneyInfo = ({
     comma
 }) => {
   const chartData = [{name: '모은금액', value: currentAmount}, {name: '남은 금액', value: targetAmount - currentAmount}];
-  const targetPercentage = '달성률 '+((currentAmount/targetAmount)*100).toFixed(3) + '%';
+  const targetPercentage = ((currentAmount/targetAmount)*100).toFixed(0) + '% 달성';
 
   return (
       <CardBlock
@@ -20,24 +20,22 @@ const BckMoneyInfo = ({
           headerSubArea=''>
           <OneLevelPieChart
               data={chartData}
-              cx='40%'
+              cx='30%'
               cy='50%'
-              width={300}
+              width={345}
               height={230}
               legentAlign='right'
               centerLableValue={targetPercentage}
           />
           <CardItem title='목표금액'
-                    extInfo={comma(targetAmount)}
-                    extColor='danger'
+                    extInfo={comma(targetAmount)+' 원'}
                     subTitle=''/>
           <CardItem title='모은금액'
-                    extInfo={comma(currentAmount)}
-                    extColor='ocean'
+                    extInfo={comma(currentAmount)+' 원'}
                     subTitle=''/>
           <CardItem title='남은금액'
-                    extInfo={comma(targetAmount-currentAmount)}
-                    extColor='teal'
+                    extInfo={comma(targetAmount-currentAmount)+' 원'}
+                    extColor='danger'
                     subTitle=''/>
       </CardBlock>
   );

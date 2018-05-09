@@ -1,8 +1,10 @@
 .property-progress-wrapper{
     background-color: #78CCDD!important;
-    padding: 3em 2em;
     width: 100%;
-    height: 270px;
+    padding-left: 3em;
+    padding-right: 3em;
+    padding-top: 0.3em;
+    height: 220px;
     color: #fff;
     text-align: center;
 }

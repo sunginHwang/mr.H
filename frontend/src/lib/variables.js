@@ -1,5 +1,5 @@
 export const progressColor = ['teal','teal','teal','purple','purple','violet','purple','purple','violet','violet'];
-export const pieChartColor = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+export const pieChartColor = ['#78CCDD', '#B8588E'];
 export const depositSelectInfo = [
     {
         text : '선택해주세요.',

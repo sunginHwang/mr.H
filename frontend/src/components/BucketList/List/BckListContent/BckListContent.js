@@ -46,14 +46,15 @@ const BckListContent = ({
                 headerLeftValue={bckTitle}
                 headerRightValue={<InfoLabel value={'D-'+getRemainDate(getTodayForYYYYMMDD(), completeDate)}
                                              color='deep-pink'/>}
-                contentValue={<div style={{marginBottom:'-1.0em'}} >
-                              <Progress percent={progressPercent.toFixed(2)}
-                                        size='small'
-                                        onClick={(e)=>{onShowBckDetailInfo(bckIdx)}}
-                                        progress='percent'
-                                        color={progressColor}/>
-                                </div>}
-                sideValue={bckTitle+'...'}
+                contentValue={<span style={{color: '#ababab',fontSize: '13px'}}>{bckTitle}...</span>}
+
+                sideValue={<div style={{marginBottom:'-1.0em'}} >
+                    <Progress percent={progressPercent.toFixed(2)}
+                              size='small'
+                              onClick={(e)=>{onShowBckDetailInfo(bckIdx)}}
+                              progress='percent'
+                              color={progressColor}/>
+                </div>}
             />
         </div>
 

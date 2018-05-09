@@ -21,13 +21,17 @@
     clear: both;
 }
 .property-card-content-value{
-    margin: 1.3em 0 0.7em 0;
+    margin: 0.7em 0 0.7em 0;
     font-size: 20px;
-    width: 100%;
     font-family: AppleSDGothicNeo, HelveticaNeue, sans-serif !important;
     font-weight: 700;
 }
 .property-card-footer-value{
     color: #ABABAB;
     font-size: 13px;
+}
+
+.property-card-complete{
+    background-color: rgba(184,88,142,0.6);
+    color: #fff !important;
 }
