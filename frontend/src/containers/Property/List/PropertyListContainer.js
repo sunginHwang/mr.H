@@ -45,8 +45,8 @@ class PropertyListContainer extends Component {
    getPropertyList = () => {
        const { propertyList, propertyToggleMode } = this.props;
        return propertyToggleMode === 'complete' ?
-                   propertyList.filter(x => isBiggerThenToday(x.completeDate)) :
-                   propertyList.filter(x => !isBiggerThenToday(x.completeDate))
+                   propertyList.filter(x => x.delFlag == 'C') :
+                   propertyList.filter(x => x.delFlag == 'N')
    };
 
    /*예,적금 생성 모달 */

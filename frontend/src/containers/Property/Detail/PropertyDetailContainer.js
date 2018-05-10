@@ -4,15 +4,21 @@ import {bindActionCreators} from 'redux';
 import * as propertyDetailActions from 'store/modules/propertyDetail';
 import PropertyDetailForm from 'components/Property/Detail/PropertyDetailForm';
 import PropertyDepositSaveModal from 'components/Property/Modal/PropertyDepositSaveModal';
-import PropertyDeleteModal from 'components/Property/Modal/PropertyDeleteModal';
 import TitleHeader from 'components/common/Header/TitleHeader';
 import BeatLoading from 'components/common/Loading/BeatLoading';
-import { getRemainDate, calcMonthlyDepositMoney, comma, getRemainDatePercentage } from 'lib/util';
+import BottomSlideModal from 'components/common/Modal/BottomSlideModal';
+import SlideModalLabel from 'components/common/Label/SlideModalLabel';
+import { getRemainDate, calcMonthlyDepositMoney, comma, getRemainDatePercentage, isBiggerThenToday } from 'lib/util';
 import { SAVING_DEPOSIT } from 'lib/constants';
 
 import { InitialPropertyDetailData } from 'lib/variables';
 
 class PropertyDetailContainer extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {slideModal: false};
+    };
 
   componentDidMount(){
     this.checkPropertyDetailAccess();
@@ -26,6 +32,11 @@ class PropertyDetailContainer extends Component {
         alert('정상적인 접근이 아닙니다.');
         this.props.history.push('/property');
     }
+  };
+
+  /*슬라이드 모달 토글 메뉴*/
+  toggleSlideModal = () => {
+        this.setState({slideModal: !this.state.slideModal})
   };
 
   /*예금, 적금 상세 정보 불러오기*/
@@ -124,6 +135,21 @@ class PropertyDetailContainer extends Component {
 
   };
 
+    /*예,적금 상태 변경*/
+    changePropertyStatus = async( propertyIdx , status) => {
+
+        const { propertyDetailActions } = this.props;
+
+        try{
+            await propertyDetailActions.changePropertyStatus(propertyIdx ,status);
+        }catch(e){
+            await alert(this.props.notifyMessage);
+        }
+
+        this.toggleSlideModal();
+        await this.loadPropertyDetailInfo();
+    };
+
   /*현재금액 구하기*/
   handleGetCurrentAmount = (amountList) => {
     return amountList.reduce((prev, save) => prev + save.depositAmount, 0);
@@ -141,10 +167,20 @@ class PropertyDetailContainer extends Component {
         handleChangeMonthlyDepositMoney,
         handleSaveDepositMoney,
         handlePropertyDelete,
-        togglePropertyModal
+        togglePropertyModal,
+        toggleSlideModal,
+        changePropertyStatus
     } = this;
     const { propertyDetailInfo, modal, monthlyDepositMoney, error, propertyDetailLoading } = this.props;
     const propertyInfo = propertyDetailInfo.toJS();
+    const isProgressEndProperty = propertyInfo.delFlag == 'N' && isBiggerThenToday(propertyInfo.completeDate);
+    let completeEventButton = '';
+
+    if(isProgressEndProperty){
+        completeEventButton = <div onClick={(e)=>{changePropertyStatus(propertyInfo.propertyIdx, 'C')}}>
+                                <SlideModalLabel title='만기완료'/>
+                              </div>;
+    }
 
     if(propertyDetailLoading) return <BeatLoading loading={propertyDetailLoading}/>;
 
@@ -165,7 +201,7 @@ class PropertyDetailContainer extends Component {
                 getRemainDatePercentage={getRemainDatePercentage}
                 comma={comma}
                 onDepositSaveClick={(e)=>{togglePropertyModal('deposit')}}
-                onPropertyDeleteClick={(e)=>{togglePropertyModal('delete')}}
+                toggleSlideModal={(e)=>{toggleSlideModal();}}
             />
             <PropertyDepositSaveModal
                 modalVisible={modal.get('deposit')}
@@ -175,12 +211,15 @@ class PropertyDetailContainer extends Component {
                 onPropertyDepositSave={handleSaveDepositMoney}
                 errorMessage={error.get('modalErrMsg')}
             />
-            <PropertyDeleteModal
-                propertyTitle={propertyInfo.propertyTitle}
-                modalVisible={modal.get('delete')}
-                toggleModal={(e)=>{togglePropertyModal('delete')}}
-                onPropertyDelete={(e)=>{handlePropertyDelete(propertyInfo.propertyIdx)}}
-            />
+            <BottomSlideModal
+                visible={this.state.slideModal}
+                title='원하시는 메뉴를 선택해 주세요.'
+                cancelClick={(e)=>{toggleSlideModal();}}>
+                <div onClick={(e)=>{handlePropertyDelete(propertyInfo.propertyIdx)}}>
+                    <SlideModalLabel title='삭제하기'/>
+                </div>
+                {completeEventButton}
+            </BottomSlideModal>
         </div>
 
     );

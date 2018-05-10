@@ -4,10 +4,11 @@ import './PropertyCard.css';
 const PropertyCard = ({headerLeftValue,
                        headerRightValue,
                        contentValue,
+                       complete,
                        sideValue
                             }) => {
     return (
-        <div className='property-card'>
+        <div className={'property-card'+ ( complete ? ' property-card-complete' : '')}>
             <div className='property-card-header'>
                 <div className='property-card-left' >{headerLeftValue}</div>
                 <div className='property-card-right'>{headerRightValue}</div>

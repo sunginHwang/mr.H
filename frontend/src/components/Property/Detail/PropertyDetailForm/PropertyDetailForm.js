@@ -3,6 +3,7 @@ import PropertyProgressInfo from 'components/Property/Detail/PropertyProgressInf
 import PropertySavingDepositInfo from 'components/Property/Detail/PropertySavingDepositInfo';
 import PropertyDepositInfo from 'components/Property/Detail/PropertyDepositInfo';
 import BottomTwoButton from 'components/common/Button/BottomTwoButton';
+import { Icon } from 'semantic-ui-react';
 import { SAVING_DEPOSIT, FIXED_DEPOSIT } from 'lib/constants';
 
 const PropertyDetailForm = ({
@@ -16,7 +17,7 @@ const PropertyDetailForm = ({
     getRemainDatePercentage,
     comma,
     onDepositSaveClick,
-    onPropertyDeleteClick
+    toggleSlideModal
 }) => {
     /*적금타입*/
   const isSaveDeposit = depositType === SAVING_DEPOSIT;
@@ -46,8 +47,8 @@ const PropertyDetailForm = ({
             onLeftBtnClick={isSaveDeposit ? onDepositSaveClick : ''}
             leftBtnName={isSaveDeposit ? '입금하기' : ''}
             leftColor={isSaveDeposit ? 'deepBlue' : ''}
-            onRightBtnClick={onPropertyDeleteClick}
-            rightBtnName='삭제'
+            onRightBtnClick={toggleSlideModal}
+            rightBtnName={<Icon name='content' size='large'/>}
             rightColor='apricot'
         />
     </div>

@@ -25,6 +25,11 @@ exports.deleteProperty = async (propertyIdx, userIdx) => {
     return deleteFlag;
 };
 
+exports.modifyPropertyStatus = async (propertyIdx, userIdx, status) => {
+    const modifyFlag = await propertyModel.updatePropertyStatusM(propertyIdx, userIdx, status);
+    return modifyFlag;
+};
+
 exports.validatePropertyType = async  (propertyType) => {
     const isPropertyType = propertyType == FIXED_DEPOSIT || propertyType == SAVING_DEPOSIT;
     return isPropertyType;

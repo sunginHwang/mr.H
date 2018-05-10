@@ -4,7 +4,7 @@ import mapper from '../../mapper';
 exports.getPropertyListM = (userIdx, limit, completeDate = '1999-12-31') => {
     return mapper.property
         .findAll({
-            attributes: ['propertyIdx','propertyTitle',`targetAmount`,'typeIdx',
+            attributes: ['propertyIdx','propertyTitle',`targetAmount`,'typeIdx','delFlag',
                 [mapper.sequelize.fn('date_format', mapper.sequelize.col('startDate'), '%Y-%m-%d'), 'startDate'],
                 [mapper.sequelize.fn('date_format', mapper.sequelize.col('completeDate'), '%Y-%m-%d'), 'completeDate']
             ],
@@ -17,7 +17,7 @@ exports.getPropertyListM = (userIdx, limit, completeDate = '1999-12-31') => {
             }],
             where: {
                 userIdx: { $and :[userIdx] },
-                delFlag: { $and :['N'] },
+                delFlag: { $ne :['Y'] },
                 completeDate: { $gt : completeDate }
             },
             limit: limit
@@ -34,7 +34,7 @@ exports.getPropertyListM = (userIdx, limit, completeDate = '1999-12-31') => {
 exports.findPropertyInfoM = (propertyIdx, userIdx) => {
     return mapper.property
         .findOne({
-            attributes: ['propertyIdx','propertyTitle',`targetAmount`,'typeIdx',
+            attributes: ['propertyIdx','propertyTitle',`targetAmount`,'typeIdx','delFlag',
                 [mapper.sequelize.fn('date_format', mapper.sequelize.col('startDate'), '%Y-%m-%d'), 'startDate'],
                 [mapper.sequelize.fn('date_format', mapper.sequelize.col('completeDate'), '%Y-%m-%d'), 'completeDate']
             ],
@@ -51,7 +51,7 @@ exports.findPropertyInfoM = (propertyIdx, userIdx) => {
             }],
             where: {
                 userIdx: { $and :[userIdx] },
-                delFlag: { $and :['N'] },
+                delFlag: { $ne :['Y'] },
                 propertyIdx: { $and :[propertyIdx] }
             }
         })
@@ -126,5 +126,28 @@ exports.deletePropertyM = (propertyIdx, userIdx) => {
         .catch(function(err) {
             console.log(err);
             return null;
+        });
+};
+
+exports.updatePropertyStatusM = function (propertyIdx, userIdx, status) {
+    return mapper.property
+        .update(
+            {
+                delFlag : status
+            },
+            {
+                where: {
+                    propertyIdx: propertyIdx,
+                    userIdx: userIdx
+                }
+            }
+
+        )
+        .then(function(results) {
+            return results;
+        })
+        .catch(function(err) {
+            console.log(err);
+            return 0;
         });
 };

@@ -86,3 +86,17 @@ exports.delete = wrapAsync( async (req, res) => {
     res.json({successMsg : notifyMsg+' 삭제 성공'});
 });
 
+exports.updatePropertyStatus = wrapAsync( async (req, res) => {
+    const { propertyIdx, status } = req.params;
+    const userIdx = req.userInfo.userIdx;
+
+
+    const updateSuccess = await propertyService.modifyPropertyStatus(propertyIdx, userIdx, status);
+
+    if(!updateSuccess){
+        res.status(403).send({errorMsg : '다시 시도해 주세요.'});return;
+    }
+
+    res.json({successMsg : '처리되었습니다.'});
+});
+

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
-import { getRemainDate, getTodayForYYYYMMDD } from 'lib/util';
+import { getRemainDate, getTodayForYYYYMMDD, isBiggerThenToday } from 'lib/util';
 import PropertyCard from 'components/Property/List/PropertyCard';
 import './PropertyList.css';
  
@@ -17,17 +17,26 @@ const PropertyList = ({
         fixedDeposit.map((depositInfo) => {
             const depositCompleteRemainDate = getRemainDate(getTodayForYYYYMMDD(), depositInfo.completeDate);
             let depositTitle = depositInfo.propertyTitle;
+            const isPropertyProgressEnd = isBiggerThenToday(depositInfo.completeDate) && depositInfo.delFlag == 'N';
+
             let sideValue = '';
+            let contentValue = comma(depositInfo.targetAmount);
 
             depositCompleteRemainDate > 0 ? sideValue += ' (만기까지 '+depositCompleteRemainDate+'일)'
                                           : sideValue += ' (만기완료)';
+
+            if(isPropertyProgressEnd){
+                contentValue = '만기완료';
+                sideValue = '상세보기에서 만기완료를 선택해주세요';
+            }
 
             return <div key={depositInfo.propertyIdx}
                         onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}>
                           <PropertyCard key={depositInfo.propertyIdx}
                                           headerLeftValue={depositTitle}
                                           headerRightValue={IconTag}
-                                          contentValue={comma(depositInfo.targetAmount)}
+                                          contentValue={contentValue}
+                                          complete={isPropertyProgressEnd}
                                           sideValue={sideValue}/>
                     </div>
     });
@@ -37,18 +46,27 @@ const PropertyList = ({
             const SaveMoneyList = depositInfo.depositLists;
             const totalSaveMoney = SaveMoneyList.reduce((prev, save) => prev + save.depositAmount, 0);
             const remainMoney = depositInfo.targetAmount-totalSaveMoney;
-            let saveDepositTitle = depositInfo.propertyTitle;
+            const isPropertyProgressEnd = isBiggerThenToday(depositInfo.completeDate) && depositInfo.delFlag == 'N';
+
             let sideValue = '';
+            let contentValue = comma(depositInfo.targetAmount);
+
             remainMoney > 0 ? sideValue+=' (목표까지 '+comma(remainMoney)+'원)'
                             : sideValue+=' (만기완료)';
+
+            if(isPropertyProgressEnd){
+                contentValue = '만기완료';
+                sideValue = '상세보기에서 만기완료를 선택해주세요';
+            }
 
             return  <div key={depositInfo.propertyIdx}
                          onClick={(e)=>{onShowDetail(depositInfo.propertyIdx)}}>
                             <PropertyCard key={depositInfo.propertyIdx}
-                                          headerLeftValue={saveDepositTitle}
+                                          headerLeftValue={depositInfo.propertyTitle}
                                           headerRightValue={IconTag}
-                                          contentValue={comma(depositInfo.targetAmount)}
-                                          sideValue={sideValue}/>
+                                          contentValue={contentValue}
+                                          complete={isPropertyProgressEnd}
+                                          sideValue={sideValue} />
                     </div>
 
     });

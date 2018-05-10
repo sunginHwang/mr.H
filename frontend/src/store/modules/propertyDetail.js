@@ -11,16 +11,18 @@ const CHANGE_MONTHLY_DEPOSIT_MONEY = 'propertyDetail/CHANGE_MONTHLY_DEPOSIT_MONE
 const CHANGE_ERROR_MESSAGE = 'propertyDetail/CHANGE_ERROR_MESSAGE';
 const SAVE_DEPOSIT_MONEY = 'propertyDetail/SAVE_DEPOSIT_MONEY';
 const DELETE_PROPERTY = 'propertyDetail/DELETE_PROPERTY';
+const CHANGE_PROPERTY_STATUS = 'propertyDetail/CHANGE_PROPERTY_STATUS';
 
 
 //비동기 호출
 export const apiGetPropertyInfo = (propertyIdx) => axiosAuth.get(`/api/property/${propertyIdx}`);
 export const apiDeleteProperty = (propertyIdx) => axiosAuth.delete(`/api/property/${propertyIdx}`);
+export const apiChangePropertyStatus = (propertyIdx, status) => axiosAuth.put(`/api/property/${propertyIdx}/status/${status}`);
 export const apiSaveDepositMoney = (targetIdx, typeIdx ,depositAmount) => axiosAuth.post(`/api/deposit/save/${targetIdx}/type/${typeIdx}`,{depositAmount : depositAmount});
-
 //액션 생성자
 export const loadPropertyDetailInfo = createAction(LOAD_PROPERTY_DETAIL_INFO,apiGetPropertyInfo);
 export const saveDepositMoney = createAction(SAVE_DEPOSIT_MONEY,apiSaveDepositMoney);
+export const changePropertyStatus = createAction(CHANGE_PROPERTY_STATUS,apiChangePropertyStatus);
 export const deleteProperty = createAction(DELETE_PROPERTY,apiDeleteProperty);
 export const togglePropertyModal = createAction(TOGGLE_PROPERTY_MODAL);
 export const changeMonthlyDepositMoney = createAction(CHANGE_MONTHLY_DEPOSIT_MONEY);
@@ -35,6 +37,7 @@ const initialState = Map({
         completeDate : '1999-12-31',
         targetAmount : 0,
         typeIdx : 0,
+        delFlag : '',
         depositLists : List([])
     }),
     monthlyDepositMoney : 0,
@@ -72,6 +75,16 @@ export default handleActions({
     }),
     ...pender({
         type: DELETE_PROPERTY,
+        onSuccess: (state, action) => {
+            return state.set('notifyMessage',action.payload.data.successMsg);
+        },
+        onFailure: (state, action) => {
+            const { response } = action.payload;
+            return state.set('notifyMessage',getErrorMsg(response.data.errorMsg));
+        }
+    }),
+    ...pender({
+        type: CHANGE_PROPERTY_STATUS,
         onSuccess: (state, action) => {
             return state.set('notifyMessage',action.payload.data.successMsg);
         },
