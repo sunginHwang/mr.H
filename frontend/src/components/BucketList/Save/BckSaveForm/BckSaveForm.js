@@ -23,7 +23,6 @@ const BckSaveForm = ({
 
   return (
       <div className='bck-save-form'>
-          <CardBlock>
               <InputLabel
                   labelName='버킷리스트명'
                   placeHolderName='8글자 이하로 입력하세요.'
@@ -81,7 +80,6 @@ const BckSaveForm = ({
                   textAreaValue={bckDetail}
                   onTextAreaChange={(e)=>{onChangeInput('bckDetail',e);}}
               />
-          </CardBlock>
           <BottomButton
             bottomButtonName={saveMode === 'insert' ? '저장하기' : '수정하기'}
             onButtonClick={onSaveClick}

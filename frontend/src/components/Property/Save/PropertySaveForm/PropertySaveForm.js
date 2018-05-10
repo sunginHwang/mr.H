@@ -23,9 +23,7 @@ const PropertySaveForm = ({
   ));
 
   return (
-    <div>
-        <CardBlock>
-
+    <div className='propery-save-form'>
             {
                 depositType !== 0 &&
                 <div className='input-area'>
@@ -61,9 +59,6 @@ const PropertySaveForm = ({
                     onInputChange={(e)=>{onChangeValue('monthlyDepositAmount',e)}}
                 />
             }
-
-
-        </CardBlock>
         <BottomButton
             bottomButtonName='저장하기'
             onButtonClick={onSaveClick}
