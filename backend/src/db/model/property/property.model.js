@@ -77,12 +77,12 @@ exports.getCurrentTotalPropertyMoneyM = (userIdx) =>{
 
 exports.getPropertyStatusM = (userIdx, month) =>{
     return mapper.property.sequelize
-        .query('SELECT CONVERT( SUM( d.depositAmount ), UNSIGNED) as totalAmount , DATE_FORMAT(depositDate,"%Y-%m") as date ' +
+        .query('SELECT CONVERT( SUM( d.depositAmount ), UNSIGNED) as totalAmount , :month as date  '+
                'FROM property as p ' +
                'LEFT JOIN depositList as d ON p.propertyIdx = d.targetIdx and p.typeIdx = d.targetType ' +
-               'WHERE p.propertyIdx > 0 AND p.delFlag = "N" AND p.userIdx = :userIdx ' +
-               'AND CONCAT(YEAR(d.depositDate), LPAD(MONTH(d.depositDate),2,"0")) >= PERIOD_ADD(CONCAT(YEAR(NOW()),LPAD(MONTH(NOW()),2,"0")),- :month ) ' +
-               'GROUP BY date',{replacements:{userIdx: userIdx, month: month},type: mapper.property.sequelize.QueryTypes.SELECT})
+               'WHERE p.propertyIdx > 0  AND p.userIdx = :userIdx AND  ' +
+               '( (p.delFlag  = "N" AND DATE_FORMAT(d.depositDate,"%Y-%m") <= :month) ||  (p.delFlag = "C" and DATE_FORMAT(p.completeDate,"%Y-%m")  >= :month AND  DATE_FORMAT(d.depositDate,"%Y-%m") < :month) ) '
+                ,{replacements:{userIdx: userIdx, month: month},type: mapper.property.sequelize.QueryTypes.SELECT})
         .then((results)=>{return results;})
         .catch((error)=>{console.log(error);return null;})
 };

@@ -9,13 +9,13 @@ import { MONEY_COMPLETE } from '../../common/constants';
 exports.getMainInfo = wrapAsync( async (req, res) => {
     const userIdx = req.userInfo.userIdx;
     const limit = 2;
-    const statusMonth = 6;
+    const statusMonthCount = 6;
     const today = getTodayForYYYYMMDD();
 
     const bckList = await bckService.getBckList(userIdx, limit, today);
     const propertyList = await propertyService.getPropertyList(userIdx, limit, today);
     const currentLowAmount = await  mainService.getCurrentTotalPropertyMoney(userIdx);
-    const propertyStatus = await mainService.getPropertyStatus(userIdx,statusMonth);
+    const propertyStatus = await mainService.getPropertyStatus(userIdx,statusMonthCount);
 
     const result = {
         bckList:bckList,
