@@ -5,6 +5,7 @@ import PropertyDepositInfo from 'components/Property/Detail/PropertyDepositInfo'
 import BottomTwoButton from 'components/common/Button/BottomTwoButton';
 import { Icon } from 'semantic-ui-react';
 import { SAVING_DEPOSIT, FIXED_DEPOSIT } from 'lib/constants';
+import {  isBiggerThenToday } from 'lib/util';
 
 const PropertyDetailForm = ({
     propertyTitle,
@@ -15,12 +16,13 @@ const PropertyDetailForm = ({
     depositList,
     getCurrentAmount,
     getRemainDatePercentage,
+    status,
     comma,
     onDepositSaveClick,
     toggleSlideModal
 }) => {
-    /*적금타입*/
-  const isSaveDeposit = depositType === SAVING_DEPOSIT;
+  /*입금가능상태*/
+  const isSaveDeposit = depositType === SAVING_DEPOSIT && status === 'N' && !isBiggerThenToday(completeDate);
 
   return (
     <div>

@@ -173,14 +173,16 @@ class PropertyDetailContainer extends Component {
     } = this;
     const { propertyDetailInfo, modal, monthlyDepositMoney, error, propertyDetailLoading } = this.props;
     const propertyInfo = propertyDetailInfo.toJS();
-    const isProgressEndProperty = propertyInfo.delFlag == 'N' && isBiggerThenToday(propertyInfo.completeDate);
+    const isProgressEndAndNotCompleteProperty = propertyInfo.delFlag == 'N' && isBiggerThenToday(propertyInfo.completeDate);
+    const isProgressProperty = propertyInfo.delFlag == 'N' && !isBiggerThenToday(propertyInfo.completeDate);
     let completeEventButton = '';
 
-    if(isProgressEndProperty){
+    if(isProgressEndAndNotCompleteProperty){
         completeEventButton = <div onClick={(e)=>{changePropertyStatus(propertyInfo.propertyIdx, 'C')}}>
                                 <SlideModalLabel title='만기완료'/>
                               </div>;
     }
+
 
     if(propertyDetailLoading) return <BeatLoading loading={propertyDetailLoading}/>;
 
@@ -197,6 +199,7 @@ class PropertyDetailContainer extends Component {
                 completeDate={propertyInfo.completeDate}
                 depositType={propertyInfo.typeIdx}
                 depositList={propertyInfo.depositLists}
+                status={propertyInfo.delFlag}
                 getCurrentAmount={handleGetCurrentAmount}
                 getRemainDatePercentage={getRemainDatePercentage}
                 comma={comma}
@@ -209,8 +212,7 @@ class PropertyDetailContainer extends Component {
                 toggleModal={(e)=>{togglePropertyModal('deposit')}}
                 onMoneyChange={handleChangeMonthlyDepositMoney}
                 onPropertyDepositSave={handleSaveDepositMoney}
-                errorMessage={error.get('modalErrMsg')}
-            />
+                errorMessage={error.get('modalErrMsg')}/>;
             <BottomSlideModal
                 visible={this.state.slideModal}
                 title='원하시는 메뉴를 선택해 주세요.'
