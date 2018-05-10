@@ -60,7 +60,7 @@ class PropertyDetailContainer extends Component {
       const depositType = propertyDetailInfo.get('typeIdx');
 
       if(depositType === SAVING_DEPOSIT){
-          const monthlyMoney = calcMonthlyDepositMoney(propertyDetailInfo.get('targetAmount'), propertyDetailInfo.get('completeDate'));
+          const monthlyMoney = calcMonthlyDepositMoney(propertyDetailInfo.get('targetAmount'), propertyDetailInfo.get('startDate'), propertyDetailInfo.get('completeDate'));
           propertyDetailActions.changeMonthlyDepositMoney(monthlyMoney);
       }
   };

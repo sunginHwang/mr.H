@@ -73,9 +73,8 @@ export const comma = (number) => {
 };
 
 /*한달 월 적금액 구하기*/
-export const calcMonthlyDepositMoney = (targetMoney, dueDate) => {
-    const today = new Date();
-    return parseInt(targetMoney / getRemainMonth(today,dueDate));
+export const calcMonthlyDepositMoney = (targetMoney,startDate , dueDate) => {
+    return parseInt(targetMoney / getRemainMonth(startDate,dueDate));
 };
 
 /*로그인 여부 검사*/

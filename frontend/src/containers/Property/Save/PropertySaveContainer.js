@@ -27,7 +27,7 @@ class PropertySaveContainer extends Component {
                                   );
     /*월 예상 금액 변경*/
       isSavingDepositChange &&
-            propertySaveActions.changeInputValue({inputType : 'monthlyDepositAmount', value : calcMonthlyDepositMoney(propertyInfo.targetAmount,propertyInfo.completeDate)});
+            propertySaveActions.changeInputValue({inputType : 'monthlyDepositAmount', value : calcMonthlyDepositMoney(propertyInfo.targetAmount,new Date() ,propertyInfo.completeDate)});
   }
 
     componentWillUnmount() {
